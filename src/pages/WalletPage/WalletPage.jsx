@@ -1,6 +1,6 @@
 import Footer from "../../components/footer/footer";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Wallet from "./Wallet";
 
 
 function WalletPage(){
@@ -17,7 +17,14 @@ function WalletPage(){
 
         <>
             <h1>Wallet Page</h1>
-            <Link to="/walletList">list</Link>
+            {wallets.map}
+            <ul>
+                {wallets.map((item) => 
+                    <Wallet 
+                        key={item.id}
+                        value={item}
+                    /> )}
+            </ul>
             <Footer />
         </>
         
