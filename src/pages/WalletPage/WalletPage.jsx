@@ -17,7 +17,6 @@ function WalletPage(){
 
         <>
             <h1>Wallet Page</h1>
-            {wallets.map}
             <ul>
                 {wallets.map((item) => 
                     <Wallet 

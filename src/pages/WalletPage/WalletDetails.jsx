@@ -17,9 +17,10 @@ function WalletDetails() {
 
     return (
         <>
-            {wallet ? <div> 
+            {wallet ? 
+            <div> 
                 <h1>{wallet.name}</h1>
-                <p>BankL {wallet.bank}</p>
+                <p>Bank {wallet.bank}</p>
                 <p>Balance: ${wallet.initialBalance}</p>
             </div>
             : 
