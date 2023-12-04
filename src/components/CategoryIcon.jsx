@@ -20,8 +20,8 @@ function CategoryIcon({category}){
         <div id="category-icon" style={{backgroundColor: componentCategory.backgroundColour}}>
             
             <svg xmlns="http://www.w3.org/2000/svg" 
-                width="18" 
-                height="18" 
+                width="20" 
+                height="20" 
                 viewBox="0 0 24 24"
                 // fill={componentCategory.backgroundColour}
                 >
