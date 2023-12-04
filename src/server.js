@@ -35,25 +35,25 @@ export function makeServer({ environment = "test" } = {} ){
             // this.logging = false
     
             this.get("/wallet", (schema, request) => {
-                console.log('req', request)
+                // console.log('req', request)
                 return schema.wallets.all()
             })
             
             this.get("/wallet/:id", (schema, request) => {
                 const id = request.params.id
-                console.log('req', request)
+                // console.log('req', request)
                 return schema.wallets.find(id)
             })
 
             this.get("/transaction", (schema, request) => {
-                console.log('req', request);
-                console.log('Schema', schema.transactions.all() );
+                // console.log('req', request);
+                // console.log('Schema', schema.transactions.all() );
                 return schema.transactions.all()
             })
 
             this.get("/transaction/:id", (schema, request) => {
                 const id = request.params.id
-                console.log('req', request)
+                // console.log('req', request)
                 return schema.transactions.find(id)
             })
         }

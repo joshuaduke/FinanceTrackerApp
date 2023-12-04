@@ -3,7 +3,7 @@ import CategoryIcon from "../../components/CategoryIcon";
 function Transaction(props){
     const data = props.value;
     //let dailyTotalTransactionAmount = 0;
-    console.log(typeof data.transactionAmount.toString())
+    // console.log(typeof data.transactionAmount.toString())
 
     return(
         <div>

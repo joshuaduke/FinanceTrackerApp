@@ -1,10 +1,10 @@
-// import Transaction from "./Transaction";
+import Transaction from "./Transaction";
 
 
 function TransactionDate(props){
     const data = props.value;
     //let dailyTotalTransactionAmount = 0;
-    console.log(typeof data.transactionAmount.toString())
+    // console.log(typeof data.transactionAmount.toString())
 
     return(
         <div>
@@ -14,6 +14,11 @@ function TransactionDate(props){
                     <li>{data.transactionAmount > 0 ? '$' + data.transactionAmount : '-$' + data.transactionAmount.toString().replace('-', '')}</li>
                 </ul>
             </div>
+            <Transaction
+                key={data.id}
+                value={data}
+            />
+            
 
 
         </div>
