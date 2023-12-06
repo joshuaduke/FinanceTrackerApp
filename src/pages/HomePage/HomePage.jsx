@@ -1,12 +1,19 @@
 import Footer from "../../components/footer/footer";
 import Transaction from "./Transaction";
 import TransactionDate from "./TransactionDate";
-import NewTransaction from "./NewTransaction";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function HomePage(){
     const [transactions, setTransactions] = useState([]);
+    const params = useParams();
+    console.log('Params', params);
+    if(Object.keys(params).length != 0 ){
+        alert('true')
+    } else {
+        alert('False');
+    }
     let tempDate = "";
 
     useEffect(() => {
@@ -25,28 +32,26 @@ function HomePage(){
 
     console.log("Data", transactions);
 
-
-
     return(
         <div id="home-page" className="py-2 pb-10">
             <button>Overview</button>
             <div className="h-screen">
                 {transactions.map((transaction) => {
 
-
                     if(transaction.date != tempDate){
                         tempDate = transaction.date;
 
                         return <TransactionDate 
-                            key={transaction.id}
-                            value={transaction}/>
+                                    key={transaction.id}
+                                    value={transaction}
+                                />
                     } else {
                         tempDate = transaction.date;
 
                         return <Transaction 
-                        key={transaction.id}
-                        value={transaction}
-                    /> 
+                                    key={transaction.id}
+                                    value={transaction}
+                                /> 
                     }
                     
                 })}

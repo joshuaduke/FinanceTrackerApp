@@ -1,4 +1,5 @@
 import CategoryIcon from "../../components/CategoryIcon";
+import { Link } from "react-router-dom";
 
 function Transaction(props){
     const data = props.value;
@@ -6,13 +7,7 @@ function Transaction(props){
     // console.log(typeof data.transactionAmount.toString())
 
     return(
-        <div>
-            {/* <div id="date">
-                <ul className="flex justify-between border p-2">
-                    <li>{data.date}</li>
-                    <li>{data.transactionAmount > 0 ? '$' + data.transactionAmount : '-$' + data.transactionAmount.toString().replace('-', '')}</li>
-                </ul>
-            </div> */}
+        <Link to={`/transaction/${data.id}`}>
             <div className="flex justify-between items-center px-5 py-3" id="transaction-item">
                 <CategoryIcon className="basis-1/4" category={data.category}/>
                 <div className="basis-1/2">
@@ -23,7 +18,7 @@ function Transaction(props){
                     <p>{data.transactionAmount}</p>
                 </div>
             </div>
-        </div>
+        </Link >
     )
 }
 
