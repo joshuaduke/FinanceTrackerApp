@@ -56,7 +56,7 @@ export function makeServer({ environment = "test" } = {} ){
                 // console.log('req', request)
                 return schema.transactions.find(id)
             })
-
+            console.log('')
         }
     })
 

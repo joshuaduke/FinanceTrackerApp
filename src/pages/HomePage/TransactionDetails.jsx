@@ -2,19 +2,25 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CategoryIcon from "../../components/CategoryIcon";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function TransactionDetails() {
     const params = useParams();
     const [transaction, setTransaction] = useState(null);
     const navigate = useNavigate();
 
-
     useEffect(() => {
+    if(Object.keys(params).length != 0 ){
+        
         fetch(`/api/transaction/${params.id}`)
-            .then(response => response.json())
-            .catch(err => console.log('err', err))
-            .then(data => setTransaction(data.transactions))
+        .then(response => response.json())
+        .catch(err => console.log('err', err))
+        .then(data => setTransaction(data.transactions))
+
+    } else {
+        alert('False');
+    }
+
     }, [params.id]) //re run this request if the id ever changes, useful for calling a new wallet without reloading page
 
     console.log(transaction)

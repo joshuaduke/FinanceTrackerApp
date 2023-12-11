@@ -2,7 +2,6 @@ import Footer from "../../components/footer/footer";
 import { useEffect, useState } from "react";
 import Wallet from "./Wallet";
 
-
 function WalletPage(){
     const [wallets, setWallets] = useState([]);
 

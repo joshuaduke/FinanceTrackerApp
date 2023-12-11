@@ -8,12 +8,7 @@ import { Link } from "react-router-dom";
 function HomePage(){
     const [transactions, setTransactions] = useState([]);
     const params = useParams();
-    console.log('Params', params);
-    if(Object.keys(params).length != 0 ){
-        alert('true')
-    } else {
-        alert('False');
-    }
+
     let tempDate = "";
 
     useEffect(() => {
@@ -21,6 +16,7 @@ function HomePage(){
             .then(response => response.json())
             .catch(err => console.log('err', err))
             .then(data => {
+                console.log('Data', data)
                 let sortedTransactions = () => data.transactions.sort((a,b)=>{
                     let dateA = new Date(a.date);
                     let dateB = new Date(b.date)
@@ -28,9 +24,17 @@ function HomePage(){
                 })
                 setTransactions(sortedTransactions);
             })
+            
     } , [])
 
-    console.log("Data", transactions);
+console.log('Transactions', transactions);
+
+    // console.log('Params', params);
+    // if(Object.keys(params).length != 0 ){
+    //     alert('true')
+    // } else {
+    //     alert('False');
+    // }
 
     return(
         <div id="home-page" className="py-2 pb-10">
