@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 
 Link:
 
-(https://stellular-frangipane-2b6210.netlify.app/wallet)
+(https://stellular-frangipane-2b6210.netlify.app/)
