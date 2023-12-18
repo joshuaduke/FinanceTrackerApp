@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import CategoryIcon from "../../components/CategoryIcon";
 import { useState } from "react";
 import WalletSelection from "../WalletPage/WalletSelection";
-import Importance from "../../components/Importance";
+import ImportanceSelection from "../../components/ImportanceSelection";
 import CategorySelection from "../../components/CategorySelection";
 
 function NewTransaction() {
@@ -51,7 +51,6 @@ function NewTransaction() {
             <button onClick={() => navigate(-1)}>Back</button>
           </li>
           <li>Add Transaction</li>
-          <li>Delete</li>
         </ul>
 
         <div className="flex justify-between">
@@ -94,7 +93,7 @@ function NewTransaction() {
           </div>
         </div>
 
-        <Importance />
+        <ImportanceSelection />
 
         <div id="recurrence-selection" className="flex justify-between">
           <ul>
@@ -129,72 +128,10 @@ function NewTransaction() {
           <input type="text" name="" id="" />
         </div>
 
-        <div id="category-selection">
-          <div>
-            <h3>Transaction Category</h3>
-            <div>
-              <span>Icon 1</span>
-              <span>Icon 2</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 rounded-xl bg-gray-200 p-2">
-            <div>
-              <label
-                htmlFor="expenses"
-                className=" cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
-              >
-                Expenses
-              </label>
-              <input
-                className="peer "
-                type="radio"
-                name="categoryType"
-                id="expenses"
-                value="expenses"
-                onChange={() => selectCategoryType("expenses")}
-                checked={categoryType === "expenses"}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="expenses"
-                className=" cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
-              >
-                Income
-              </label>
-              <input
-                className="peer "
-                type="radio"
-                name="categoryType"
-                id="income"
-                value="income"
-                onChange={() => selectCategoryType("income")}
-                checked={categoryType === "income"}
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="expenses"
-                className=" cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
-              >
-                Transfer
-              </label>
-              <input
-                className="peer "
-                type="radio"
-                name="categoryType"
-                id="transfer"
-                value="transfer"
-                onChange={() => selectCategoryType("transfer")}
-                checked={categoryType === "transfer"}
-              />
-            </div>
-          </div>
-        </div>
         <CategorySelection
           categoryType={categoryType}
           setCategory={selectCategory}
+          selectCategoryType={selectCategoryType}
         />
 
         <button className="border-2 p-2" type="submit">
