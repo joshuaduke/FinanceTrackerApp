@@ -1,6 +1,7 @@
 import Footer from "../../components/footer/footer";
 import { useEffect, useState } from "react";
 import Wallet from "./Wallet";
+import { Link } from "react-router-dom";
 
 function WalletPage() {
   const [wallets, setWallets] = useState([]);
@@ -20,6 +21,13 @@ function WalletPage() {
           <Wallet key={item.id} value={item} />
         ))}
       </ul>
+
+      <Link
+        to="/wallet/new"
+        className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0"
+      >
+        Create a New Wallet
+      </Link>
       <Footer />
     </>
   );

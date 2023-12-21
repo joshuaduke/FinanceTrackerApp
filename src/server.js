@@ -8,6 +8,9 @@ export function makeServer({ environment = "test" } = {} ){
         models: {
             wallets: Model,
             transactions: Model,
+            savings: Model,
+            budgets: Model,
+            users: Model,
         },
     
         seeds(server) {
@@ -48,6 +51,13 @@ export function makeServer({ environment = "test" } = {} ){
             server.create("transaction", { id: "117", category: "Bill", description: "Phone Bill", transactionAmount: -56.5, wallet: "TD Chequing", date: "2023-11-08", importance: "Essential" , recurrence: "Monthly"})
             server.create("transaction", { id: "118", category: "Payment", description: "Paycheck", transactionAmount: 1938.53, wallet: "TD Chequing", date: "2023-11-08", importance: "" , recurrence: "Bi-weekly"})
             server.create("transaction", { id: "119", category: "Entertainment", description: "Napoleon Movie", transactionAmount: -46.00, wallet: "Gold Amex", date: "2023-11-10", importance: "Shouldn't Have" , recurrence: "never"})
+
+            server.create("saving", { id: "1", name: "House", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 15000, goal: 50000, category: "not assigned"}),
+            server.create("saving", { id: "2", name: "Emergency Fund", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 3000, goal: 20000, category: "not assigned"}),
+            server.create("saving", { id: "3", name: "TFSA", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 6000, goal: 10000, category: "not assigned"}),
+            server.create("saving", { id: "4", name: "Car Downpayment", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 1300, goal: 10000, category: "not assigned"}),
+            server.create("saving", { id: "5", name: "Vacation", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 100, goal: 10000, category: "not assigned"})
+            server.create("saving", { id: "6", name: "Big Fun Purchase", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 50, goal: 5000, category: "not assigned"})
         },
     
         
@@ -77,6 +87,19 @@ export function makeServer({ environment = "test" } = {} ){
                 // console.log('req', request)
                 return schema.transactions.find(id)
             })
+
+            this.get("/saving", (schema, request) => {
+                // console.log('req', request);
+                // console.log('Schema', schema.transactions.all() );
+                return schema.savings.all()
+            })
+
+            this.get("/saving/:id", (schema, request) => {
+                const id = request.params.id
+                // console.log('req', request)
+                return schema.savings.find(id)
+            })
+
             console.log('')
         }
     })

@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 function WalletDetails() {
   const params = useParams();
@@ -17,25 +16,45 @@ function WalletDetails() {
   console.log(wallet);
 
   return (
-    <div className="p-2">
+    <form className="p-2">
       <div className="mb-4">
         <ul className="flex justify-between">
           <li>
             <button onClick={() => navigate(-1)}>Back</button>
           </li>
-          <li>Wallets</li>
+          <li>Delete</li>
         </ul>
       </div>
       {wallet ? (
         <div>
-          <h1>{wallet.name}</h1>
-          <p>Bank {wallet.bank}</p>
-          <p>Balance: ${wallet.initialBalance}</p>
+          <div>
+            <label htmlFor="">Name: </label>
+            <input type="text" value={wallet.name} />
+          </div>
+
+          <div>
+            <label htmlFor="">Bank: </label>
+            <input type="text" value={wallet.bank} />
+          </div>
+
+          <div>
+            <label htmlFor="">Current Balance: </label>
+            <span>Balance: ${wallet.initialBalance}</span>
+          </div>
+
+          <div>
+            <label htmlFor="">Description</label>
+            <textarea name="" id=""></textarea>
+          </div>
+
+          <button className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0">
+            Save Changes
+          </button>
         </div>
       ) : (
         <h3>...Loading...</h3>
       )}
-    </div>
+    </form>
   );
 }
 
