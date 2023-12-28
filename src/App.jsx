@@ -10,6 +10,11 @@ import Categories from "./components/Categories";
 import SavingsPage from "./pages/SavingPage/SavingsPage";
 import SavingsDetails from "./pages/SavingPage/SavingsDetails";
 import NewSavings from "./pages/SavingPage/NewSavings";
+import BudgetPage from "./pages/BudgetPage/BudgetPage";
+import BudgetDetails from "./pages/BudgetPage/BudgetDetails";
+import NewBudget from "./pages/BudgetPage/NewBudget";
+import Settings from "./pages/SettingsPage/SettingsPage";
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +28,11 @@ function App() {
         <Route path="/savings" element={<SavingsPage />} />
         <Route path="/savings/:id" element={<SavingsDetails />} />
         <Route path="/savings/new" element={<NewSavings />} />
+        <Route path="/budget" element={<BudgetPage />} />
+        <Route path="/budget/:id" element={<BudgetDetails />} />
+        <Route path="/budget/new" element={<NewBudget />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   );

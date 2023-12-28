@@ -77,7 +77,7 @@ export default function Footer() {
         </svg>
         <p className="text-center">Savings</p>
       </Link>
-      <Link className="flex flex-col" to="/savings">
+      <Link className="flex flex-col" to="/settings">
         <svg
           className="place-self-center"
           xmlns="http://www.w3.org/2000/svg"
