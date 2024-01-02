@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Auth from "./components/auth";
 import WalletPage from "./pages/WalletPage/WalletPage";
 import WalletDetails from "./pages/WalletPage/WalletDetails";
 import NewWallet from "./pages/WalletPage/NewWallet";
@@ -19,7 +20,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Auth />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/wallet" element={<WalletPage />} />
         <Route path="/wallet/:id" element={<WalletDetails />} />
         <Route path="/wallet/new" element={<NewWallet />} />

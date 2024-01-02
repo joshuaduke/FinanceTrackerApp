@@ -1,14 +1,39 @@
 import { useEffect, useState } from "react";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../../Config/firebase";
 
 function WalletSelection({ transactionWallet }) {
   const [wallets, setWallets] = useState([]);
-  const [selectedWallet, setSelectedWallet] = useState(transactionWallet);
+  const [selectedWallet, setSelectedWallet] = useState("1234");
+  const walletsCollectionRef = collection(db, "wallets");
+
+  console.log("Initial transaction wallet value", transactionWallet);
 
   useEffect(() => {
-    fetch("/api/wallet")
-      .then((response) => response.json())
-      .catch((err) => console.log("err", err))
-      .then((data) => setWallets(data.wallets));
+    // fetch("/api/wallet")
+    //   .then((response) => response.json())
+    //   .catch((err) => console.log("err", err))
+    //   .then((data) => setWallets(data.wallets));
+
+    const getWallets = async () => {
+      try {
+        const data = await getDocs(walletsCollectionRef);
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setWallets(filteredData);
+
+        const wallet = filteredData.find(({ id }) => id === transactionWallet);
+
+        console.log("Wallet", wallet);
+        setSelectedWallet(wallet.name);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getWallets();
   }, []);
 
   console.log("Wallets", wallets);

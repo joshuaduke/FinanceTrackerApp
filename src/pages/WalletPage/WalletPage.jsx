@@ -2,15 +2,29 @@ import Footer from "../../components/footer/footer";
 import { useEffect, useState } from "react";
 import Wallet from "./Wallet";
 import { Link } from "react-router-dom";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../../Config/firebase";
 
 function WalletPage() {
   const [wallets, setWallets] = useState([]);
+  const walletsCollectionRef = collection(db, "wallets");
 
   useEffect(() => {
-    fetch("/api/wallet")
-      .then((response) => response.json())
-      .catch((err) => console.log("err", err))
-      .then((data) => setWallets(data.wallets));
+    async function getWallets() {
+      const data = await getDocs(walletsCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+      setWallets(filteredData);
+    }
+
+    getWallets();
+    // fetch("/api/wallet")
+    //   .then((response) => response.json())
+    //   .catch((err) => console.log("err", err))
+    //   .then((data) => setWallets(data.wallets));
   }, []);
 
   return (

@@ -1,9 +1,8 @@
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import { makeServer } from './server.js';
-import './index.css';
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import { makeServer } from "./server.js";
+import "./index.css";
 
-makeServer({ environment: "development" })
+// makeServer({ environment: "development" })
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);

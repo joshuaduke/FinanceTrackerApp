@@ -1,54 +1,89 @@
 import Footer from "../../components/footer/footer";
-import Transaction from "./Transaction";
 import TransactionDate from "./TransactionDate";
 import { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { db } from "../../Config/firebase";
+import { getDocs, collection } from "firebase/firestore";
 
 function HomePage() {
   const [transactions, setTransactions] = useState([]);
   const [transactionDays, setTransactionDays] = useState([]);
-  const [dateAmountTotal, setDateAmountTotal] = useState(0);
+  const transactionsCollectionRef = collection(db, "transactions");
   // const params = useParams();
-
-  let tempDate = "";
 
   /** NEED TO SORT DATES BEFORE SENDING THEM TO COMPONENT */
 
   useEffect(() => {
-    fetch("/api/transaction")
-      .then((response) => response.json())
-      .catch((err) => console.log("err", err))
-      .then((data) => {
-        console.log("Data", data);
+    // fetch("/api/transaction")
+    //   .then((response) => response.json())
+    //   .catch((err) => console.log("err", err))
+    //   .then((data) => {
+    //     console.log("Data", data);
 
-        let transactionsData = data.transactions;
-        let dateArray = transactionsData.map((value) => value.date);
+    //     let transactionsData = data.transactions;
+    //     let dateArray = transactionsData.map((value) => value.date);
 
-        console.log("Date arrat", dateArray);
-        function removeDuplicateDates(data) {
-          let dates = data.filter(
-            (value, index) => data.indexOf(value) === index
-          );
-          console.log("dates", dates);
-          return dates.sort((a, b) => {
-            let dateA = new Date(a);
-            let dateB = new Date(b);
-            return dateB - dateA;
-          });
-        }
+    //     console.log("Date arrat", dateArray);
+    //     function removeDuplicateDates(data) {
+    //       let dates = data.filter(
+    //         (value, index) => data.indexOf(value) === index
+    //       );
+    //       console.log("dates", dates);
+    //       return dates.sort((a, b) => {
+    //         let dateA = new Date(a);
+    //         let dateB = new Date(b);
+    //         return dateB - dateA;
+    //       });
+    //     }
 
-        setTransactionDays(removeDuplicateDates(dateArray));
-        setTransactions(transactionsData);
-        // let sortedTransactions = () =>
-        //   data.transactions.sort((a, b) => {
-        //     let dateA = new Date(a.date);
-        //     let dateB = new Date(b.date);
-        //     return dateB - dateA;
-        //   });
-        // setTransactions(sortedTransactions);
-      });
+    //     setTransactionDays(removeDuplicateDates(dateArray));
+    //     setTransactions(transactionsData);
+    // let sortedTransactions = () =>
+    //   data.transactions.sort((a, b) => {
+    //     let dateA = new Date(a.date);
+    //     let dateB = new Date(b.date);
+    //     return dateB - dateA;
+    //   });
+    // setTransactions(sortedTransactions);
+    // });
+
+    const getTransactions = async () => {
+      try {
+        const data = await getDocs(transactionsCollectionRef);
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        // console.log("filtered", filteredData);
+        setTransactions(filteredData);
+
+        // console.log("Data Docs", filteredData);
+
+        let dateArray = filteredData.map((value) => value.date);
+
+        // console.log("Date Array", dateArray);
+
+        let dates = dateArray.filter(
+          (value, index) => dateArray.indexOf(value) === index
+        );
+        // console.log("dates", dates);
+        dates.sort((a, b) => {
+          let dateA = new Date(a);
+          let dateB = new Date(b);
+          return dateB - dateA;
+        });
+
+        setTransactionDays(dates);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getTransactions();
   }, []);
+
+  // console.log("Dates", transactionDays);
 
   //   let filteredDates = () => {
   //     return transactions.filter(
@@ -57,13 +92,6 @@ function HomePage() {
   //   };
 
   //   setTransactionDays(filteredDates);
-
-  function updateAmountTotal(total) {
-    // let total = 0;
-    // total += value;
-    setDateAmountTotal(total);
-    // alert("test");
-  }
 
   console.log("Transactions", transactions);
   console.log("Transactions Dates", transactionDays);
@@ -79,6 +107,16 @@ function HomePage() {
   return (
     <div id="home-page" className="py-2 pb-10">
       <button>Overview</button>
+      {/* <div>
+        {transactions.map((transaction) => (
+          <div>
+            <h1> {transaction.description}</h1>
+            <p>{transaction.category}</p>
+            <p>{transaction.date}</p>
+          </div>
+        ))}
+      </div> */}
+
       <div className="h-screen">
         {transactionDays ? (
           transactionDays.map((date, index) => (
@@ -106,6 +144,7 @@ function HomePage() {
           <path fill="white" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z" />
         </svg>
       </Link>
+
       <Footer />
       {/* <button>Overview</button>
       <div className="h-screen">

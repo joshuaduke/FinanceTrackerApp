@@ -2,6 +2,7 @@ import Transaction from "./Transaction";
 
 function TransactionDate(props) {
   let data = props.transactions;
+
   //   const data = props.value;
   //   const dateAmount = parseInt(props.dateAmount);
   //   const updateAmountTotal = props.updateTransactionAmountTotal;
@@ -23,7 +24,6 @@ function TransactionDate(props) {
     totalDateAmount += element.transactionAmount;
   });
 
-  console.log("L2 Date Amount Arr", totalDateAmountArr);
   //let dailyTotalTransactionAmount = 0;
   // console.log(typeof data.transactionAmount.toString())
   //   if (props.tempDate === data.TransactionDate) {
@@ -45,7 +45,7 @@ function TransactionDate(props) {
         </ul>
       </div>
       {totalDateAmountArr.map((transactionData) => (
-        <Transaction key={transactionData.id} value={transactionData} />
+        <Transaction key={transactionData.id} value={{ transactionData }} />
       ))}
     </div>
   );

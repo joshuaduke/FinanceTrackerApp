@@ -5,9 +5,15 @@ import { useNavigate } from "react-router-dom";
 import CategorySelection from "../../components/CategorySelection";
 import ImportanceSelection from "../../components/ImportanceSelection";
 import WalletSelection from "../WalletPage/WalletSelection";
+import { db } from "../../Config/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 function TransactionDetails() {
   const params = useParams();
+
+  const docRef = doc(db, "transactions", params.id);
+  console.log("Params", params);
+
   const [transaction, setTransaction] = useState(null);
   const [categoryType, setCategoryType] = useState("expenses");
   const [category, setCategory] = useState("Misc");
@@ -21,24 +27,42 @@ function TransactionDetails() {
 
   useEffect(() => {
     if (Object.keys(params).length != 0) {
-      fetch(`/api/transaction/${params.id}`)
-        .then((response) => response.json())
-        .catch((err) => console.log("err", err))
-        // .then((data) => setTransaction(data.transactions));
-        .then((data) => {
-          let transactionData = data.transactions;
-          setTransaction(transactionData);
-          setCategory(transactionData.category);
-          setTransactionDate(transactionData.date);
-          setTransactionDescription(transactionData.description);
-          setTransactionImportance(transactionData.importance);
-          setTransactionAmount(transactionData.transactionAmount);
-          setTransactionRecurrence(transactionData.recurrence);
-          setTransactionWallet(transactionData.wallet);
-          //   setTransaction(transactionData);
-          //     setCategory(data.transactions.category)
-          //   setTransaction(data.transactions)
-        });
+      const getTransaction = async () => {
+        try {
+          const transactionData = await getDoc(docRef);
+          console.log("One item Data", transactionData.data());
+          setTransaction(transactionData.data());
+          setCategory(transactionData.data().category);
+          setTransactionDate(transactionData.data().date);
+          setTransactionDescription(transactionData.data().description);
+          setTransactionImportance(transactionData.data().importance);
+          setTransactionAmount(transactionData.data().transactionAmount);
+          setTransactionRecurrence(transactionData.data().recurrence);
+          setTransactionWallet(transactionData.data().walletId);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      // fetch(`/api/transaction/${params.id}`)
+      //   .then((response) => response.json())
+      //   .catch((err) => console.log("err", err))
+      //   // .then((data) => setTransaction(data.transactions));
+      //   .then((data) => {
+      //     let transactionData = data.transactions;
+      //     setTransaction(transactionData);
+      //     setCategory(transactionData.category);
+      //     setTransactionDate(transactionData.date);
+      //     setTransactionDescription(transactionData.description);
+      //     setTransactionImportance(transactionData.importance);
+      //     setTransactionAmount(transactionData.transactionAmount);
+      //     setTransactionRecurrence(transactionData.recurrence);
+      //     setTransactionWallet(transactionData.wallet);
+      //     //   setTransaction(transactionData);
+      //     //     setCategory(data.transactions.category)
+      //     //   setTransaction(data.transactions)
+      //   });
+      getTransaction();
     } else {
       alert("False");
     }
@@ -176,7 +200,12 @@ function TransactionDetails() {
             categoryType={categoryType}
             setCategory={selectCategory}
             selectCategoryType={selectCategoryType}
+            category={category}
           />
+
+          <button className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0">
+            Save Changes
+          </button>
         </form>
       ) : (
         <h3>...Loading...</h3>

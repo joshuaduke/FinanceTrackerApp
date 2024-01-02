@@ -95,6 +95,7 @@ function CategorySelection(props) {
                 id="category"
                 value={icon.name}
                 onChange={() => props.setCategory(icon.name)}
+                checked={props.category === icon.name}
               />
             </label>
           </div>

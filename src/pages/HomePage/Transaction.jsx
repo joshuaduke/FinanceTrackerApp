@@ -2,8 +2,9 @@ import CategoryIcon from "../../components/CategoryIcon";
 import { Link } from "react-router-dom";
 
 function Transaction(props) {
-  const data = props.value;
-
+  // console.log("L3 Props", props);
+  const data = props.value.transactionData;
+  // console.log("L3 Transaction", data);
   return (
     <div>
       <Link to={`/transaction/${data.id}`}>
@@ -14,7 +15,7 @@ function Transaction(props) {
           <CategoryIcon className="basis-1/4" category={data.category} />
           <div className="basis-1/2">
             <p>{data.description}</p>
-            <p>{data.wallet}</p>
+            <p>{data.walletId}</p>
           </div>
           <div className="basis-1/4 text-end">
             <p>{data.transactionAmount}</p>

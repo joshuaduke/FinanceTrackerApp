@@ -28,3 +28,5 @@ function Settings() {
 }
 
 export default Settings;
+
+// if provider is google then use .photoUrl variable to retrieve the google image

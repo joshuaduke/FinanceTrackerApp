@@ -1,16 +1,31 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { db } from "../../Config/firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 function WalletDetails() {
   const params = useParams();
+  const docRef = doc(db, "wallets", params.id);
+  console.log("Params", params);
   const [wallet, setWallet] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`/api/wallet/${params.id}`)
-      .then((response) => response.json())
-      .catch((err) => console.log("err", err))
-      .then((data) => setWallet(data.wallets));
+    // fetch(`/api/wallet/${params.id}`)
+    //   .then((response) => response.json())
+    //   .catch((err) => console.log("err", err))
+    //   .then((data) => setWallet(data.wallets));
+
+    async function getWallet() {
+      try {
+        const walletData = await getDoc(docRef);
+        setWallet(walletData.data());
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getWallet();
   }, [params.id]); //re run this request if the id ever changes, useful for calling a new wallet without reloading page
 
   console.log(wallet);

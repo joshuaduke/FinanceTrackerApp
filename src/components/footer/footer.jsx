@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 
 export default function Footer() {
   const currentRoute = useLocation();
-  console.log("Current Route", currentRoute);
+  // console.log("Current Route", currentRoute);
 
   return (
     <div className="py-4 px-1 grid grid-cols-5 justify-center border-t-2 border-blue-900 w-full fixed bottom-0 left-0 right-0 bg-white">
-      <Link className="flex flex-col" to="/">
+      <Link className="flex flex-col" to="/home">
         <svg
           className="place-self-center"
           xmlns="http://www.w3.org/2000/svg"
