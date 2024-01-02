@@ -9,18 +9,26 @@ function NewTransaction() {
   const navigate = useNavigate();
   const [categoryType, setCategoryType] = useState("expenses");
   const [category, setCategory] = useState("Misc");
+  const [wallet, setWallet] = useState("");
+  const [date, setDate] = useState("");
+  const [description, setDescription] = useState("");
+  const [importance, setImportance] = useState("");
+  const [recurrence, setRecurrence] = useState("");
+  const [amount, setAmount] = useState("");
+
   //   const [transactionAmout, setTransactionAmount] = useState(0);
 
   function handleSubmit(e) {
     e.preventDefault();
     let data = {
       category: category,
-      amount: 0,
-      date: "date",
-      importance: "very",
-      recurrence: "never",
+      amount: amount,
+      date: date,
+      importance: importance,
+      recurrence: recurrence,
       categoryType: categoryType,
-      description: "empty",
+      description: description,
+      wallet: wallet,
     };
 
     console.log("Submitted Data", data);
@@ -56,14 +64,16 @@ function NewTransaction() {
         <div className="flex justify-between">
           <CategoryIcon category={category} />
           <div className="self-center">
-            <span>amount</span>
+            <span>amount $</span>
 
             <input
               className="border-solid border-2"
               type="number"
-              placeholder="$500"
-              name=""
-              id=""
+              name="transaction-amount"
+              id="transaction-amount"
+              placeholder="0"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
             />
           </div>
         </div>
@@ -89,7 +99,13 @@ function NewTransaction() {
             </li>
           </ul>
           <div>
-            <input type="date" />
+            <input
+              type="date"
+              name="transaction-date"
+              id="transaction-date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
           </div>
         </div>
 
@@ -125,7 +141,13 @@ function NewTransaction() {
 
         <div>
           <label htmlFor="">Description</label>
-          <input type="text" name="" id="" />
+          <input
+            type="text"
+            name="transaction-description"
+            id="transaction-description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </div>
 
         <CategorySelection
