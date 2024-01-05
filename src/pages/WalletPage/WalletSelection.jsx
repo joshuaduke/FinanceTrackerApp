@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../Config/firebase";
 
-function WalletSelection({ transactionWallet }) {
+function WalletSelection({ transactionWallet, setWallet }) {
   const [wallets, setWallets] = useState([]);
   const [selectedWallet, setSelectedWallet] = useState("1234");
+  const [transactionWalletId, setTransactionWalletId] = useState("");
   const walletsCollectionRef = collection(db, "wallets");
 
   console.log("Initial transaction wallet value", transactionWallet);
@@ -38,6 +39,9 @@ function WalletSelection({ transactionWallet }) {
 
   console.log("Wallets", wallets);
   console.log("transactionWallet", selectedWallet);
+  console.log("transactionWalletID", transactionWalletId);
+
+  setWallet(transactionWalletId);
 
   return (
     <div id="wallet-selection" className="flex justify-between">
@@ -60,7 +64,13 @@ function WalletSelection({ transactionWallet }) {
       </ul>
       <select
         value={selectedWallet}
-        onChange={(e) => setSelectedWallet(e.target.value)}
+        onChange={(e) => {
+          let index = e.target.selectedIndex;
+          let optionElement = e.target.childNodes[index];
+          let option = optionElement.getAttribute("data-id");
+          setSelectedWallet(e.target.value);
+          setTransactionWalletId(option);
+        }}
       >
         <option value="unselected"> -- Select One -- </option>
 

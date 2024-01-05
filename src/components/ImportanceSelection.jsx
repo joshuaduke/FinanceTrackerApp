@@ -26,7 +26,7 @@ function ImportanceSelection(props) {
               name="importance"
               id="essential"
               value="Essential"
-              onChange={() => props.setlectTransactionImportance("Essential")}
+              onChange={() => props.selectTransactionImportance("Essential")}
               checked={props.importance === "Essential"}
             />
           </label>
@@ -40,9 +40,7 @@ function ImportanceSelection(props) {
               name="importance"
               id="haveToHave"
               value="Have To Have"
-              onChange={() =>
-                props.setlectTransactionImportance("Have To Have")
-              }
+              onChange={() => props.selectTransactionImportance("Have To Have")}
               checked={props.importance === "Have To Have"}
             />
           </label>
@@ -56,9 +54,7 @@ function ImportanceSelection(props) {
               name="importance"
               id="needToHave"
               value="Need To Have"
-              onChange={() =>
-                props.setlectTransactionImportance("Need To Have")
-              }
+              onChange={() => props.selectTransactionImportance("Need To Have")}
               checked={props.importance === "Need To Have"}
             />
           </label>
@@ -73,7 +69,7 @@ function ImportanceSelection(props) {
               id="shouldNotHave"
               value="Shouldn't Have"
               onChange={() =>
-                props.setlectTransactionImportance("Shouldn't Have")
+                props.selectTransactionImportance("Shouldn't Have")
               }
               checked={props.importance === "Shouldn't Have"}
             />

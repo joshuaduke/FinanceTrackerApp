@@ -98,7 +98,10 @@ function TransactionDetails() {
             </div>
           </div>
 
-          <WalletSelection transactionWallet={transactionWallet} />
+          <WalletSelection
+            transactionWallet={transactionWallet}
+            setWallet={setTransactionWallet}
+          />
 
           <div id="date-selection" className="flex justify-between">
             <ul>
@@ -128,7 +131,7 @@ function TransactionDetails() {
 
           <ImportanceSelection
             importance={transactionImportance}
-            setlectTransactionImportance={setTransactionImportance}
+            selectTransactionImportance={setTransactionImportance}
           />
 
           {/* <div id="importance-selection">

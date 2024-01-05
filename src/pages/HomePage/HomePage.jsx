@@ -4,58 +4,44 @@ import { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, query, where } from "firebase/firestore";
+import {
+  getMonthName,
+  getMonthLastDay,
+  getStartEndDate,
+} from "../../assets/months";
 
 function HomePage() {
   const [transactions, setTransactions] = useState([]);
   const [transactionDays, setTransactionDays] = useState([]);
+  const [startDate, setStartDate] = useState(getStartEndDate().startDate);
+  const [EndDate, setEndDate] = useState(getStartEndDate().endDate);
+  const [transactionMonth, setTransactionMonth] = useState("");
   const transactionsCollectionRef = collection(db, "transactions");
+
+  getStartEndDate();
+
+  // console.log("EndDate", EndDate);
   // const params = useParams();
 
   /** NEED TO SORT DATES BEFORE SENDING THEM TO COMPONENT */
 
   useEffect(() => {
-    // fetch("/api/transaction")
-    //   .then((response) => response.json())
-    //   .catch((err) => console.log("err", err))
-    //   .then((data) => {
-    //     console.log("Data", data);
-
-    //     let transactionsData = data.transactions;
-    //     let dateArray = transactionsData.map((value) => value.date);
-
-    //     console.log("Date arrat", dateArray);
-    //     function removeDuplicateDates(data) {
-    //       let dates = data.filter(
-    //         (value, index) => data.indexOf(value) === index
-    //       );
-    //       console.log("dates", dates);
-    //       return dates.sort((a, b) => {
-    //         let dateA = new Date(a);
-    //         let dateB = new Date(b);
-    //         return dateB - dateA;
-    //       });
-    //     }
-
-    //     setTransactionDays(removeDuplicateDates(dateArray));
-    //     setTransactions(transactionsData);
-    // let sortedTransactions = () =>
-    //   data.transactions.sort((a, b) => {
-    //     let dateA = new Date(a.date);
-    //     let dateB = new Date(b.date);
-    //     return dateB - dateA;
-    //   });
-    // setTransactions(sortedTransactions);
-    // });
-
     const getTransactions = async () => {
       try {
-        const data = await getDocs(transactionsCollectionRef);
+        const q1 = await query(
+          transactionsCollectionRef,
+          where("date", ">=", startDate),
+          where("date", "<=", EndDate)
+        );
+        console.log("Query Results", q1);
+        const data = await getDocs(q1);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-        // console.log("filtered", filteredData);
+        console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
+        console.log("filtered", filteredData);
         setTransactions(filteredData);
 
         // console.log("Data Docs", filteredData);
@@ -75,26 +61,50 @@ function HomePage() {
         });
 
         setTransactionDays(dates);
+
+        // retrieve the name of the month
+        let getStartDateMonth = startDate.substring(5, 7);
+        let transMonthObj = getMonthName(getStartDateMonth);
+        setTransactionMonth(transMonthObj.month);
       } catch (error) {
         console.error(error);
       }
     };
 
     getTransactions();
-  }, []);
+  }, [startDate, EndDate]);
 
-  // console.log("Dates", transactionDays);
+  function getPreviousMonthTransactions() {
+    let currentDate = new Date(startDate);
+    console.log("StartDate", currentDate);
+    let currentMonth = currentDate.getMonth() + 1;
+    let currentYear = currentDate.getFullYear();
+    console.log("Startmonth", currentMonth);
 
-  //   let filteredDates = () => {
-  //     return transactions.filter(
-  //       (transaction, index) => transactions.indexOf(transaction.date) === index
-  //     );
-  //   };
+    let previousMonth = 0;
 
-  //   setTransactionDays(filteredDates);
+    if (currentMonth === 1) {
+      previousMonth = 12; // one will be added when retrieving month name
+      currentYear--;
+    } else {
+      previousMonth = currentMonth;
+    }
 
-  console.log("Transactions", transactions);
-  console.log("Transactions Dates", transactionDays);
+    let transMonthObj = getMonthName(`${previousMonth}`);
+    console.log("transmonthobj", transMonthObj);
+    setTransactionMonth(transMonthObj.month);
+
+    setStartDate(`${currentYear}-${previousMonth}-01`);
+    setEndDate(`${getMonthLastDay(currentYear, previousMonth)}`);
+
+    console.log(`Start ${startDate}, end ${EndDate}`);
+  }
+
+  // console.log("Current Date", getCurrentDate());
+  // console.log("Current Month", getMonthName("1"));
+
+  // console.log("Transactions", transactions);
+  // console.log("Transactions Dates", transactionDays);
   //   console.log("TransactionsDates", transactionDays);
 
   // console.log('Params', params);
@@ -118,6 +128,16 @@ function HomePage() {
       </div> */}
 
       <div className="h-screen">
+        <div className="grid grid-cols-3">
+          <div>
+            <button onClick={getPreviousMonthTransactions}>Previous</button>
+          </div>
+          <h2 className="text-center">{transactionMonth}</h2>
+          <div>
+            <button>Next</button>
+          </div>
+        </div>
+
         {transactionDays ? (
           transactionDays.map((date, index) => (
             <TransactionDate
@@ -199,3 +219,36 @@ function HomePage() {
 }
 
 export default HomePage;
+
+// fetch("/api/transaction")
+//   .then((response) => response.json())
+//   .catch((err) => console.log("err", err))
+//   .then((data) => {
+//     console.log("Data", data);
+
+//     let transactionsData = data.transactions;
+//     let dateArray = transactionsData.map((value) => value.date);
+
+//     console.log("Date arrat", dateArray);
+//     function removeDuplicateDates(data) {
+//       let dates = data.filter(
+//         (value, index) => data.indexOf(value) === index
+//       );
+//       console.log("dates", dates);
+//       return dates.sort((a, b) => {
+//         let dateA = new Date(a);
+//         let dateB = new Date(b);
+//         return dateB - dateA;
+//       });
+//     }
+
+//     setTransactionDays(removeDuplicateDates(dateArray));
+//     setTransactions(transactionsData);
+// let sortedTransactions = () =>
+//   data.transactions.sort((a, b) => {
+//     let dateA = new Date(a.date);
+//     let dateB = new Date(b.date);
+//     return dateB - dateA;
+//   });
+// setTransactions(sortedTransactions);
+// });
