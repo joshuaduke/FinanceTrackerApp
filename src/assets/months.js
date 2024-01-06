@@ -24,7 +24,7 @@ export const months = [
         value: "08",
     },
     {   month: "September",
-        value: "9",
+        value: "09",
     },
     {   month: "October",
         value: "10",
@@ -39,6 +39,8 @@ export const months = [
 
 export function getMonthName(month){
     console.log(month);
+    // let formattedMonth = month <= 9 ? `0${month}` : "";
+
     let selectedMonth = months.find((item) => 
         item.value === month
     )

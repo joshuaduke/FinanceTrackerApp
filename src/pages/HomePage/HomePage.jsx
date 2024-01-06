@@ -19,12 +19,8 @@ function HomePage() {
   const [transactionMonth, setTransactionMonth] = useState("");
   const transactionsCollectionRef = collection(db, "transactions");
 
+  //verify if this can be deleted
   getStartEndDate();
-
-  // console.log("EndDate", EndDate);
-  // const params = useParams();
-
-  /** NEED TO SORT DATES BEFORE SENDING THEM TO COMPONENT */
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -76,65 +72,69 @@ function HomePage() {
 
   function getPreviousMonthTransactions() {
     let currentDate = new Date(startDate);
-    console.log("StartDate", currentDate);
+    currentDate.setDate(currentDate.getDate() + 1);
+    console.log("Start Date Previous", startDate, currentDate);
     let currentMonth = currentDate.getMonth() + 1;
     let currentYear = currentDate.getFullYear();
-    console.log("Startmonth", currentMonth);
 
     let previousMonth = 0;
-
+    console.log("currentMonth", currentMonth, typeof currentMonth);
+    //if january we need to get the last month of the previous year
     if (currentMonth === 1) {
-      previousMonth = 12; // one will be added when retrieving month name
+      previousMonth = 12;
       currentYear--;
     } else {
-      previousMonth = currentMonth;
+      currentMonth--;
+      previousMonth = currentMonth <= 9 ? `0${currentMonth}` : currentMonth;
     }
 
     let transMonthObj = getMonthName(`${previousMonth}`);
-    console.log("transmonthobj", transMonthObj);
+    console.log("transMonthObj", transMonthObj);
     setTransactionMonth(transMonthObj.month);
-
     setStartDate(`${currentYear}-${previousMonth}-01`);
     setEndDate(`${getMonthLastDay(currentYear, previousMonth)}`);
-
-    console.log(`Start ${startDate}, end ${EndDate}`);
   }
 
-  // console.log("Current Date", getCurrentDate());
-  // console.log("Current Month", getMonthName("1"));
+  function getNextMonthTransaction() {
+    // add condition to ensure to not click to future months past the current date
+    let currentDate = new Date(startDate);
+    currentDate.setDate(currentDate.getDate() + 1);
+    console.log("Start Date next", startDate, currentDate);
+    let currentMonth = currentDate.getMonth() + 1;
+    let currentYear = currentDate.getFullYear();
 
-  // console.log("Transactions", transactions);
-  // console.log("Transactions Dates", transactionDays);
-  //   console.log("TransactionsDates", transactionDays);
+    let nextMonth = 0;
+    console.log("currentMonth", currentMonth, typeof currentMonth);
+    //if january we need to get the last month of the previous year
+    if (currentMonth === 12) {
+      nextMonth = `0${1}`;
+      currentYear++;
+    } else {
+      currentMonth++;
+      nextMonth = currentMonth <= 9 ? `0${currentMonth}` : currentMonth;
+    }
 
-  // console.log('Params', params);
-  // if(Object.keys(params).length != 0 ){
-  //     alert('true')
-  // } else {
-  //     alert('False');
-  // }
+    let transMonthObj = getMonthName(`${nextMonth}`);
+    console.log("transMonthObj", transMonthObj);
+    setTransactionMonth(transMonthObj.month);
+    setStartDate(`${currentYear}-${nextMonth}-01`);
+    setEndDate(`${getMonthLastDay(currentYear, nextMonth)}`);
+  }
 
   return (
     <div id="home-page" className="py-2 pb-10">
       <button>Overview</button>
-      {/* <div>
-        {transactions.map((transaction) => (
-          <div>
-            <h1> {transaction.description}</h1>
-            <p>{transaction.category}</p>
-            <p>{transaction.date}</p>
-          </div>
-        ))}
-      </div> */}
 
       <div className="h-screen">
         <div className="grid grid-cols-3">
           <div>
             <button onClick={getPreviousMonthTransactions}>Previous</button>
           </div>
-          <h2 className="text-center">{transactionMonth}</h2>
+          <h2 className="text-center">
+            {startDate} {transactionMonth}
+          </h2>
           <div>
-            <button>Next</button>
+            <button onClick={getNextMonthTransaction}>Next</button>
           </div>
         </div>
 
@@ -166,54 +166,6 @@ function HomePage() {
       </Link>
 
       <Footer />
-      {/* <button>Overview</button>
-      <div className="h-screen">
-        {transactions.map((transaction) => {
-          if (transaction.date != tempDate) {
-            tempDate = transaction.date;
-            // let transactionsSameDate = transactions.filter((item) => {
-            //   console.log("transaction", item);
-            //   item.date == tempDate;
-            // });
-            return (
-              <TransactionDate
-                key={transaction.id}
-                value={transaction}
-                dateAmount={dateAmountTotal}
-                tempDate={tempDate}
-                // transactionsSameDate={transactionsSameDate}
-                updateTransactionAmountTotal={updateAmountTotal}
-              />
-            );
-          } else {
-            tempDate = transaction.date;
-
-            return (
-              <Transaction
-                key={transaction.id}
-                value={transaction}
-                dateAmount={dateAmountTotal}
-                updateTransactionAmountTotal={updateAmountTotal}
-              />
-            );
-          }
-        })}
-      </div>
-      <Link className="fixed bottom-20 right-5 mb-5" to="/transaction/new">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 32 32"
-        >
-          <path
-            fill="currentColor"
-            d="M16 2A14.173 14.173 0 0 0 2 16a14.173 14.173 0 0 0 14 14a14.173 14.173 0 0 0 14-14A14.173 14.173 0 0 0 16 2Zm8 15h-7v7h-2v-7H8v-2h7V8h2v7h7Z"
-          />
-          <path fill="white" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z" />
-        </svg>
-      </Link>
-      <Footer /> */}
     </div>
   );
 }
