@@ -6,8 +6,8 @@ export default function Footer() {
   // console.log("Current Route", currentRoute);
 
   return (
-    <div className="py-4 px-1 grid grid-cols-5 justify-center border-t-2 border-blue-900 w-full fixed bottom-0 left-0 right-0 bg-white">
-      <Link className="flex flex-col" to="/home">
+    <div className="py-4 px-1 grid grid-cols-5 justify-center bg-primary w-full fixed bottom-0 left-0 right-0">
+      <Link className="flex flex-col text-complement2" to="/home">
         <svg
           className="place-self-center"
           xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@ export default function Footer() {
         </svg>
         <p className="text-center">Timeline</p>
       </Link>
-      <Link className="flex flex-col" to="/wallet">
+      <Link className="flex flex-col text-complement2" to="/wallet">
         <svg
           className="place-self-center"
           xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@ export default function Footer() {
         </svg>
         <p className="text-center">Wallet</p>
       </Link>
-      <Link className="flex flex-col" to="/budget">
+      <Link className="flex flex-col text-complement2" to="/budget">
         <svg
           className="place-self-center"
           xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ export default function Footer() {
         </svg>
         <p className="text-center">Budget</p>
       </Link>
-      <Link className="flex flex-col" to="/savings">
+      <Link className="flex flex-col text-complement2" to="/savings">
         <svg
           className="place-self-center"
           xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +77,7 @@ export default function Footer() {
         </svg>
         <p className="text-center">Savings</p>
       </Link>
-      <Link className="flex flex-col" to="/settings">
+      <Link className="flex flex-col text-complement2" to="/settings">
         <svg
           className="place-self-center"
           xmlns="http://www.w3.org/2000/svg"

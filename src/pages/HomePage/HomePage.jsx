@@ -11,6 +11,8 @@ import {
   getStartEndDate,
 } from "../../assets/months";
 
+// FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
+
 function HomePage() {
   const [transactions, setTransactions] = useState([]);
   const [transactionDays, setTransactionDays] = useState([]);
@@ -20,36 +22,30 @@ function HomePage() {
   const transactionsCollectionRef = collection(db, "transactions");
 
   //verify if this can be deleted
-  getStartEndDate();
 
   useEffect(() => {
     const getTransactions = async () => {
       try {
+        // console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
         const q1 = await query(
           transactionsCollectionRef,
           where("date", ">=", startDate),
           where("date", "<=", EndDate)
         );
-        console.log("Query Results", q1);
+
         const data = await getDocs(q1);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
-        console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
-        console.log("filtered", filteredData);
+
         setTransactions(filteredData);
 
-        // console.log("Data Docs", filteredData);
-
         let dateArray = filteredData.map((value) => value.date);
-
-        // console.log("Date Array", dateArray);
-
         let dates = dateArray.filter(
           (value, index) => dateArray.indexOf(value) === index
         );
-        // console.log("dates", dates);
+
         dates.sort((a, b) => {
           let dateA = new Date(a);
           let dateB = new Date(b);
@@ -73,12 +69,12 @@ function HomePage() {
   function getPreviousMonthTransactions() {
     let currentDate = new Date(startDate);
     currentDate.setDate(currentDate.getDate() + 1);
-    console.log("Start Date Previous", startDate, currentDate);
+
     let currentMonth = currentDate.getMonth() + 1;
     let currentYear = currentDate.getFullYear();
 
     let previousMonth = 0;
-    console.log("currentMonth", currentMonth, typeof currentMonth);
+
     //if january we need to get the last month of the previous year
     if (currentMonth === 1) {
       previousMonth = 12;
@@ -89,7 +85,7 @@ function HomePage() {
     }
 
     let transMonthObj = getMonthName(`${previousMonth}`);
-    console.log("transMonthObj", transMonthObj);
+
     setTransactionMonth(transMonthObj.month);
     setStartDate(`${currentYear}-${previousMonth}-01`);
     setEndDate(`${getMonthLastDay(currentYear, previousMonth)}`);
@@ -98,16 +94,16 @@ function HomePage() {
   function getNextMonthTransaction() {
     // add condition to ensure to not click to future months past the current date
     let currentDate = new Date(startDate);
+    //using newDate(startDate) gives us the the last day of the previous month therefore, we need to add + 1 day to get the current date.
     currentDate.setDate(currentDate.getDate() + 1);
-    console.log("Start Date next", startDate, currentDate);
+
     let currentMonth = currentDate.getMonth() + 1;
     let currentYear = currentDate.getFullYear();
-
     let nextMonth = 0;
-    console.log("currentMonth", currentMonth, typeof currentMonth);
+
     //if january we need to get the last month of the previous year
     if (currentMonth === 12) {
-      nextMonth = `0${1}`;
+      nextMonth = `${nextMonth}${1}`;
       currentYear++;
     } else {
       currentMonth++;
@@ -115,26 +111,51 @@ function HomePage() {
     }
 
     let transMonthObj = getMonthName(`${nextMonth}`);
-    console.log("transMonthObj", transMonthObj);
     setTransactionMonth(transMonthObj.month);
     setStartDate(`${currentYear}-${nextMonth}-01`);
     setEndDate(`${getMonthLastDay(currentYear, nextMonth)}`);
   }
 
   return (
-    <div id="home-page" className="py-2 pb-10">
+    <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
       <button>Overview</button>
 
       <div className="h-screen">
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 px-4">
           <div>
-            <button onClick={getPreviousMonthTransactions}>Previous</button>
+            <button onClick={getPreviousMonthTransactions}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"
+                />
+              </svg>
+            </button>
           </div>
           <h2 className="text-center">
             {startDate} {transactionMonth}
           </h2>
-          <div>
-            <button onClick={getNextMonthTransaction}>Next</button>
+          <div className="justify-self-end">
+            <button onClick={getNextMonthTransaction}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <g transform="rotate(180 12 12) translate(0 24) scale(1 -1)">
+                  <path
+                    fill="currentColor"
+                    d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"
+                  />
+                </g>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -150,7 +171,7 @@ function HomePage() {
           <p>Error</p>
         )}
       </div>
-      <Link className="fixed bottom-20 right-5 mb-5" to="/transaction/new">
+      <Link className="fixed bottom-20 right-5 mb-5 " to="/transaction/new">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

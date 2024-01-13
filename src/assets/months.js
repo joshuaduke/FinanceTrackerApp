@@ -38,21 +38,17 @@ export const months = [
 ]
 
 export function getMonthName(month){
-    console.log(month);
     // let formattedMonth = month <= 9 ? `0${month}` : "";
-
     let selectedMonth = months.find((item) => 
         item.value === month
     )
 
-    console.log('selectedMonth', selectedMonth)
     return selectedMonth;
 }
 
 export function getMonthLastDay(year, month){
     const lastDay = new Date(year, month, 0).getDate();
-    console.log('Last Day', `${year}-${month <= 9 ? '0' : "" }${month}-${lastDay}`)
-    return `${year}-${month <= 9 ? 0 : "" }${month}-${lastDay}`;
+    return `${year}-${month}-${lastDay}`;
 }
 
 export function getStartEndDate(){
@@ -68,18 +64,7 @@ export function getStartEndDate(){
         startDate: `${year}-${month <= 9 ? '0' : "" }${month}-01`,
         endDate: `${lastDayOfMonth}`
     }
-
-    console.log(myDateObj);
-
-    // current date is passed in as a string
-    // need to convert this string to a new date
-    // retrieve year and month
-
     
-    // create an obj 
-    // store startdate and end date
-    // return obj
-
     return myDateObj;
 }
 

@@ -35,18 +35,26 @@ function TransactionDate(props) {
 
   return (
     <div>
-      <div id="date">
-        <ul className="flex justify-between border p-2">
+      <div id="date" className="bg-primary">
+        <ul className="flex justify-between p-2 text-complement2">
           {/* <li>{date} - Date</li> */}
           <li>{props.date}</li>
-          <li>{totalDateAmount}</li>
+          <li
+            className={totalDateAmount < 0 ? "text-red-500" : "text-green-500"}
+          >
+            {totalDateAmount}
+          </li>
           {/* <li>{data.transactionAmount > 0 ? '$' + data.transactionAmount : '-$' + data.transactionAmount.toString().replace('-', '')}</li> */}
           {/* <li>{props.dateAmount}</li> */}
         </ul>
       </div>
-      {totalDateAmountArr.map((transactionData) => (
-        <Transaction key={transactionData.id} value={{ transactionData }} />
-      ))}
+      {totalDateAmountArr.map((transactionData) => {
+        return (
+          <div key={transactionData.id}>
+            <Transaction value={{ transactionData }} />
+          </div>
+        );
+      })}
     </div>
   );
 }
