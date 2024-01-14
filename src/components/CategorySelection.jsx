@@ -5,7 +5,7 @@ function CategorySelection(props) {
   let myIconsArr;
   console.log("Props", props);
   let value = props.categoryType;
-
+  console.log("Category", props.category);
   if (value == "expenses") {
     myIconsArr = myIcons.filter((icon) => {
       return icon.type == "expense";
@@ -18,8 +18,8 @@ function CategorySelection(props) {
     myIconsArr = myIcons;
   }
   return (
-    <>
-      <div id="category-selection">
+    <div className="bg-green-100 px-4">
+      <div id="category-selection" className="">
         <div>
           <h3>Transaction Category</h3>
           <div>
@@ -101,7 +101,7 @@ function CategorySelection(props) {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

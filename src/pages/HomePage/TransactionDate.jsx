@@ -1,7 +1,7 @@
 import Transaction from "./Transaction";
 
 function TransactionDate(props) {
-  let data = props.transactions;
+  // let data = props.transactions;
 
   //   const data = props.value;
   //   const dateAmount = parseInt(props.dateAmount);

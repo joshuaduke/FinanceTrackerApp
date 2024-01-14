@@ -4,7 +4,7 @@ import { db } from "../../Config/firebase";
 
 function WalletSelection({ transactionWallet, setWallet }) {
   const [wallets, setWallets] = useState([]);
-  const [selectedWallet, setSelectedWallet] = useState("1234");
+  const [selectedWallet, setSelectedWallet] = useState("");
   const [transactionWalletId, setTransactionWalletId] = useState("");
   const walletsCollectionRef = collection(db, "wallets");
 
@@ -25,10 +25,14 @@ function WalletSelection({ transactionWallet, setWallet }) {
         }));
         setWallets(filteredData);
 
-        const wallet = filteredData.find(({ id }) => id === transactionWallet);
+        if (transactionWallet != "") {
+          const wallet = filteredData.find(
+            ({ id }) => id === transactionWallet
+          );
 
-        console.log("Wallet", wallet);
-        setSelectedWallet(wallet.name);
+          console.log("Wallet", wallet);
+          setSelectedWallet(wallet.name);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -71,8 +75,9 @@ function WalletSelection({ transactionWallet, setWallet }) {
           setSelectedWallet(e.target.value);
           setTransactionWalletId(option);
         }}
+        required
       >
-        <option value="unselected"> -- Select One -- </option>
+        <option value=""> -- Select One -- </option>
 
         {wallets.map((wallet) => (
           <option key={wallet.id} data-id={wallet.id} value={wallet.name}>

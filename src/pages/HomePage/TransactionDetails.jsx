@@ -1,12 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import CategoryIcon from "../../components/CategoryIcon";
-import { useNavigate } from "react-router-dom";
 import CategorySelection from "../../components/CategorySelection";
 import ImportanceSelection from "../../components/ImportanceSelection";
 import WalletSelection from "../WalletPage/WalletSelection";
 import { db } from "../../Config/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc } from "firebase/firestore";
 
 function TransactionDetails() {
   const params = useParams();
@@ -78,6 +77,21 @@ function TransactionDetails() {
     setCategory(value);
   }
 
+  async function deleteTransaction(e) {
+    try {
+      e.preventDefault();
+      let confirmText = "Are you sure you want to delete this transaction?";
+
+      if (confirm(confirmText) == true) {
+        await deleteDoc(docRef);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("Error in deleteTransaction function");
+      console.error(error);
+    }
+  }
+
   console.log("transaction", transaction);
 
   return (
@@ -89,7 +103,9 @@ function TransactionDetails() {
               <button onClick={() => navigate(-1)}>Back</button>
             </li>
             <li>Edit {category}</li>
-            <li>Delete</li>
+            <li>
+              <button onClick={deleteTransaction}>Delete</button>
+            </li>
           </ul>
           <div className="flex justify-between">
             <CategoryIcon category={category} />

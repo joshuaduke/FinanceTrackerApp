@@ -37,6 +37,8 @@ export const months = [
     },
 ]
 
+
+
 export function getMonthName(month){
     // let formattedMonth = month <= 9 ? `0${month}` : "";
     let selectedMonth = months.find((item) => 
@@ -64,7 +66,23 @@ export function getStartEndDate(){
         startDate: `${year}-${month <= 9 ? '0' : "" }${month}-01`,
         endDate: `${lastDayOfMonth}`
     }
-    
+
     return myDateObj;
 }
 
+export function getCurrentDate(){
+    const date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    console.log(year, month, day);
+
+    day = day < 9 ? `0${day}` : day;
+    month  = month < 9 ? `0${month}` : month;
+
+
+    let todayDate = `${year}-${month}-${day}`;
+    console.log('Today Date', todayDate);
+    return todayDate;
+}

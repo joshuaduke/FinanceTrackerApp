@@ -4,19 +4,20 @@ import { useState } from "react";
 import WalletSelection from "../WalletPage/WalletSelection";
 import ImportanceSelection from "../../components/ImportanceSelection";
 import CategorySelection from "../../components/CategorySelection";
-import RecurrenceSelection from "../../components/footer/RecurrenceSelection";
+import RecurrenceSelection from "../../components/RecurrenceSelection";
 import { db } from "../../Config/firebase";
 import { addDoc, collection } from "firebase/firestore";
+import { getCurrentDate } from "../../assets/months";
 
 function NewTransaction() {
   const navigate = useNavigate();
   const [categoryType, setCategoryType] = useState("expenses");
   const [category, setCategory] = useState("Misc");
   const [wallet, setWallet] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(getCurrentDate);
   const [description, setDescription] = useState("");
   const [importance, setImportance] = useState("");
-  const [recurrence, setRecurrence] = useState("");
+  const [recurrence, setRecurrence] = useState("never");
   const [amount, setAmount] = useState("");
 
   //   const [transactionAmout, setTransactionAmount] = useState(0);
@@ -32,6 +33,7 @@ function NewTransaction() {
       categoryType: categoryType,
       description: description,
       walletId: wallet,
+      createdDate: date,
     });
     // let data = {
     //   category: category,
@@ -43,7 +45,7 @@ function NewTransaction() {
     //   description: description,
     //   wallet: wallet,
     // };
-
+    navigate("/");
     console.log("Submitted Data", transactionRef);
   }
 
@@ -66,7 +68,7 @@ function NewTransaction() {
 
   return (
     <>
-      <form className="p-6" onSubmit={handleSubmit}>
+      <form className="" onSubmit={handleSubmit}>
         <ul className="flex justify-between">
           <li>
             <button onClick={() => navigate(-1)}>Back</button>
@@ -87,6 +89,7 @@ function NewTransaction() {
               placeholder="0"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -147,6 +150,7 @@ function NewTransaction() {
           categoryType={categoryType}
           setCategory={selectCategory}
           selectCategoryType={selectCategoryType}
+          category={category}
         />
 
         <button className="border-2 p-2" type="submit">

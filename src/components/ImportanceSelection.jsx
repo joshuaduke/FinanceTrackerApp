@@ -28,6 +28,7 @@ function ImportanceSelection(props) {
               value="Essential"
               onChange={() => props.selectTransactionImportance("Essential")}
               checked={props.importance === "Essential"}
+              required
             />
           </label>
         </div>
