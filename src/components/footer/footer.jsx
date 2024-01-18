@@ -6,7 +6,7 @@ export default function Footer() {
   // console.log("Current Route", currentRoute);
 
   return (
-    <div className="py-4 px-1 grid grid-cols-5 justify-center bg-primary w-full fixed bottom-0 left-0 right-0">
+    <div className="py-4 px-1 grid grid-cols-4 justify-center bg-primary w-full fixed bottom-0 left-0 right-0">
       <Link className="flex flex-col text-complement2" to="/home">
         <svg
           className="place-self-center"
@@ -37,7 +37,7 @@ export default function Footer() {
         </svg>
         <p className="text-center">Wallet</p>
       </Link>
-      <Link className="flex flex-col text-complement2" to="/budget">
+      <Link className="flex flex-col text-complement2" to="/goals">
         <svg
           className="place-self-center"
           xmlns="http://www.w3.org/2000/svg"
@@ -60,22 +60,7 @@ export default function Footer() {
             d="m14.823 13.823l.003-.001a.702.702 0 0 1 .177-.042c.21-.028.504-.03.997-.03s.787.002.997.03a.702.702 0 0 1 .177.042l.003.001l.001.003a.702.702 0 0 1 .042.177c.028.21.03.504.03.997s-.002.787-.03.997a.702.702 0 0 1-.042.177l-.001.003l-.003.001a.702.702 0 0 1-.177.042c-.21.028-.504.03-.997.03s-.787-.002-.997-.03a.702.702 0 0 1-.177-.042l-.003-.001l-.001-.003a.702.702 0 0 1-.042-.177c-.028-.21-.03-.504-.03-.997s.002-.787.03-.997a.702.702 0 0 1 .042-.177l.001-.003Z"
           />
         </svg>
-        <p className="text-center">Budget</p>
-      </Link>
-      <Link className="flex flex-col text-complement2" to="/savings">
-        <svg
-          className="place-self-center"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="currentColor"
-            d="M16 11q.425 0 .713-.288T17 10q0-.425-.288-.712T16 9q-.425 0-.712.288T15 10q0 .425.288.713T16 11ZM8 9h5V7H8v2ZM4.5 21q-.85-2.85-1.675-5.687T2 9.5q0-2.3 1.6-3.9T7.5 4h5q.725-.95 1.763-1.475T16.5 2q.625 0 1.063.438T18 3.5q0 .125-.125.575q-.1.275-.187.563t-.138.587L19.825 7.5H22v6.975l-2.825.925L17.5 21H12v-2h-2v2H4.5Z"
-          />
-        </svg>
-        <p className="text-center">Savings</p>
+        <p className="text-center">Goals</p>
       </Link>
       <Link className="flex flex-col text-complement2" to="/settings">
         <svg

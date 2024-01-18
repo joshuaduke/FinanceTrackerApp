@@ -15,6 +15,7 @@ import BudgetPage from "./pages/BudgetPage/BudgetPage";
 import BudgetDetails from "./pages/BudgetPage/BudgetDetails";
 import NewBudget from "./pages/BudgetPage/NewBudget";
 import Settings from "./pages/SettingsPage/SettingsPage";
+import GoalPage from "./pages/GoalPage/GoalPage";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route path="/budget/:id" element={<BudgetDetails />} />
         <Route path="/budget/new" element={<NewBudget />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/goals" element={<GoalPage />} />
+
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>

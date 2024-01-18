@@ -24,7 +24,6 @@ export function makeServer({ environment = "test" } = {} ){
             server.create("transaction", { id: "2", category: "Transportation", description: "Gas", transactionAmount: -60, wallet: "Gold Amex", date: "2023-11-01", importance: "Essential" , recurrence: "never"})
             server.create("transaction", { id: "3", category: "Bill", description: "Phone Bill", transactionAmount: -56.5, wallet: "TD Chequing", date: "2023-11-08", importance: "Essential" , recurrence: "Monthly"})
             server.create("transaction", { id: "4", category: "Payment", description: "Paycheck", transactionAmount: 1938.53, wallet: "TD Chequing", date: "2023-11-08", importance: "" , recurrence: "Bi-weekly"})
-            server.create("transaction", { id: "5", category: "Entertainment", description: "Napoleon Movie", transactionAmount: -46.00, wallet: "Gold Amex", date: "2023-11-10", importance: "Shouldn't Have" , recurrence: "never"})
             server.create("transaction", { id: "11", category: "Food & Drink", description: "Chic Fil A", transactionAmount: -115.45, wallet: "Scotiabank Amex", date: "2023-11-10", importance: "Shouldn't Have" , recurrence: "never"})
             server.create("transaction", { id: "21", category: "Transportation", description: "Gas", transactionAmount: -60, wallet: "Gold Amex", date: "2023-11-01", importance: "Essential" , recurrence: "never"})
             server.create("transaction", { id: "31", category: "Bill", description: "Phone Bill", transactionAmount: -56.5, wallet: "TD Chequing", date: "2023-11-08", importance: "Essential" , recurrence: "Monthly"})
@@ -54,7 +53,7 @@ export function makeServer({ environment = "test" } = {} ){
 
             server.create("saving", { id: "1", name: "House", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 15000, goal: 50000, category: "not assigned"}),
             server.create("saving", { id: "2", name: "Emergency Fund", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 3000, goal: 20000, category: "not assigned"}),
-            server.create("saving", { id: "3", name: "TFSA", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 6000, goal: 10000, category: "not assigned"}),
+            server.create("saving", { id: "3", name: "TFSA", dueDate: "2030-01-06", isWallet: false, initialBalance: 0, currentBalance: 6000, goal: 10000, category: "not assigned"}),
             server.create("saving", { id: "4", name: "Car Downpayment", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 1300, goal: 10000, category: "not assigned"}),
             server.create("saving", { id: "5", name: "Vacation", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 100, goal: 10000, category: "not assigned"})
             server.create("saving", { id: "6", name: "Big Fun Purchase", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 50, goal: 5000, category: "not assigned"})
