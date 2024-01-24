@@ -3,12 +3,17 @@ import { myIcons } from "../../assets/myIcons";
 import CategoryCheckbox from "../../components/CategoryCheckbox";
 import RecurrenceSelection from "../../components/RecurrenceSelection";
 import { getCurrentDate } from "../../assets/months";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { db } from "../../Config/firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 function NewBudget() {
+  const navigate = useNavigate();
   const [budgetCategories, setBudgetCategories] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
+  const [budgetName, setBudgetName] = useState("");
+  const [budgetAmount, setBudgetAmount] = useState(0);
   const [recurrence, setRecurrence] = useState("never");
   const [budgetStartDate, setBudgetStartDate] = useState(getCurrentDate);
 
@@ -27,9 +32,20 @@ function NewBudget() {
    * recurrence
    */
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     console.log("Submitting");
     e.preventDefault();
+    const transactionRef = await addDoc(collection(db, "budgets"), {
+      name: budgetName,
+      amount: parseInt(budgetAmount),
+      startDate: budgetStartDate,
+      budgetFor: budgetCategories,
+      recurrence: recurrence,
+      createdDate: getCurrentDate(),
+    });
+
+    navigate("/");
+    console.log("Submitted Data", transactionRef);
 
     console.log(budgetCategories);
   }
@@ -49,10 +65,23 @@ function NewBudget() {
 
       <form action="" onSubmit={handleSubmit}>
         <label htmlFor="budgetName">Budget Name</label>
-        <input type="text" name="budgetName" />
+        <input
+          type="text"
+          name="budgetName"
+          value={budgetName}
+          onChange={(e) => setBudgetName(e.target.value)}
+          required
+        />
         <br />
         <label htmlFor="budgetAmount">Amount</label>
-        <input type="number" name="budgetAmount" id="budgetAmount" />
+        <input
+          type="number"
+          name="budgetAmount"
+          id="budgetAmount"
+          value={budgetAmount}
+          onChange={(e) => setBudgetAmount(e.target.value)}
+          required
+        />
 
         {showCategories ? (
           myIcons.map((icon) => (
