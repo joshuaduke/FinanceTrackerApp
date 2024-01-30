@@ -10,6 +10,7 @@ function NewSavings() {
   const [savingsName, setSavingsName] = useState("");
   const [savingsGoalAmount, setSavingsGoalAmount] = useState("");
   const [savingsGoalDate, setSavingsGoalDate] = useState("");
+  const [savingsInitialBalance, setSavingsInitialBalance] = useState(0);
   // const [savingsGoalType, setSavingsGoalType] = useState("yes");
   const [savingsGoalDescription, setSavingsGoalDescription] = useState("");
   const [walletName, setWalletName] = useState("");
@@ -25,17 +26,18 @@ function NewSavings() {
 
     const walletsRef = await addDoc(collection(db, "wallets"), {
       name: walletName,
-      initialBalance: walletInitialBalance,
-      isSavings: true,
+      balance: walletInitialBalance,
+      walletType: "savings",
       bank: walletBankName,
     });
 
     const savingsRef = await addDoc(collection(db, "savings"), {
       name: savingsName,
-      amount: savingsGoalAmount,
+      goal: savingsGoalAmount,
       dueDate: savingsGoalDate,
       description: savingsGoalDescription,
       walletId: walletsRef.id,
+      currentAmount: savingsInitialBalance,
     });
 
     navigate("/goals");
@@ -60,6 +62,18 @@ function NewSavings() {
         onChange={(e) => setSavingsName(e.target.value)}
         required
       />
+
+      <div>
+        <label htmlFor="goal-amount">Initial Amount: $</label>
+        <input
+          type="number"
+          name="goal-amount"
+          value={savingsInitialBalance}
+          placeholder="0"
+          onChange={(e) => setSavingsInitialBalance(e.target.value)}
+          required
+        />
+      </div>
 
       <div>
         <label htmlFor="goal-amount">Goal Amount: $</label>

@@ -6,6 +6,7 @@ function CategorySelection(props) {
   console.log("Props", props);
   let value = props.categoryType;
   console.log("Category", props.category);
+
   if (value == "expenses") {
     myIconsArr = myIcons.filter((icon) => {
       return icon.type == "expense";
@@ -14,9 +15,8 @@ function CategorySelection(props) {
     myIconsArr = myIcons.filter((icon) => {
       return icon.type == "income";
     });
-  } else {
-    myIconsArr = myIcons;
   }
+
   return (
     <div className="bg-green-100 px-4">
       <div id="category-selection" className="">
@@ -83,7 +83,7 @@ function CategorySelection(props) {
         </div>
       </div>
       <div className="grid grid-cols-4 text-center">
-        {myIconsArr.map((icon) => (
+        {myIconsArr?.map((icon) => (
           <div key={icon.id} className="flex-1">
             <label className="cursor-pointer" htmlFor="category">
               <CategoryIcon className="" category={icon.name} />

@@ -5,15 +5,14 @@ function RecurrenceSelection(props) {
         <ul>
           <li className="flex">
             <svg
-              className="place-self-center "
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="1em"
+              height="1em"
               viewBox="0 0 24 24"
             >
               <path
                 fill="currentColor"
-                d="M6 20q-1.65 0-2.825-1.175T2 16V8q0-1.65 1.175-2.825T6 4h12q1.65 0 2.825 1.175T22 8v8q0 1.65-1.175 2.825T18 20H6ZM6 8h12q.55 0 1.05.125t.95.4V8q0-.825-.587-1.412T18 6H6q-.825 0-1.412.588T4 8v.525q.45-.275.95-.4T6 8Zm-1.85 3.25l11.125 2.7q.225.05.45 0t.425-.2l3.475-2.9q-.275-.375-.7-.612T18 10H6q-.65 0-1.137.338t-.713.912Z"
+                d="m7 22l-4-4l4-4l1.4 1.45L6.85 17H17v-4h2v6H6.85l1.55 1.55zM5 11V5h12.15L15.6 3.45L17 2l4 4l-4 4l-1.4-1.45L17.15 7H7v4z"
               />
             </svg>
             <span className="ml-5">Recurrence</span>

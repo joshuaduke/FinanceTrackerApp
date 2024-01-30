@@ -33,7 +33,7 @@ function SavingsGoal({ data }) {
     savingsAmount += item.transactionAmount;
   });
 
-  const goalPercentage = Math.round((savingsAmount / data.amount) * 100);
+  const goalPercentage = Math.round((savingsAmount / data.goal) * 100);
 
   console.log("Test Data", transactions);
   return (
@@ -41,7 +41,7 @@ function SavingsGoal({ data }) {
       <Link to={`/savings/${data.id}`}>
         <h3>{data.name}</h3>
         <p>
-          <span>You saved ${savingsAmount}</span> saved out of ${data.amount}
+          <span>You saved ${savingsAmount}</span> saved out of ${data.goal}
         </p>
         <div className=" bg-neutral-200 dark:bg-neutral-600 ">
           <div

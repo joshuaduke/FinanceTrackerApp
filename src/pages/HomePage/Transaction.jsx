@@ -7,7 +7,16 @@ import { useState, useEffect } from "react";
 function Transaction(props) {
   const data = props.value.transactionData;
   const docRef = doc(db, "wallets", data.walletId);
+  let transferWalletId = "";
+  let docRef2 = "";
+
+  if (data.toWalletId != undefined) {
+    transferWalletId = data.toWalletId;
+    docRef2 = doc(db, "wallets", transferWalletId);
+  }
+
   const [transactionWalletId, setTransactionWalletId] = useState("");
+  const [transactionToWalletId, setTransactionToWalletId] = useState("");
 
   // console.log("L3 Props", props);
 
@@ -17,6 +26,13 @@ function Transaction(props) {
     const getWallet = async () => {
       try {
         const walletData = await getDoc(docRef);
+        let transferWalletData;
+
+        if (docRef2 != "") {
+          transferWalletData = await getDoc(docRef2);
+          setTransactionToWalletId(transferWalletData.data());
+        }
+
         console.log("WalletData", walletData.data());
 
         setTransactionWalletId(walletData.data());
@@ -42,11 +58,18 @@ function Transaction(props) {
               {data.category} - {data.description}
             </p>
             <div>
-              <p>
-                {transactionWalletId.name != null
-                  ? transactionWalletId.name
-                  : ""}
-              </p>
+              {data.categoryType != "Transfer" ? (
+                <p>
+                  {transactionWalletId.name != null
+                    ? transactionWalletId.name
+                    : ""}
+                </p>
+              ) : (
+                <>
+                  <p>To: {transactionToWalletId.name}</p>
+                  <p>From: {transactionWalletId.name}</p>
+                </>
+              )}
             </div>
           </div>
           <div className="basis-1/4 text-end">
