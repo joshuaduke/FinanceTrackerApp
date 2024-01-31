@@ -47,8 +47,13 @@ function TransferTransaction() {
     <form onSubmit={(e) => handleTransferSubmit(e)}>
       <div id="transfer-header">
         <ul className="flex justify-between">
-          <li>Exit</li>
+          <li>
+            <button type="button" onClick={navigate("/")}>
+              Exit
+            </button>
+          </li>
           <li>Add Transfer</li>
+          <li></li>
         </ul>
 
         <div id="transfer-icon" className="flex justify-between">

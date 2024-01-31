@@ -34,3 +34,25 @@ export async function getTransactions(startDate, EndDate, setTransactions, setTr
         console.error(error);
       }
 }
+
+export async function getTransferTransactions(walletId){
+  try {
+      // console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
+      const q1 = await query(
+        transactionsCollectionRef,
+        where("toWalletId", "==", walletId),
+      );
+
+      const data = await getDocs(q1);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+
+  return filteredData;
+
+
+    } catch (error) {
+      console.error(error);
+    }
+}

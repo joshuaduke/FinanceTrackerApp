@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getTransactions } from "../../assets/api/transaction";
+import { getTransferTransactions } from "../../assets/api/transaction";
 import {
   getMonthName,
   getMonthLastDay,
@@ -14,22 +14,20 @@ function SavingsGoal({ data }) {
   const [transactions, setTransactions] = useState([]);
   const [transactionDays, setTransactionDays] = useState([]);
   const [transactionMonth, setTransactionMonth] = useState("");
+
   let savingsAmount = 0;
 
   useEffect(() => {
     try {
-      getTransactions(
-        startDate,
-        EndDate,
-        setTransactions,
-        setTransactionMonth
-      ).then((value) => setTransactions(value));
+      getTransferTransactions(data.walletId).then((value) => {
+        setTransactions(value);
+      });
     } catch (error) {
       console.error(error);
     }
   }, []);
 
-  transactions.map((item) => {
+  transactions?.map((item) => {
     savingsAmount += item.transactionAmount;
   });
 
