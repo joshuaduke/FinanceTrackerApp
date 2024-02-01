@@ -11,13 +11,15 @@ import {
 } from "firebase/firestore";
 import { formatCurrency } from "../../assets/currency/formatCurrency";
 import { getTransactionsAPI } from "../../assets/api/transaction";
+import { deleteDocument } from "../../assets/api/helperFunctions";
 
 function WalletDetails() {
   const params = useParams();
+  const navigate = useNavigate();
   const docRef = doc(db, "wallets", params.id);
   const transactionsCollectionRef = collection(db, "transactions");
-  console.log("Params", params);
-
+  const [walletType, setWalletType] = useState("");
+  const [transactions, setTransactions] = useState([]);
   const [walletDetails, setWalletDetails] = useState({
     name: "",
     bank: "",
@@ -26,13 +28,6 @@ function WalletDetails() {
     walletType: "",
     description: "",
   });
-  const [walletType, setWalletType] = useState("");
-  const [transactions, setTransactions] = useState([]);
-  const monthlyCashFlow = transactions?.reduce(
-    (acc, curr) => acc + curr.transactionAmount,
-    walletDetails.balance
-  );
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function getWallet() {
@@ -64,15 +59,11 @@ function WalletDetails() {
     getWallet();
   }, [params.id]); //re run this request if the id ever changes, useful for calling a new wallet without reloading page
 
-  console.log("wallet transactions", transactions);
-
   async function deleteWallet(e) {
     try {
       e.preventDefault();
-      let confirmText = "Are you sure you want to delete this wallet?";
-
-      if (confirm(confirmText) == true) {
-        await deleteDoc(docRef);
+      const result = deleteDocument(docRef);
+      if (result) {
         navigate("/wallet");
       }
     } catch (error) {
@@ -87,6 +78,11 @@ function WalletDetails() {
       name: e.target.value,
     });
   }
+
+  const monthlyCashFlow = transactions?.reduce(
+    (acc, curr) => acc + curr.transactionAmount,
+    walletDetails.balance
+  );
 
   return (
     <form className="p-2">
