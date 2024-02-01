@@ -8,6 +8,7 @@ function WalletDetails() {
   const docRef = doc(db, "wallets", params.id);
   console.log("Params", params);
   const [wallet, setWallet] = useState(null);
+  const [walletType, setWalletType] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ function WalletDetails() {
       try {
         const walletData = await getDoc(docRef);
         setWallet(walletData.data());
+        setWalletType(walletData.data().walletType);
       } catch (error) {
         console.error(error);
       }
@@ -60,6 +62,44 @@ function WalletDetails() {
           <div>
             <label htmlFor="">Description</label>
             <textarea name="" id=""></textarea>
+          </div>
+
+          <div>
+            <p>Wallet Type</p>
+            {walletType != "savings" ? (
+              <>
+                <label htmlFor="wallet-type">Default</label>
+                <input
+                  type="radio"
+                  name="wallet-type"
+                  id="type-default"
+                  value="default"
+                  onChange={(e) => setWalletType(e.target.value)}
+                  checked={walletType === "default"}
+                />
+                <label htmlFor="wallet-type">Credit</label>
+                <input
+                  type="radio"
+                  name="wallet-type"
+                  id="type-credit"
+                  value="credit"
+                  onChange={(e) => setWalletType(e.target.value)}
+                  checked={walletType === "credit"}
+                />
+              </>
+            ) : (
+              <>
+                <label htmlFor="wallet-type">Savings</label>
+                <input
+                  type="radio"
+                  name="wallet-type"
+                  id="type-credit"
+                  value="savings"
+                  onChange={(e) => setWalletType(e.target.value)}
+                  checked={walletType === "savings"}
+                />
+              </>
+            )}
           </div>
 
           <button className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0">

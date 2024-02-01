@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../../Config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { getCurrentDate } from "../../assets/months";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function NewSavings() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log("location", location);
   const [goal, setGoal] = useState({});
   const [savingsName, setSavingsName] = useState("");
   const [savingsGoalAmount, setSavingsGoalAmount] = useState("");
@@ -13,6 +16,7 @@ function NewSavings() {
   const [savingsInitialBalance, setSavingsInitialBalance] = useState(0);
   // const [savingsGoalType, setSavingsGoalType] = useState("yes");
   const [savingsGoalDescription, setSavingsGoalDescription] = useState("");
+
   const [walletName, setWalletName] = useState("");
   const [walletInitialBalance, setWalletInitialBalance] = useState("");
   const [walletBankName, setWalletBankName] = useState("");
@@ -20,6 +24,15 @@ function NewSavings() {
 
   //   const goalPercentage = (goal.currentBalance / goal.goal) * 100;
   const goalPercentage = 0;
+
+  useEffect(() => {
+    if (location.state != null) {
+      setWalletName(location.state.walletName);
+      setWalletBankName(location.state.walletBank);
+      setWalletInitialBalance(location.state.walletCurrentBalance);
+      setWalletDescription(location.state.setWalletDescription);
+    }
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();

@@ -90,9 +90,29 @@ function NewWallet() {
             onChange={(e) => setWalletType(e.target.value)}
             checked={walletType === "credit"}
           />
+          <label htmlFor="wallet-type">Savings</label>
+          <input
+            type="radio"
+            name="wallet-type"
+            id="type-savings"
+            value="savings"
+            onChange={() =>
+              navigate("/savings/new", {
+                state: {
+                  id: "savingsFromWallet",
+                  walletName: walletName,
+                  walletBank: walletBank,
+                  walletCurrentBalance: walletCurrentBalance,
+                  walletType: "savings",
+                  walletDescription: walletDescription,
+                },
+              })
+            }
+            checked={walletType === "savings"}
+          />
           <br />
 
-          {walletType === "credit" ? (
+          {walletType === "credit" && (
             <>
               <label htmlFor="wallet-credit-limit">
                 What is the credit limit for this wallet?:
@@ -104,8 +124,6 @@ function NewWallet() {
                 onChange={(e) => setWalletCreditLimit(e.target.value)}
               />
             </>
-          ) : (
-            false
           )}
         </div>
 

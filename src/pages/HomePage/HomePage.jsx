@@ -68,53 +68,53 @@ function HomePage() {
   }, [startDate, EndDate]);
 
   function getPreviousMonthTransactions() {
-    let currentDate = new Date(startDate);
-    currentDate.setDate(currentDate.getDate() + 1);
+    let pageDate = new Date(startDate);
+    pageDate.setDate(pageDate.getDate() + 1);
 
-    let currentMonth = currentDate.getMonth() + 1;
-    let currentYear = currentDate.getFullYear();
+    let pageMonth = pageDate.getMonth() + 1;
+    let pageYear = pageDate.getFullYear();
 
     let previousMonth = 0;
 
     //if january we need to get the last month of the previous year
-    if (currentMonth === 1) {
+    if (pageMonth === 1) {
       previousMonth = 12;
-      currentYear--;
+      pageYear--;
     } else {
-      currentMonth--;
-      previousMonth = currentMonth <= 9 ? `0${currentMonth}` : currentMonth;
+      pageMonth--;
+      previousMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
     }
 
     let transMonthObj = getMonthName(`${previousMonth}`);
 
     setTransactionMonth(transMonthObj.month);
-    setStartDate(`${currentYear}-${previousMonth}-01`);
-    setEndDate(`${getMonthLastDay(currentYear, previousMonth)}`);
+    setStartDate(`${pageYear}-${previousMonth}-01`);
+    setEndDate(`${getMonthLastDay(pageYear, previousMonth)}`);
   }
 
   function getNextMonthTransaction() {
     // add condition to ensure to not click to future months past the current date
-    let currentDate = new Date(startDate);
+    let pageDate = new Date(startDate);
     //using newDate(startDate) gives us the the last day of the previous month therefore, we need to add + 1 day to get the current date.
-    currentDate.setDate(currentDate.getDate() + 1);
+    pageDate.setDate(pageDate.getDate() + 1);
 
-    let currentMonth = currentDate.getMonth() + 1;
-    let currentYear = currentDate.getFullYear();
+    let pageMonth = pageDate.getMonth() + 1;
+    let pageYear = pageDate.getFullYear();
     let nextMonth = 0;
 
     //if january we need to get the last month of the previous year
-    if (currentMonth === 12) {
+    if (pageMonth === 12) {
       nextMonth = `${nextMonth}${1}`;
-      currentYear++;
+      pageYear++;
     } else {
-      currentMonth++;
-      nextMonth = currentMonth <= 9 ? `0${currentMonth}` : currentMonth;
+      pageMonth++;
+      nextMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
     }
 
     let transMonthObj = getMonthName(`${nextMonth}`);
     setTransactionMonth(transMonthObj.month);
-    setStartDate(`${currentYear}-${nextMonth}-01`);
-    setEndDate(`${getMonthLastDay(currentYear, nextMonth)}`);
+    setStartDate(`${pageYear}-${nextMonth}-01`);
+    setEndDate(`${getMonthLastDay(pageYear, nextMonth)}`);
   }
 
   return (
