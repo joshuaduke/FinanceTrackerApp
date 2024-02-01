@@ -10,6 +10,7 @@ import {
   getMonthLastDay,
   getStartEndDate,
   formatDate,
+  getCurrentDate,
 } from "../../assets/months";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
@@ -95,6 +96,7 @@ function HomePage() {
   function getNextMonthTransaction() {
     // add condition to ensure to not click to future months past the current date
     let pageDate = new Date(startDate);
+    let currentDate = getCurrentDate();
     //using newDate(startDate) gives us the the last day of the previous month therefore, we need to add + 1 day to get the current date.
     pageDate.setDate(pageDate.getDate() + 1);
 
@@ -111,6 +113,7 @@ function HomePage() {
       nextMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
     }
 
+    //if the current month is equal to the current month of transactions being viewed then then disable next button
     let transMonthObj = getMonthName(`${nextMonth}`);
     setTransactionMonth(transMonthObj.month);
     setStartDate(`${pageYear}-${nextMonth}-01`);

@@ -7,6 +7,26 @@ import {
     getStartEndDate,
   } from "../../assets/months";
 
+
+export async function getTransactionsAPI(q1){
+    try {
+        // console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
+
+        const data = await getDocs(q1);
+        const filteredData = data.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+
+    return filteredData;
+
+
+      } catch (error) {
+        console.error(error);
+      }
+}
+
+
 export async function getTransactions(startDate, EndDate, setTransactions, setTransactionMonth){
     try {
         // console.log(`UseEffect Start ${startDate}, end ${EndDate}`);

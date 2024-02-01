@@ -43,24 +43,6 @@ function TransactionDetails() {
         }
       };
 
-      // fetch(`/api/transaction/${params.id}`)
-      //   .then((response) => response.json())
-      //   .catch((err) => console.log("err", err))
-      //   // .then((data) => setTransaction(data.transactions));
-      //   .then((data) => {
-      //     let transactionData = data.transactions;
-      //     setTransaction(transactionData);
-      //     setCategory(transactionData.category);
-      //     setTransactionDate(transactionData.date);
-      //     setTransactionDescription(transactionData.description);
-      //     setTransactionImportance(transactionData.importance);
-      //     setTransactionAmount(transactionData.transactionAmount);
-      //     setTransactionRecurrence(transactionData.recurrence);
-      //     setTransactionWallet(transactionData.wallet);
-      //     //   setTransaction(transactionData);
-      //     //     setCategory(data.transactions.category)
-      //     //   setTransaction(data.transactions)
-      //   });
       getTransaction();
     } else {
       alert("False");

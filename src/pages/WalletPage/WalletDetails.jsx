@@ -1,36 +1,92 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { db } from "../../Config/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  deleteDoc,
+  query,
+  where,
+  collection,
+} from "firebase/firestore";
+import { formatCurrency } from "../../assets/currency/formatCurrency";
+import { getTransactionsAPI } from "../../assets/api/transaction";
 
 function WalletDetails() {
   const params = useParams();
   const docRef = doc(db, "wallets", params.id);
+  const transactionsCollectionRef = collection(db, "transactions");
   console.log("Params", params);
-  const [wallet, setWallet] = useState(null);
+
+  const [walletDetails, setWalletDetails] = useState({
+    name: "",
+    bank: "",
+    creditLimit: "",
+    balance: "",
+    walletType: "",
+    description: "",
+  });
   const [walletType, setWalletType] = useState("");
+  const [transactions, setTransactions] = useState([]);
+  const monthlyCashFlow = transactions?.reduce(
+    (acc, curr) => acc + curr.transactionAmount,
+    walletDetails.balance
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
-    // fetch(`/api/wallet/${params.id}`)
-    //   .then((response) => response.json())
-    //   .catch((err) => console.log("err", err))
-    //   .then((data) => setWallet(data.wallets));
-
     async function getWallet() {
       try {
         const walletData = await getDoc(docRef);
-        setWallet(walletData.data());
+
+        setWalletDetails({
+          name: walletData.data().name,
+          bank: walletData.data().bank,
+          creditLimit: walletData.data().creditLimit,
+          balance: walletData.data().balance,
+          walletType: walletData.data().walletType,
+          description: walletData.data().description,
+        });
+
         setWalletType(walletData.data().walletType);
       } catch (error) {
         console.error(error);
       }
     }
 
+    const q1 = query(
+      transactionsCollectionRef,
+      where("walletId", "==", params.id)
+    );
+
+    getTransactionsAPI(q1).then((value) => setTransactions(value));
+
     getWallet();
   }, [params.id]); //re run this request if the id ever changes, useful for calling a new wallet without reloading page
 
-  console.log(wallet);
+  console.log("wallet transactions", transactions);
+
+  async function deleteWallet(e) {
+    try {
+      e.preventDefault();
+      let confirmText = "Are you sure you want to delete this wallet?";
+
+      if (confirm(confirmText) == true) {
+        await deleteDoc(docRef);
+        navigate("/wallet");
+      }
+    } catch (error) {
+      console.log("Error in deleteWallet function");
+      console.error(error);
+    }
+  }
+
+  function handleChange(e) {
+    setWalletDetails({
+      ...walletDetails,
+      name: e.target.value,
+    });
+  }
 
   return (
     <form className="p-2">
@@ -39,64 +95,89 @@ function WalletDetails() {
           <li>
             <button onClick={() => navigate(-1)}>Back</button>
           </li>
-          <li>Delete</li>
+          <li>
+            <h1>Cash Flow: {formatCurrency(monthlyCashFlow)}</h1>
+          </li>
+          <li>
+            <button onClick={deleteWallet}>Delete</button>
+          </li>
         </ul>
       </div>
-      {wallet ? (
+      {walletDetails ? (
         <div>
           <div>
-            <label htmlFor="">Name: </label>
-            <input type="text" value={wallet.name} />
+            <label htmlFor="name">Name: </label>
+            <input
+              type="text"
+              name="name"
+              value={walletDetails.name}
+              onChange={handleChange}
+            />
           </div>
 
           <div>
-            <label htmlFor="">Bank: </label>
-            <input type="text" value={wallet.bank} />
+            <label htmlFor="bank">Bank: </label>
+            <input
+              type="text"
+              name="bank"
+              value={walletDetails.bank}
+              onChange={handleChange}
+            />
           </div>
 
           <div>
-            <label htmlFor="">Current Balance: </label>
-            <span>Balance: ${wallet.initialBalance}</span>
+            <label htmlFor="balance">Initial Balance: </label>
+            <input
+              type="number"
+              name="balance"
+              value={walletDetails.balance}
+              onChange={handleChange}
+            />
+            {/* <span>{formatCurrency(walletDetails.balance)}</span> */}
           </div>
 
           <div>
-            <label htmlFor="">Description</label>
-            <textarea name="" id=""></textarea>
+            <label htmlFor="description">Description</label>
+            <textarea
+              name="description"
+              value={walletDetails.description}
+              onChange={handleChange}
+            ></textarea>
           </div>
 
           <div>
             <p>Wallet Type</p>
             {walletType != "savings" ? (
               <>
-                <label htmlFor="wallet-type">Default</label>
+                <label htmlFor="walletType">Default</label>
                 <input
                   type="radio"
-                  name="wallet-type"
+                  name="walletType"
                   id="type-default"
                   value="default"
-                  onChange={(e) => setWalletType(e.target.value)}
-                  checked={walletType === "default"}
+                  onChange={handleChange}
+                  checked={walletDetails.walletType === "default"}
                 />
-                <label htmlFor="wallet-type">Credit</label>
+                <label htmlFor="walletType">Credit</label>
                 <input
                   type="radio"
-                  name="wallet-type"
+                  name="walletType"
                   id="type-credit"
                   value="credit"
-                  onChange={(e) => setWalletType(e.target.value)}
-                  checked={walletType === "credit"}
+                  onChange={handleChange}
+                  checked={walletDetails.walletType === "credit"}
                 />
               </>
             ) : (
               <>
-                <label htmlFor="wallet-type">Savings</label>
+                <label htmlFor="walletType">Savings</label>
                 <input
                   type="radio"
-                  name="wallet-type"
+                  name="walletType"
                   id="type-credit"
                   value="savings"
-                  onChange={(e) => setWalletType(e.target.value)}
-                  checked={walletType === "savings"}
+                  onChange={handleChange}
+                  checked={walletDetails.walletType === "savings"}
                 />
               </>
             )}
