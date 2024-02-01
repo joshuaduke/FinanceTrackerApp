@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { db } from "../../Config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { getMonthName } from "../../assets/months";
-
+import { formatCurrency } from "../../assets/currency/formatCurrency";
 function WalletList(props) {
   const transactionsCollectionRef = collection(db, "transactions");
   const value = props.value;
@@ -48,7 +48,7 @@ function WalletList(props) {
           <p>{value.bank}</p>
         </div>
         <div>
-          <p>${totalBalance}</p>
+          <p>{formatCurrency(totalBalance)}</p>
         </div>
       </Link>
     </div>

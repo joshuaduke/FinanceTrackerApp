@@ -37,9 +37,33 @@ export const months = [
     },
 ]
 
+const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+export function formatDate(dateToFormat){
+    let strFormattedDate = "";
+    let dteToFormat = new Date(dateToFormat);
+    dteToFormat.setDate(dteToFormat.getDate() + 1)
+    const dteToFormatMonth = `0${dteToFormat.getMonth() + 1}`;
+    const dteToFormatYear = dteToFormat.getFullYear();
+    const dteToFormatDate = dteToFormat.getDate();
+    const day = new Date(dateToFormat).getDay();
+
+    console.log("Format Date month", dteToFormatMonth);
+
+    let strDay = days[day];
+    // let strMonth = months.find((month) => month.value == dteToFormatMonth)
+    
+
+    strFormattedDate = `${strDay}, ${getMonthName(dteToFormatMonth).month} ${dteToFormatDate}, ${dteToFormatYear}`;
+
+    return strFormattedDate;
+    
+    // Tuesday, January 1, 2024
+}
 
 
 export function getMonthName(month){
+    console.log("getMonthname", month)
     // let formattedMonth = month <= 9 ? `0${month}` : "";
     let selectedMonth = months.find((item) => 
         item.value === month

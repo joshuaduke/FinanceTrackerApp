@@ -7,6 +7,8 @@ import {
   getMonthLastDay,
   getStartEndDate,
 } from "../../assets/months";
+import { formatCurrency } from "../../assets/currency/formatCurrency";
+import { formatDate } from "../../assets/months";
 
 function SavingsGoal({ data }) {
   const [startDate, setStartDate] = useState(getStartEndDate().startDate);
@@ -39,7 +41,8 @@ function SavingsGoal({ data }) {
       <Link to={`/savings/${data.id}`}>
         <h3>{data.name}</h3>
         <p>
-          <span>You saved ${savingsAmount}</span> saved out of ${data.goal}
+          <span>You saved {formatCurrency(savingsAmount)}</span> saved out of
+          {formatCurrency(data.goal)}
         </p>
         <div className=" bg-neutral-200 dark:bg-neutral-600 ">
           <div
@@ -48,6 +51,12 @@ function SavingsGoal({ data }) {
           >
             <p>{goalPercentage} %</p>
           </div>
+        </div>
+        <div>
+          <ul className="flex justify-between">
+            <li>{formatDate(data.createdDate)}</li>
+            <li>{formatDate(data.dueDate)}</li>
+          </ul>
         </div>
       </Link>
     </>

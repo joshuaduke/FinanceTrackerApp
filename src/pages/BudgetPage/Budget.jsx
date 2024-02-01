@@ -4,6 +4,7 @@ import { getMonthName, getStartEndDate } from "../../assets/months";
 import { db } from "../../Config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import ProgressBar from "../../components/ProgressBar";
+import { formatCurrency } from "../../assets/currency/formatCurrency";
 
 function Budget({ budgetData }) {
   //need to retrieve all transactions of this type from this month
@@ -82,14 +83,14 @@ function Budget({ budgetData }) {
 
         {remainingAmount > 0 ? (
           <p>
-            <span>You have ${remainingAmount}</span> left out of $
-            {budgetData.amount}
+            <span>You have {formatCurrency(remainingAmount)}</span> left out of
+            {formatCurrency(budgetData.amount)}
           </p>
         ) : (
           <p>
             <span>
-              You have exceeded your ${budgetData.amount} budget by: $
-              {remainingAmount} please do better :8
+              You have exceeded your {formatCurrency(budgetData.amount)} budget
+              by: {formatCurrency(remainingAmount)} please do better!
             </span>
           </p>
         )}

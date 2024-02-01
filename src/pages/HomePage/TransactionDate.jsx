@@ -1,4 +1,6 @@
 import Transaction from "./Transaction";
+import { formatCurrency } from "../../assets/currency/formatCurrency";
+import { months, formatDate } from "../../assets/months";
 
 function TransactionDate(props) {
   // let data = props.transactions;
@@ -38,11 +40,11 @@ function TransactionDate(props) {
       <div id="date" className="bg-primary">
         <ul className="flex justify-between p-2 text-complement2">
           {/* <li>{date} - Date</li> */}
-          <li>{props.date}</li>
+          <li>{formatDate(props.date)}</li>
           <li
             className={totalDateAmount < 0 ? "text-red-500" : "text-green-500"}
           >
-            {totalDateAmount}
+            {formatCurrency(totalDateAmount)}
           </li>
           {/* <li>{data.transactionAmount > 0 ? '$' + data.transactionAmount : '-$' + data.transactionAmount.toString().replace('-', '')}</li> */}
           {/* <li>{props.dateAmount}</li> */}

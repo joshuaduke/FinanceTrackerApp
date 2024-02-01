@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import { formatCurrency } from "../../assets/currency/formatCurrency";
 
 function Transaction(props) {
   const data = props.value.transactionData;
@@ -78,7 +79,7 @@ function Transaction(props) {
                 data.transactionAmount < 0 ? "text-red-500" : "text-green-500"
               }
             >
-              {data.transactionAmount}$
+              {formatCurrency(data.transactionAmount)}
             </p>
           </div>
         </div>

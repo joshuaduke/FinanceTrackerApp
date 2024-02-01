@@ -29,6 +29,7 @@ function NewSavings() {
       balance: walletInitialBalance,
       walletType: "savings",
       bank: walletBankName,
+      createdDate: getCurrentDate(),
     });
 
     const savingsRef = await addDoc(collection(db, "savings"), {
@@ -38,6 +39,7 @@ function NewSavings() {
       description: savingsGoalDescription,
       walletId: walletsRef.id,
       currentAmount: savingsInitialBalance,
+      createdDate: getCurrentDate(),
     });
 
     navigate("/goals");

@@ -9,6 +9,7 @@ import {
   getMonthName,
   getMonthLastDay,
   getStartEndDate,
+  formatDate,
 } from "../../assets/months";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
@@ -137,9 +138,7 @@ function HomePage() {
               </svg>
             </button>
           </div>
-          <h2 className="text-center">
-            {startDate} {transactionMonth}
-          </h2>
+          <h2 className="text-center">{transactionMonth}</h2>
           <div className="justify-self-end">
             <button onClick={getNextMonthTransaction}>
               <svg
