@@ -12,6 +12,11 @@ export async function getTransactionsAPI(q1){
     try {
         // console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
 
+        // const q1 = query(
+        //   transactionsCollectionRef,
+        //   where("walletId", "==", value.id)
+        // );
+
         const data = await getDocs(q1);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
@@ -24,6 +29,25 @@ export async function getTransactionsAPI(q1){
       } catch (error) {
         console.error(error);
       }
+}
+
+export function sortTransactionsByDate(transactionArr){
+  try {
+    let dateArray = transactionArr.map((value) => value.date);
+    let dates = dateArray.filter(
+      (value, index) => dateArray.indexOf(value) === index
+    );
+
+    dates.sort((a, b) => {
+      let dateA = new Date(a);
+      let dateB = new Date(b);
+      return dateB - dateA;
+    });
+
+    return dates;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 

@@ -3,6 +3,7 @@ import { formatCurrency } from "../../assets/currency/formatCurrency";
 import { months, formatDate } from "../../assets/months";
 
 function TransactionDate(props) {
+  console.log("Transaction Date Props", props);
   // let data = props.transactions;
 
   //   const data = props.value;

@@ -1,25 +1,26 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { db } from "../../Config/firebase";
-import {
-  doc,
-  getDoc,
-  deleteDoc,
-  query,
-  where,
-  collection,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { formatCurrency } from "../../assets/currency/formatCurrency";
-import { getTransactionsAPI } from "../../assets/api/transaction";
 import { deleteDocument } from "../../assets/api/helperFunctions";
+import TransactionDate from "../HomePage/TransactionDate";
+import { sortTransactionsByDate } from "../../assets/api/transaction";
 
 function WalletDetails() {
   const params = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const docRef = doc(db, "wallets", params.id);
-  const transactionsCollectionRef = collection(db, "transactions");
   const [walletType, setWalletType] = useState("");
-  const [transactions, setTransactions] = useState([]);
+
+  //instead of calling API use Link state to pass transaction data through the link
+  console.log("Location state", location.state);
+
+  const transactions = location.state?.walletTransactions;
+  const transactionDates = sortTransactionsByDate(transactions);
+
   const [walletDetails, setWalletDetails] = useState({
     name: "",
     bank: "",
@@ -49,13 +50,6 @@ function WalletDetails() {
       }
     }
 
-    const q1 = query(
-      transactionsCollectionRef,
-      where("walletId", "==", params.id)
-    );
-
-    getTransactionsAPI(q1).then((value) => setTransactions(value));
-
     getWallet();
   }, [params.id]); //re run this request if the id ever changes, useful for calling a new wallet without reloading page
 
@@ -78,6 +72,8 @@ function WalletDetails() {
       name: e.target.value,
     });
   }
+
+  console.log("Transactions", transactions);
 
   const monthlyCashFlow = transactions?.reduce(
     (acc, curr) => acc + curr.transactionAmount,
@@ -182,6 +178,24 @@ function WalletDetails() {
           <button className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0">
             Save Changes
           </button>
+
+          {transactions ? (
+            transactionDates.map((date, index) => (
+              <TransactionDate
+                key={index}
+                date={date}
+                transactions={transactions}
+              />
+            ))
+          ) : (
+            <p>No transactions</p>
+          )}
+
+          {/* {transactions ? (
+            transactions.map((index) => <TransactionDate key={index} />)
+          ) : (
+            <p>No Transactions</p>
+          )} */}
         </div>
       ) : (
         <h3>...Loading...</h3>

@@ -12,6 +12,7 @@ import {
   formatDate,
   getCurrentDate,
 } from "../../assets/months";
+import { sortTransactionsByDate } from "../../assets/api/transaction";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
 
@@ -43,16 +44,18 @@ function HomePage() {
 
         setTransactions(filteredData);
 
-        let dateArray = filteredData.map((value) => value.date);
-        let dates = dateArray.filter(
-          (value, index) => dateArray.indexOf(value) === index
-        );
+        // let dateArray = filteredData.map((value) => value.date);
+        // let dates = dateArray.filter(
+        //   (value, index) => dateArray.indexOf(value) === index
+        // );
 
-        dates.sort((a, b) => {
-          let dateA = new Date(a);
-          let dateB = new Date(b);
-          return dateB - dateA;
-        });
+        // dates.sort((a, b) => {
+        //   let dateA = new Date(a);
+        //   let dateB = new Date(b);
+        //   return dateB - dateA;
+        // });
+
+        let dates = sortTransactionsByDate(filteredData);
 
         setTransactionDays(dates);
 
