@@ -38,7 +38,7 @@ function SavingsGoal({ data }) {
   console.log("Test Data", transactions);
   return (
     <>
-      <Link to={`/savings/${data.id}`}>
+      <Link to={`/savings/${data.id}`} state={{ savingsData: data }}>
         <h3>{data.name}</h3>
         <p>
           <span>You saved {formatCurrency(savingsAmount)}</span> saved out of

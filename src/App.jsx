@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
 import Auth from "./components/auth";
 import WalletPage from "./pages/WalletPage/WalletPage";
 import WalletDetails from "./pages/WalletPage/WalletDetails";
@@ -19,7 +19,7 @@ import GoalPage from "./pages/GoalPage/GoalPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
@@ -39,7 +39,7 @@ function App() {
 
         <Route path="/settings" element={<Settings />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

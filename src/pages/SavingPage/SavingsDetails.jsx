@@ -1,17 +1,39 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import { getTransactionsAPI } from "../../assets/api/transaction";
+import { db } from "../../Config/firebase";
+import { getDocs, collection, query, where } from "firebase/firestore";
 
 function SavingsDetails() {
-  const [goal, setGoal] = useState({});
+  let location = useLocation();
   const param = useParams();
-  const goalPercentage = (goal.currentBalance / goal.goal) * 100;
+  const transactionsCollectionRef = collection(db, "transactions");
+  console.log("Savings details location", location);
+  location = location.state.savingsData;
+  const [goal, setGoal] = useState({
+    amount: location.amount,
+    category: location.category,
+    dueDate: location.dueDate,
+    goal: location.goal,
+    name: location.name,
+    description: location.description,
+  });
+  const [savingsTransactions, setSavingsTransactions] = useState([]);
+
+  const goalPercentage = (goal.amount / goal.goal) * 100;
   useEffect(() => {
-    fetch(`/api/saving/${param.id}`)
-      .then((response) => response.json())
-      .catch((err) => console.log("err", err))
-      .then((data) => setGoal(data.savings));
+    const q1 = query(
+      transactionsCollectionRef,
+      where("toWalletId", "==", location.walletId)
+    );
+
+    getTransactionsAPI(q1).then((result) => setSavingsTransactions(result));
   }, []);
 
+  function handleChange(e) {
+    setGoal({ ...goal, [e.target.name]: e.target.value });
+  }
+  console.log("savingsTransactions", savingsTransactions);
   return (
     <>
       <div>
@@ -21,24 +43,28 @@ function SavingsDetails() {
           <li>Delete</li>
         </ul>
       </div>
-      <label htmlFor="">Name: </label>
-      <input type="text" name="" id="" value={goal.name} />
+      <label htmlFor="name">Name: </label>
+      <input
+        type="text"
+        name="name"
+        value={goal.name}
+        onChange={handleChange}
+      />
 
       <div>
-        <label htmlFor="">Goal Amount </label>
-        <input type="number" value={goal.goal} />
+        <label htmlFor="amount">Goal Amount </label>
+        <input
+          name="amount"
+          type="number"
+          value={goal.goal}
+          onChange={handleChange}
+        />
       </div>
 
-      <div>
-        <h3>Is Wallet</h3>
-        <label htmlFor="">Yes</label>
-        <input type="radio" name="" id="" value="Yes" />
-        <label htmlFor="">No</label>
-        <input type="radio" name="" id="" value="No" />
-      </div>
       <p>
-        <span>You saved ${goal.currentBalance}</span> saved out of ${goal.goal}
+        <span>You saved ${goal.amount}</span> saved out of ${goal.goal}
       </p>
+
       <div className=" bg-neutral-200 dark:bg-neutral-600 ">
         <div
           className="bg-green-500 p-0.5 text-center text-xs font-medium leading-none text-primary-100"
@@ -48,8 +74,16 @@ function SavingsDetails() {
         </div>
       </div>
       <div>
-        <label htmlFor="">Description</label>
-        <textarea className="block" name="" id="" rows="5" cols="40">
+        <label htmlFor="description">Description</label>
+        <textarea
+          className="block"
+          name="description"
+          id=""
+          rows="5"
+          cols="40"
+          value={goal.description}
+          onChange={handleChange}
+        >
           This is a test description with dummy data Lorem ipsum dolor sit, amet
           consectetur adipisicing elit. Molestiae autem deserunt rem iste, iusto
           amet quasi commodi, distinctio non quisquam culpa voluptate odit nisi!
