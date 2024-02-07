@@ -6,6 +6,7 @@ function CategorySelection(props) {
   console.log("Props", props);
   let value = props.categoryType;
   console.log("Category", props.category);
+  console.log("Category Type", value);
 
   if (value == "expenses") {
     myIconsArr = myIcons.filter((icon) => {
@@ -41,7 +42,7 @@ function CategorySelection(props) {
               type="radio"
               name="categoryType"
               id="expenses"
-              value="expenses"
+              value={props.categoryType === "expenses"}
               onChange={() => props.selectCategoryType("expenses")}
               checked={props.categoryType === "expenses"}
             />
@@ -58,7 +59,7 @@ function CategorySelection(props) {
               type="radio"
               name="categoryType"
               id="income"
-              value="income"
+              value={props.categoryType === "income"}
               onChange={() => props.selectCategoryType("income")}
               checked={props.categoryType === "income"}
             />
@@ -75,7 +76,7 @@ function CategorySelection(props) {
               type="radio"
               name="categoryType"
               id="transfer"
-              value="transfer"
+              value={props.categoryType === "transfer"}
               onChange={() => props.selectCategoryType("transfer")}
               checked={props.categoryType === "transfer"}
             />

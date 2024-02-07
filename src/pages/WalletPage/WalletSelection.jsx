@@ -42,10 +42,10 @@ function WalletSelection({ transactionWallet, setWallet }) {
   }, []);
 
   console.log("Wallets", wallets);
-  console.log("transactionWallet", selectedWallet);
+  console.log("transactionWallet", transactionWallet);
   console.log("transactionWalletID", transactionWalletId);
 
-  setWallet(transactionWalletId);
+  // setWallet(transactionWalletId);
 
   return (
     <div id="wallet-selection" className="flex justify-between">
@@ -73,7 +73,7 @@ function WalletSelection({ transactionWallet, setWallet }) {
           let optionElement = e.target.childNodes[index];
           let option = optionElement.getAttribute("data-id");
           setSelectedWallet(e.target.value);
-          setTransactionWalletId(option);
+          setWallet(option);
         }}
         required
       >

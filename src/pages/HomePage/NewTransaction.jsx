@@ -27,7 +27,10 @@ function NewTransaction() {
     e.preventDefault();
     const transactionRef = await addDoc(collection(db, "transactions"), {
       category: category,
-      transactionAmount: parseInt(amount),
+      transactionAmount:
+        categoryType == "expenses"
+          ? parseFloat(amount * -1)
+          : parseFloat(amount),
       date: date,
       importance: importance,
       recurrence: recurrence,
@@ -66,6 +69,7 @@ function NewTransaction() {
   }
 
   console.log("Current Category", categoryType);
+  console.log("Level 1 Wallet ID", wallet);
 
   return (
     <>
@@ -97,7 +101,7 @@ function NewTransaction() {
           </div>
 
           {/* Need to be able to get the selection from the walletselection component */}
-          <WalletSelection transactionWallet={""} setWallet={setWallet} />
+          <WalletSelection transactionWallet={wallet} setWallet={setWallet} />
 
           <div id="date-selection" className="flex justify-between">
             <ul>

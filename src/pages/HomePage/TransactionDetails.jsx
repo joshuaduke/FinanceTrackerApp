@@ -38,6 +38,7 @@ function TransactionDetails() {
           setTransactionAmount(transactionData.data().transactionAmount);
           setTransactionRecurrence(transactionData.data().recurrence);
           setTransactionWallet(transactionData.data().walletId);
+          setCategoryType(transactionData.data().categoryType);
         } catch (error) {
           console.error(error);
         }
@@ -93,6 +94,12 @@ function TransactionDetails() {
             <CategoryIcon category={category} />
             <div className="self-center">
               <h3>{transactionAmount}</h3>
+              <input
+                type="number"
+                name="transactionAmount"
+                value={transactionAmount}
+                onChange={(e) => setTransactionAmount(e.target.value)}
+              />
             </div>
           </div>
 
@@ -131,35 +138,6 @@ function TransactionDetails() {
             importance={transactionImportance}
             selectTransactionImportance={setTransactionImportance}
           />
-
-          {/* <div id="importance-selection">
-            <ul>
-              <li className="flex">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M1 21L12 2l11 19H1Zm11-3q.425 0 .713-.288T13 17q0-.425-.288-.712T12 16q-.425 0-.712.288T11 17q0 .425.288.713T12 18Zm-1-3h2v-5h-2v5Z"
-                  />
-                </svg>
-                <span className="ml-5">Importance</span>
-              </li>
-            </ul>
-            <div>
-              <input type="radio" name="importance" id="essential" />
-              <label htmlFor="essential">Essential</label>
-              <input type="radio" name="importance" id="haveToHave" />
-              <label htmlFor="haveToHave">Have To Have</label>
-              <input type="radio" name="importance" id="needToHave" />
-              <label htmlFor="needToHave">Nice To Have</label>
-              <input type="radio" name="importance" id="shouldNotHave" />
-              <label htmlFor="shouldNotHave">Shouldn&apos;t Have</label>
-            </div>
-          </div> */}
 
           <div id="recurrence-selection" className="flex justify-between">
             <ul>
