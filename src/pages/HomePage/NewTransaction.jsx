@@ -142,11 +142,11 @@ function NewTransaction() {
           />
 
           <div>
-            <label htmlFor="">Description</label>
+            <label htmlFor="description">Description</label>
             <input
               type="text"
-              name="transaction-description"
-              id="transaction-description"
+              name="description"
+              id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />

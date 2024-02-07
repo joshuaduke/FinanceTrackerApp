@@ -76,9 +76,9 @@ function CategorySelection(props) {
               type="radio"
               name="categoryType"
               id="transfer"
-              value={props.categoryType === "transfer"}
-              onChange={() => props.selectCategoryType("transfer")}
-              checked={props.categoryType === "transfer"}
+              value={props.categoryType === "Transfer"}
+              onChange={() => props.selectCategoryType("Transfer")}
+              checked={props.categoryType === "Transfer"}
             />
           </div>
         </div>

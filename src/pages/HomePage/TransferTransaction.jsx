@@ -6,8 +6,10 @@ import { db } from "../../Config/firebase";
 import { addDoc, updateDoc, collection } from "firebase/firestore";
 import CategoryIcon from "../../components/CategoryIcon";
 import { useNavigate } from "react-router-dom";
+import ImportanceSelection from "../../components/ImportanceSelection";
 
 function TransferTransaction() {
+  console.log("######### TRANSFER TRANSACTION ############");
   const navigate = useNavigate();
   const [fromWallet, setFromWallet] = useState("");
   const [toWallet, setToWallet] = useState("");
@@ -15,6 +17,7 @@ function TransferTransaction() {
   const [transferAmount, setTransferAmount] = useState("");
   const [transferDescription, setTransferDescription] = useState("");
   const [recurrence, setRecurrence] = useState("never");
+  const [importance, setImportance] = useState("");
 
   async function handleTransferSubmit(e) {
     e.preventDefault();
@@ -91,6 +94,11 @@ function TransferTransaction() {
           onChange={(e) => setTransferDate(e.target.value)}
         />
       </div>
+
+      <ImportanceSelection
+        importance={importance}
+        selectTransactionImportance={setImportance}
+      />
 
       <RecurrenceSelection
         recurrence={recurrence}

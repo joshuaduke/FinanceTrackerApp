@@ -25,7 +25,7 @@ function ImportanceSelection(props) {
               type="radio"
               name="importance"
               id="essential"
-              value="Essential"
+              value={props.importance}
               onChange={() => props.selectTransactionImportance("Essential")}
               checked={props.importance === "Essential"}
               required
@@ -40,7 +40,7 @@ function ImportanceSelection(props) {
               type="radio"
               name="importance"
               id="haveToHave"
-              value="Have To Have"
+              value={props.importance}
               onChange={() => props.selectTransactionImportance("Have To Have")}
               checked={props.importance === "Have To Have"}
             />
@@ -54,7 +54,7 @@ function ImportanceSelection(props) {
               type="radio"
               name="importance"
               id="needToHave"
-              value="Need To Have"
+              value={props.importance}
               onChange={() => props.selectTransactionImportance("Need To Have")}
               checked={props.importance === "Need To Have"}
             />
@@ -68,7 +68,7 @@ function ImportanceSelection(props) {
               type="radio"
               name="importance"
               id="shouldNotHave"
-              value="Shouldn't Have"
+              value={props.importance}
               onChange={() =>
                 props.selectTransactionImportance("Shouldn't Have")
               }

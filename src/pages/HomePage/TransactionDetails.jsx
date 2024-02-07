@@ -5,9 +5,10 @@ import CategorySelection from "../../components/CategorySelection";
 import ImportanceSelection from "../../components/ImportanceSelection";
 import WalletSelection from "../WalletPage/WalletSelection";
 import { db } from "../../Config/firebase";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 
 function TransactionDetails() {
+  console.log("######### TRANSACTION DETAILS ############");
   const params = useParams();
 
   const docRef = doc(db, "transactions", params.id);
@@ -22,6 +23,8 @@ function TransactionDetails() {
   const [transactionRecurrence, setTransactionRecurrence] = useState("");
   const [transactionAmount, setTransactionAmount] = useState(0);
   const [transactionWallet, setTransactionWallet] = useState("unselected");
+  const [transactionWalletTo, setTransactionWalletTo] = useState("unselected");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,6 +42,8 @@ function TransactionDetails() {
           setTransactionRecurrence(transactionData.data().recurrence);
           setTransactionWallet(transactionData.data().walletId);
           setCategoryType(transactionData.data().categoryType);
+
+          setTransactionWalletTo(transactionData.data().toWalletId);
         } catch (error) {
           console.error(error);
         }
@@ -60,6 +65,30 @@ function TransactionDetails() {
     setCategory(value);
   }
 
+  async function updateTransaction(e) {
+    try {
+      e.preventDefault();
+      let confirmText = "Are you sure you want to update this transaction?";
+
+      if (confirm(confirmText) == true) {
+        await updateDoc(docRef, {
+          category: category,
+          categoryType: categoryType,
+          date: transactionDate,
+          description: transactionDescription,
+          importance: transactionImportance,
+          recurrence: transactionRecurrence,
+          transactionAmount: transactionAmount,
+          walletId: transactionWallet,
+          toWalletId: transactionWalletTo,
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   async function deleteTransaction(e) {
     try {
       e.preventDefault();
@@ -76,11 +105,12 @@ function TransactionDetails() {
   }
 
   console.log("transaction", transaction);
+  console.log("Transaction Details Category:", categoryType);
 
   return (
     <>
       {transaction ? (
-        <form className="p-6">
+        <form className="p-6" onSubmit={updateTransaction}>
           <ul className="flex justify-between">
             <li>
               <button onClick={() => navigate(-1)}>Back</button>
@@ -93,7 +123,7 @@ function TransactionDetails() {
           <div className="flex justify-between">
             <CategoryIcon category={category} />
             <div className="self-center">
-              <h3>{transactionAmount}</h3>
+              {/* <h3>{transactionAmount}</h3> */}
               <input
                 type="number"
                 name="transactionAmount"
@@ -103,10 +133,21 @@ function TransactionDetails() {
             </div>
           </div>
 
+          {categoryType == "Transfer" && <span>From</span>}
           <WalletSelection
             transactionWallet={transactionWallet}
             setWallet={setTransactionWallet}
           />
+
+          {categoryType == "Transfer" && (
+            <>
+              <span>To </span>
+              <WalletSelection
+                transactionWallet={transactionWalletTo}
+                setWallet={setTransactionWalletTo}
+              />
+            </>
+          )}
 
           <div id="date-selection" className="flex justify-between">
             <ul>
@@ -172,22 +213,24 @@ function TransactionDetails() {
             </div>
           </div>
 
-          <label htmlFor="">{transactionDescription}</label>
-          <input type="text" />
+          <label htmlFor="description">{transactionDescription}</label>
+          <textarea name="description" id="" cols="30" rows="10"></textarea>
 
-          <CategorySelection
-            categoryType={categoryType}
-            setCategory={selectCategory}
-            selectCategoryType={selectCategoryType}
-            category={category}
-          />
+          {categoryType != "Transfer" && (
+            <CategorySelection
+              categoryType={categoryType}
+              setCategory={selectCategory}
+              selectCategoryType={selectCategoryType}
+              category={category}
+            />
+          )}
 
           <button className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0">
             Save Changes
           </button>
         </form>
       ) : (
-        <h3>...Loading...</h3>
+        <h2>...Loading...</h2>
       )}
     </>
   );
