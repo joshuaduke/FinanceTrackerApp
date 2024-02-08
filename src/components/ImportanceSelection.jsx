@@ -1,4 +1,4 @@
-function ImportanceSelection(props) {
+function ImportanceSelection({ importance, handleChange }) {
   return (
     <div id="importance-selection">
       <ul>
@@ -25,10 +25,9 @@ function ImportanceSelection(props) {
               type="radio"
               name="importance"
               id="essential"
-              value={props.importance}
-              onChange={() => props.selectTransactionImportance("Essential")}
-              checked={props.importance === "Essential"}
-              required
+              value="Essential"
+              onChange={handleChange}
+              checked={importance === "Essential"}
             />
           </label>
         </div>
@@ -40,9 +39,9 @@ function ImportanceSelection(props) {
               type="radio"
               name="importance"
               id="haveToHave"
-              value={props.importance}
-              onChange={() => props.selectTransactionImportance("Have To Have")}
-              checked={props.importance === "Have To Have"}
+              value="Have To Have"
+              onChange={handleChange}
+              checked={importance === "Have To Have"}
             />
           </label>
         </div>
@@ -54,9 +53,9 @@ function ImportanceSelection(props) {
               type="radio"
               name="importance"
               id="needToHave"
-              value={props.importance}
-              onChange={() => props.selectTransactionImportance("Need To Have")}
-              checked={props.importance === "Need To Have"}
+              value="Need To Have"
+              onChange={handleChange}
+              checked={importance === "Need To Have"}
             />
           </label>
         </div>
@@ -68,11 +67,9 @@ function ImportanceSelection(props) {
               type="radio"
               name="importance"
               id="shouldNotHave"
-              value={props.importance}
-              onChange={() =>
-                props.selectTransactionImportance("Shouldn't Have")
-              }
-              checked={props.importance === "Shouldn't Have"}
+              value="Shouldn't Have"
+              onChange={handleChange}
+              checked={importance === "Shouldn't Have"}
             />
           </label>
         </div>

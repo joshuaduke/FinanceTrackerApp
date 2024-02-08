@@ -1,4 +1,4 @@
-function RecurrenceSelection(props) {
+function RecurrenceSelection({ recurrence, handleChange }) {
   return (
     <>
       <div id="recurrence-selection" className="flex justify-between">
@@ -22,9 +22,10 @@ function RecurrenceSelection(props) {
           <select
             name="recurrence"
             id="recurrence"
-            value={props.recurrence}
-            onChange={(e) => props.setRecurrence(e.target.value)}
+            value={recurrence}
+            onChange={handleChange}
           >
+            <option value="">--- Select One ---</option>
             <option value="never">Never</option>
             <option value="monthly">monthly</option>
             <option value="biweekly">biweekly</option>

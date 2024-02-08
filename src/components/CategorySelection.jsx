@@ -1,21 +1,28 @@
 import { myIcons } from "../assets/myIcons";
 import CategoryIcon from "./CategoryIcon";
 
-function CategorySelection(props) {
+function CategorySelection({
+  categoryType,
+  setCategory,
+  selectCategoryType,
+  category,
+}) {
   let myIconsArr;
-  console.log("Props", props);
-  let value = props.categoryType;
-  console.log("Category", props.category);
+
+  let value = categoryType;
+  console.log("Category", category);
   console.log("Category Type", value);
 
-  if (value == "expenses") {
+  if (value === "expenses") {
     myIconsArr = myIcons.filter((icon) => {
       return icon.type == "expense";
     });
-  } else if (value == "income") {
+  } else if (value === "income") {
     myIconsArr = myIcons.filter((icon) => {
       return icon.type == "income";
     });
+  } else {
+    alert("error in category selection");
   }
 
   return (
@@ -42,9 +49,9 @@ function CategorySelection(props) {
               type="radio"
               name="categoryType"
               id="expenses"
-              value={props.categoryType === "expenses"}
-              onChange={() => props.selectCategoryType("expenses")}
-              checked={props.categoryType === "expenses"}
+              value="expenses"
+              onChange={selectCategoryType}
+              checked={categoryType === "expenses"}
             />
           </div>
           <div>
@@ -59,9 +66,9 @@ function CategorySelection(props) {
               type="radio"
               name="categoryType"
               id="income"
-              value={props.categoryType === "income"}
-              onChange={() => props.selectCategoryType("income")}
-              checked={props.categoryType === "income"}
+              value="income"
+              onChange={selectCategoryType}
+              checked={categoryType === "income"}
             />
           </div>
           <div>
@@ -76,9 +83,9 @@ function CategorySelection(props) {
               type="radio"
               name="categoryType"
               id="transfer"
-              value={props.categoryType === "Transfer"}
-              onChange={() => props.selectCategoryType("Transfer")}
-              checked={props.categoryType === "Transfer"}
+              value="Transfer"
+              onChange={selectCategoryType}
+              checked={categoryType === "Transfer"}
             />
           </div>
         </div>
@@ -95,8 +102,8 @@ function CategorySelection(props) {
                 name="category"
                 id="category"
                 value={icon.name}
-                onChange={() => props.setCategory(icon.name)}
-                checked={props.category === icon.name}
+                onChange={setCategory}
+                checked={category === icon.name}
               />
             </label>
           </div>

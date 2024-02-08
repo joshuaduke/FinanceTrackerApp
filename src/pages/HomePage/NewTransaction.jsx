@@ -12,68 +12,55 @@ import TransferTransaction from "./TransferTransaction";
 
 function NewTransaction() {
   const navigate = useNavigate();
-  const [categoryType, setCategoryType] = useState("expenses");
-  const [category, setCategory] = useState("Misc");
   const [wallet, setWallet] = useState("");
-  const [date, setDate] = useState(getCurrentDate);
-  const [description, setDescription] = useState("");
-  const [importance, setImportance] = useState("");
-  const [recurrence, setRecurrence] = useState("never");
-  const [amount, setAmount] = useState("");
-
-  //   const [transactionAmout, setTransactionAmount] = useState(0);
+  const [newTransaction, setNewTransaction] = useState({
+    category: "Misc",
+    categoryType: "expenses",
+    date: getCurrentDate(),
+    importance: "",
+    recurrence: "",
+    transactionAmount: "",
+    description: "",
+    walletId: "",
+    createdDate: getCurrentDate(),
+  });
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log("Submit Wallet", wallet);
+    setNewTransaction({ ...newTransaction, walletId: wallet });
+
     const transactionRef = await addDoc(collection(db, "transactions"), {
-      category: category,
+      ...newTransaction,
       transactionAmount:
-        categoryType == "expenses"
-          ? parseFloat(amount * -1)
-          : parseFloat(amount),
-      date: date,
-      importance: importance,
-      recurrence: recurrence,
-      categoryType: categoryType,
-      description: description,
+        newTransaction.categoryType == "expenses"
+          ? parseFloat(newTransaction.transactionAmount * -1)
+          : parseFloat(newTransaction.transactionAmount),
       walletId: wallet,
-      createdDate: date,
     });
-    // let data = {
-    //   category: category,
-    //   amount: amount,
-    //   date: date,
-    //   importance: importance,
-    //   recurrence: recurrence,
-    //   categoryType: categoryType,
-    //   description: description,
-    //   wallet: wallet,
-    // };
+
     navigate("/");
     console.log("Submitted Data", transactionRef);
   }
 
-  // useEffect(
-  //     fetch()
-  // ,([]))
-  // import wallet options from api
-
-  function selectCategoryType(value) {
-    setCategoryType(value);
-
-    console.log(categoryType);
+  function handleChange(e) {
+    try {
+      console.log("handlechange", e.target);
+      setNewTransaction({ ...newTransaction, [e.target.name]: e.target.value });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  function selectCategory(value) {
-    setCategory(value);
-  }
-
-  console.log("Current Category", categoryType);
+  console.log("Current Category Type", newTransaction.categoryType);
+  console.log("Current Category", newTransaction.category);
   console.log("Level 1 Wallet ID", wallet);
+  console.log("Level 1 Wallet ID", newTransaction.walletId);
+  console.log("New Tranasaction", newTransaction);
 
   return (
     <>
-      {categoryType != "transfer" ? (
+      {newTransaction && newTransaction.categoryType != "Transfer" ? (
         <form className="" onSubmit={handleSubmit}>
           <ul className="flex justify-between">
             <li>
@@ -83,18 +70,18 @@ function NewTransaction() {
           </ul>
 
           <div className="flex justify-between">
-            <CategoryIcon category={category} />
+            <CategoryIcon category={newTransaction.category} />
             <div className="self-center">
               <span>amount $</span>
 
               <input
                 className="border-solid border-2"
                 type="number"
-                name="transaction-amount"
-                id="transaction-amount"
+                name="transactionAmount"
+                id="transactionAmount"
                 placeholder="0"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                value={newTransaction.amount}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -123,22 +110,22 @@ function NewTransaction() {
             <div>
               <input
                 type="date"
-                name="transaction-date"
-                id="transaction-date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
+                name="date"
+                id="date"
+                value={newTransaction.date}
+                onChange={handleChange}
               />
             </div>
           </div>
 
           <ImportanceSelection
-            importance={importance}
-            selectTransactionImportance={setImportance}
+            importance={newTransaction.importance}
+            handleChange={handleChange}
           />
 
           <RecurrenceSelection
-            recurrence={recurrence}
-            setRecurrence={setRecurrence}
+            recurrence={newTransaction.recurrence}
+            handleChange={handleChange}
           />
 
           <div>
@@ -147,16 +134,16 @@ function NewTransaction() {
               type="text"
               name="description"
               id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={newTransaction.description}
+              onChange={handleChange}
             />
           </div>
 
           <CategorySelection
-            categoryType={categoryType}
-            setCategory={selectCategory}
-            selectCategoryType={selectCategoryType}
-            category={category}
+            categoryType={newTransaction.categoryType}
+            setCategory={handleChange}
+            selectCategoryType={handleChange}
+            category={newTransaction.category}
           />
 
           <button className="border-2 p-2" type="submit">
