@@ -33,6 +33,7 @@ function CategoryCheckbox({
         checked={budgetCategories.indexOf(name) == -1 ? false : true}
         value={name}
         onChange={(e) => handleCheck(e)}
+        required
       />
     </>
   );

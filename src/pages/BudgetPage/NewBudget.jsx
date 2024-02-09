@@ -9,6 +9,14 @@ import { addDoc, collection } from "firebase/firestore";
 
 function NewBudget() {
   const navigate = useNavigate();
+  const [newBudgetObj, setNewBudgetObj] = useState({
+    amount: 0,
+    name: "",
+    recurrence: "",
+    startDate: getCurrentDate(),
+    createdDate: getCurrentDate(),
+  });
+
   const [budgetCategories, setBudgetCategories] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
@@ -32,16 +40,17 @@ function NewBudget() {
    * recurrence
    */
 
+  function handleChange(e) {
+    setNewBudgetObj({ ...newBudgetObj, [e.target.name]: e.target.value });
+  }
+
   async function handleSubmit(e) {
     console.log("Submitting");
     e.preventDefault();
     const transactionRef = await addDoc(collection(db, "budgets"), {
-      name: budgetName,
-      amount: parseInt(budgetAmount),
-      startDate: budgetStartDate,
+      ...newBudgetObj,
+      amount: parseFloat(newBudgetObj.amount),
       budgetFor: budgetCategories,
-      recurrence: recurrence,
-      createdDate: getCurrentDate(),
     });
 
     navigate("/");
@@ -67,19 +76,19 @@ function NewBudget() {
         <label htmlFor="budgetName">Budget Name</label>
         <input
           type="text"
-          name="budgetName"
-          value={budgetName}
-          onChange={(e) => setBudgetName(e.target.value)}
+          name="name"
+          value={newBudgetObj.name}
+          onChange={handleChange}
           required
         />
         <br />
         <label htmlFor="budgetAmount">Amount</label>
         <input
           type="number"
-          name="budgetAmount"
+          name="amount"
           id="budgetAmount"
-          value={budgetAmount}
-          onChange={(e) => setBudgetAmount(e.target.value)}
+          value={newBudgetObj.amount}
+          onChange={handleChange}
           required
         />
 
@@ -100,17 +109,19 @@ function NewBudget() {
         )}
 
         <div onClick={toggleView}>Budget for </div>
+
+        {/* Recurrence should be required for budget */}
         <RecurrenceSelection
-          recurrence={recurrence}
-          setRecurrence={setRecurrence}
+          recurrence={newBudgetObj.recurrence}
+          handleChange={handleChange}
         />
         <label htmlFor="startDate">Start Date</label>
         <input
           type="date"
           name="startDate"
           id="startDate"
-          value={budgetStartDate}
-          onChange={(e) => setBudgetStartDate(e.target.value)}
+          value={newBudgetObj.startDate}
+          onChange={handleChange}
         />
 
         <button
