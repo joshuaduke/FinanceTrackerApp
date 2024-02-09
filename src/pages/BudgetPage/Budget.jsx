@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getMonthName, getStartEndDate } from "../../assets/months";
+import { formatDate, getMonthName, getStartEndDate } from "../../assets/months";
 import { db } from "../../Config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import ProgressBar from "../../components/ProgressBar";
@@ -21,7 +21,7 @@ function Budget({ budgetData }) {
         // console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
         const q1 = await query(
           transactionsCollectionRef,
-          where("date", ">=", startDate),
+          where("date", ">=", budgetData.startDate),
           where("date", "<=", EndDate),
           where("category", "in", budgetData.budgetFor)
         );
@@ -79,12 +79,14 @@ function Budget({ budgetData }) {
   return (
     <>
       <Link to={`/budget/${budgetData.id}`}>
-        <h3>{budgetData.name}</h3>
+        <h3 className="text-yellow-700">{budgetData.name}</h3>
 
         {remainingAmount > 0 ? (
           <p>
-            <span>You have {formatCurrency(remainingAmount)}</span> left out of
-            {formatCurrency(budgetData.amount)}
+            <span>
+              You have {formatCurrency(remainingAmount)} left out of{" "}
+              {formatCurrency(budgetData.amount)}
+            </span>
           </p>
         ) : (
           <p>
@@ -107,7 +109,7 @@ function Budget({ budgetData }) {
         <ProgressBar percentage={goalPercentage} />
         <div>
           <ul className="flex justify-between">
-            <li>January 1, 2024</li>
+            <li>{formatDate(budgetData.startDate)}</li>
             <li>January 31, 2024</li>
           </ul>
         </div>

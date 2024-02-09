@@ -15,7 +15,7 @@ function ProgressBar({ percentage }) {
         className="p-0.5 text-center text-xs font-medium leading-none text-primary-100"
         style={{ width: `${percentage}%`, backgroundColor: progressBarColour }}
       >
-        <p>{percentage} %</p>
+        <p>{Math.ceil(percentage)} %</p>
       </div>
     </div>
   );
