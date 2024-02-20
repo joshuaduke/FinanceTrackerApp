@@ -100,6 +100,8 @@ function HomePage() {
     // add condition to ensure to not click to future months past the current date
     let pageDate = new Date(startDate);
     let currentDate = getCurrentDate();
+    let mynewDate = new Date(getCurrentDate());
+
     //using newDate(startDate) gives us the the last day of the previous month therefore, we need to add + 1 day to get the current date.
     pageDate.setDate(pageDate.getDate() + 1);
 
@@ -107,13 +109,18 @@ function HomePage() {
     let pageYear = pageDate.getFullYear();
     let nextMonth = 0;
 
-    //if january we need to get the last month of the previous year
+    //if january we need to get the last month of the next year
     if (pageMonth === 12) {
       nextMonth = `${nextMonth}${1}`;
       pageYear++;
     } else {
       pageMonth++;
       nextMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
+    }
+
+    //prevent from viewing next month if there is no data
+    if (nextMonth > currentDate.substring(5, 7)) {
+      return;
     }
 
     //if the current month is equal to the current month of transactions being viewed then then disable next button
@@ -125,7 +132,9 @@ function HomePage() {
 
   return (
     <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
-      <button>Overview</button>
+      <div className="flex justify-center py-4">
+        <Link to="/overview">Overview</Link>
+      </div>
 
       <div className="h-screen">
         <div className="grid grid-cols-3 px-4">

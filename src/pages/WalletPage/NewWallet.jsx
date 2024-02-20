@@ -35,7 +35,7 @@ function NewWallet() {
       <div className="mb-4">
         <ul className="flex justify-between">
           <li>
-            <button onClick={() => navigate(-1)}>Back</button>
+            <p onClick={() => navigate(-1)}>Back</p>
           </li>
         </ul>
       </div>
@@ -61,7 +61,7 @@ function NewWallet() {
         </div>
 
         <div>
-          <label htmlFor="wallet-current-balance">Current Balance: $</label>
+          <label htmlFor="wallet-current-balance">Initial Balance: $</label>
           <input
             type="number"
             name="wallet-current-balance"

@@ -16,6 +16,7 @@ import BudgetDetails from "./pages/BudgetPage/BudgetDetails";
 import NewBudget from "./pages/BudgetPage/NewBudget";
 import Settings from "./pages/SettingsPage/SettingsPage";
 import GoalPage from "./pages/GoalPage/GoalPage";
+import Overview from "./components/Overview";
 
 function App() {
   return (
@@ -36,8 +37,8 @@ function App() {
         <Route path="/budget/new" element={<NewBudget />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/goals" element={<GoalPage />} />
-
         <Route path="/settings" element={<Settings />} />
+        <Route path="/overview" element={<Overview />} />
       </Routes>
     </BrowserRouter>
   );

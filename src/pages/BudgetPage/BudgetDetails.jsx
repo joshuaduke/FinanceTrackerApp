@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { doc, getDoc, deleteDoc } from "firebase/firestore";
 import { useEffect } from "react";
@@ -7,6 +7,7 @@ import { getStartEndDate } from "../../assets/months";
 
 function BudgetDetails() {
   const params = useParams();
+  const navigate = useNavigate();
   const budgetId = params.id;
   const [budget, setBudget] = useState();
   const [budgetAmount, setBudgetAmount] = useState(0);
@@ -44,7 +45,9 @@ function BudgetDetails() {
     <>
       <div>
         <ul className="grid grid-cols-3">
-          <li>Close</li>
+          <li>
+            <p onClick={() => navigate(-1)}>Back</p>
+          </li>
           <li>Edit {budgetName}</li>
           <li className="text-right">Delete</li>
         </ul>

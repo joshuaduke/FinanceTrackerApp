@@ -63,9 +63,11 @@ function NewSavings() {
     <form className="" onSubmit={handleSubmit}>
       <div>
         <ul className="flex justify-between">
-          <li>Back</li>
+          <li>
+            <p onClick={() => navigate(-1)}>Back</p>
+          </li>
           <li>New Savings Goal</li>
-          <li>Delete</li>
+          <li></li>
         </ul>
       </div>
       <label htmlFor="savings-name">Name: </label>

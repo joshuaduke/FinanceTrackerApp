@@ -38,24 +38,31 @@ function SavingsGoal({ data }) {
   console.log("Test Data", transactions);
   return (
     <>
-      <Link to={`/savings/${data.id}`} state={{ savingsData: data }}>
-        <h3>{data.name}</h3>
+      <Link
+        to={`/savings/${data.id}`}
+        state={{
+          savingsData: data,
+          savingsAmount: savingsAmount,
+          transactions: transactions,
+        }}
+      >
+        <h3 className="text-yellow-700">{data.name}</h3>
         <p>
-          <span>You saved {formatCurrency(savingsAmount)}</span> saved out of
-          {formatCurrency(data.goal)}
+          You saved <span>{formatCurrency(savingsAmount)}</span> saved out of
+          <span> {formatCurrency(data.goal)}</span>
         </p>
         <div className=" bg-neutral-200 dark:bg-neutral-600 ">
           <div
             className="bg-green-500 p-0.5 text-center text-xs font-medium leading-none text-primary-100"
             style={{ width: `${goalPercentage}%` }}
           >
-            <p>{goalPercentage} %</p>
+            <p>{Math.ceil(goalPercentage)} %</p>
           </div>
         </div>
         <div>
-          <ul className="flex justify-between">
-            <li>{formatDate(data.createdDate)}</li>
-            <li>{formatDate(data.dueDate)}</li>
+          <ul className="flex justify-end">
+            {/* <li>{formatDate(data.createdDate)}</li> */}
+            <li>Due: {formatDate(data.dueDate)}</li>
           </ul>
         </div>
       </Link>

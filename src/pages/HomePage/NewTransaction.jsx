@@ -66,7 +66,10 @@ function NewTransaction() {
             <li>
               <button onClick={() => navigate(-1)}>Back</button>
             </li>
-            <li>Add Transaction</li>
+
+            <button className="border-2 p-2" type="submit">
+              Add Transaction
+            </button>
           </ul>
 
           <div className="flex justify-between">
@@ -145,10 +148,6 @@ function NewTransaction() {
             selectCategoryType={handleChange}
             category={newTransaction.category}
           />
-
-          <button className="border-2 p-2" type="submit">
-            Add Transaction
-          </button>
         </form>
       ) : (
         <TransferTransaction />

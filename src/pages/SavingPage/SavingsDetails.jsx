@@ -1,30 +1,31 @@
 import { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { getTransactionsAPI } from "../../assets/api/transaction";
 import { db } from "../../Config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 
 function SavingsDetails() {
+  const navigate = useNavigate();
   let location = useLocation();
   const param = useParams();
   const transactionsCollectionRef = collection(db, "transactions");
   console.log("Savings details location", location);
-  location = location.state.savingsData;
+  location = location.state;
   const [goal, setGoal] = useState({
-    amount: location.amount,
-    category: location.category,
-    dueDate: location.dueDate,
-    goal: location.goal,
-    name: location.name,
-    description: location.description,
+    amount: location.savingsAmount,
+    category: location.savingsData.category,
+    dueDate: location.savingsData.dueDate,
+    goal: location.savingsData.goal,
+    name: location.savingsData.name,
+    description: location.savingsData.description,
   });
   const [savingsTransactions, setSavingsTransactions] = useState([]);
 
-  const goalPercentage = (goal.amount / goal.goal) * 100;
+  const goalPercentage = Math.ceil((goal.amount / goal.goal) * 100);
   useEffect(() => {
     const q1 = query(
       transactionsCollectionRef,
-      where("toWalletId", "==", location.walletId)
+      where("toWalletId", "==", location.savingsData.walletId)
     );
 
     getTransactionsAPI(q1).then((result) => setSavingsTransactions(result));
@@ -38,7 +39,9 @@ function SavingsDetails() {
     <>
       <div>
         <ul className="flex justify-between">
-          <li>Back</li>
+          <li>
+            <p onClick={() => navigate(-1)}>Back</p>
+          </li>
           <li>{goal.name}</li>
           <li>Delete</li>
         </ul>
@@ -54,7 +57,7 @@ function SavingsDetails() {
       <div>
         <label htmlFor="amount">Goal Amount </label>
         <input
-          name="amount"
+          name="goal"
           type="number"
           value={goal.goal}
           onChange={handleChange}

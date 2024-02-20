@@ -85,7 +85,7 @@ function WalletDetails() {
       <div className="mb-4">
         <ul className="flex justify-between">
           <li>
-            <button onClick={() => navigate(-1)}>Back</button>
+            <p onClick={() => navigate(-1)}>Back</p>
           </li>
           <li>
             <h1>Cash Flow: {formatCurrency(monthlyCashFlow)}</h1>

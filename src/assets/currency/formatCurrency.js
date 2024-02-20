@@ -8,6 +8,7 @@ export function formatCurrency(num){
     // if (categoryType == "expenses") {
     //     num  *= -1
     // } // more readable
+    num = Math.round(num * 100) / 100;
 
     // if num is less than zero format should be -$(number)
     if (num < 0) {

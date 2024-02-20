@@ -13,6 +13,15 @@ function TransactionDetails() {
 
   const docRef = doc(db, "transactions", params.id);
   console.log("Params", params);
+  const [transactionObj, setTransactionObj] = useState({
+    category: "",
+    categoryType: "",
+    date: "",
+    importance: "",
+    recurrence: "",
+    transactionAmount: "",
+    walletId: "",
+  });
 
   const [transaction, setTransaction] = useState(null);
   const [categoryType, setCategoryType] = useState("expenses");
@@ -113,7 +122,9 @@ function TransactionDetails() {
         <form className="p-6" onSubmit={updateTransaction}>
           <ul className="flex justify-between">
             <li>
-              <button onClick={() => navigate(-1)}>Back</button>
+              <p type="default" onClick={() => navigate(-1)}>
+                Back
+              </p>
             </li>
             <li>Edit {category}</li>
             <li>
