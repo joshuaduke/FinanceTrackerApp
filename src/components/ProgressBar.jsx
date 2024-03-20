@@ -10,14 +10,27 @@ function ProgressBar({ percentage }) {
   }
 
   return (
-    <div className=" bg-neutral-200 dark:bg-neutral-600 ">
-      <div
-        className="p-0.5 text-center text-xs font-medium leading-none text-primary-100"
-        style={{ width: `${percentage}%`, backgroundColor: progressBarColour }}
-      >
-        <p>{Math.ceil(percentage)} %</p>
+    <>
+      <div className=" bg-neutral-200 dark:bg-neutral-600 ">
+        <div
+          className="p-0.5 text-center text-xs font-medium leading-none text-primary-100"
+          style={{
+            width: `${percentage}%`,
+            backgroundColor: progressBarColour,
+          }}
+        >
+          <p>{Math.ceil(percentage)} %</p>
+        </div>
       </div>
-    </div>
+      {percentage > 100 ? (
+        <p>
+          Budget has been exceeded but do not despair, it will get better next
+          time
+        </p>
+      ) : (
+        <p>Good Job. You are on track to be withing you budget!</p>
+      )}
+    </>
   );
 }
 export default ProgressBar;

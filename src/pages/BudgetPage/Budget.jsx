@@ -78,7 +78,10 @@ function Budget({ budgetData }) {
 
   return (
     <>
-      <Link to={`/budget/${budgetData.id}`}>
+      <Link
+        to={`/budget/${budgetData.id}`}
+        state={{ transactions: transactions }}
+      >
         <h3 className="text-yellow-700">{budgetData.name}</h3>
 
         {remainingAmount > 0 ? (

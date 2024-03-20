@@ -100,7 +100,6 @@ function HomePage() {
     // add condition to ensure to not click to future months past the current date
     let pageDate = new Date(startDate);
     let currentDate = getCurrentDate();
-    let mynewDate = new Date(getCurrentDate());
 
     //using newDate(startDate) gives us the the last day of the previous month therefore, we need to add + 1 day to get the current date.
     pageDate.setDate(pageDate.getDate() + 1);
@@ -132,7 +131,7 @@ function HomePage() {
 
   return (
     <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
-      <div className="flex justify-center py-4">
+      <div className="flex justify-center py-4 ">
         <Link to="/overview">Overview</Link>
       </div>
 

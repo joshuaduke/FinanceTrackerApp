@@ -48,6 +48,7 @@ function NewWallet() {
             name="wallet-name"
             value={walletName}
             onChange={(e) => setWalletName(e.target.value)}
+            required
           />
         </div>
 
@@ -80,6 +81,7 @@ function NewWallet() {
             value="default"
             onChange={(e) => setWalletType(e.target.value)}
             checked={walletType === "default"}
+            required
           />
           <label htmlFor="wallet-type">Credit</label>
           <input
