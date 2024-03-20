@@ -80,6 +80,7 @@ function NewTransaction() {
               <input
                 className="border-solid border-2"
                 type="number"
+                step="any"
                 name="transactionAmount"
                 id="transactionAmount"
                 placeholder="0"
@@ -133,13 +134,21 @@ function NewTransaction() {
 
           <div>
             <label htmlFor="description">Description</label>
-            <input
+            <textarea
+              name="description"
+              id="description"
+              value={newTransaction.description}
+              onChange={handleChange}
+              cols="30"
+              rows="10"
+            ></textarea>
+            {/* <input
               type="text"
               name="description"
               id="description"
               value={newTransaction.description}
               onChange={handleChange}
-            />
+            /> */}
           </div>
 
           <CategorySelection

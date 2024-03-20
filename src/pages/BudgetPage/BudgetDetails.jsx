@@ -169,6 +169,10 @@ function BudgetDetails() {
         </button>
       </form>
 
+      <div>
+        <h3>Current Period</h3>
+      </div>
+
       {myBudgetTransactions ? (
         transactionDates.map((date, index) => (
           <TransactionDate
@@ -180,9 +184,6 @@ function BudgetDetails() {
       ) : (
         <p>No Transactions</p>
       )}
-      <div>
-        <h3>Previous Periods</h3>
-      </div>
     </>
   );
 }

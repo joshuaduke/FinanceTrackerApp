@@ -30,7 +30,7 @@ function TransactionDetails() {
   const [transactionDescription, setTransactionDescription] = useState("");
   const [transactionImportance, setTransactionImportance] = useState("");
   const [transactionRecurrence, setTransactionRecurrence] = useState("");
-  const [transactionAmount, setTransactionAmount] = useState(0);
+  const [amountTransaction, setTransactionAmount] = useState(0);
   const [transactionWallet, setTransactionWallet] = useState("unselected");
   const [transactionWalletTo, setTransactionWalletTo] = useState("unselected");
 
@@ -77,22 +77,26 @@ function TransactionDetails() {
   async function updateTransaction(e) {
     try {
       e.preventDefault();
-      let confirmText = "Are you sure you want to update this transaction?";
+      //let confirmText = "Are you sure you want to update this transaction?";
+      // if (confirm(confirmText) == true) {}
 
-      if (confirm(confirmText) == true) {
-        await updateDoc(docRef, {
-          category: category,
-          categoryType: categoryType,
-          date: transactionDate,
-          description: transactionDescription,
-          importance: transactionImportance,
-          recurrence: transactionRecurrence,
-          transactionAmount: transactionAmount,
-          walletId: transactionWallet,
-          toWalletId: transactionWalletTo,
-        });
-        navigate("/");
-      }
+      await updateDoc(docRef, {
+        category: category,
+        categoryType: categoryType,
+        date: transactionDate,
+        description: transactionDescription,
+        importance: transactionImportance,
+        recurrence: transactionRecurrence,
+        transactionAmount:
+          categoryType == "expenses"
+            ? parseFloat(amountTransaction * -1)
+            : parseFloat(amountTransaction),
+        walletId: transactionWallet,
+        ...(categoryType === "Transfer"
+          ? { toWalletId: transactionWalletTo }
+          : {}),
+      });
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -138,7 +142,7 @@ function TransactionDetails() {
               <input
                 type="number"
                 name="transactionAmount"
-                value={transactionAmount}
+                value={Math.abs(amountTransaction)}
                 onChange={(e) => setTransactionAmount(e.target.value)}
               />
             </div>
@@ -224,8 +228,16 @@ function TransactionDetails() {
             </div>
           </div>
 
-          <label htmlFor="description">{transactionDescription}</label>
-          <textarea name="description" id="" cols="30" rows="10"></textarea>
+          <label htmlFor="description">Description</label>
+          <textarea
+            name="description"
+            id=""
+            cols="30"
+            rows="10"
+            onChange={(e) => setTransactionDescription(e.target.value)}
+          >
+            {transactionDescription}
+          </textarea>
 
           {categoryType != "Transfer" && (
             <CategorySelection

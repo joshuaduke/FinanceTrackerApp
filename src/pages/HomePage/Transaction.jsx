@@ -12,6 +12,7 @@ function Transaction(props) {
   let docRef2 = "";
 
   if (data.toWalletId != undefined) {
+    console.log("I AM BEING CALLED");
     transferWalletId = data.toWalletId;
     docRef2 = doc(db, "wallets", transferWalletId);
   }

@@ -33,16 +33,22 @@ export async function getTransactionsAPI(q1){
 
 export function sortTransactionsByDate(transactionArr){
   try {
+    console.log("Transaction Arr: ", transactionArr);
     let dateArray = transactionArr.map((value) => value.date);
+    console.log("Date Array", dateArray);
     let dates = dateArray.filter(
       (value, index) => dateArray.indexOf(value) === index
     );
+
+
+    console.log("returned dates", dates);
 
     dates.sort((a, b) => {
       let dateA = new Date(a);
       let dateB = new Date(b);
       return dateB - dateA;
     });
+
 
     return dates;
   } catch (error) {
