@@ -21,39 +21,44 @@ function TransferTransaction() {
 
   async function handleTransferSubmit(e) {
     e.preventDefault();
-    const transactionRef = await addDoc(collection(db, "transactions"), {
+    const transferTransactionRef = await addDoc(
+      collection(db, "transactions"),
+      {
+        category: "Transfer",
+        transactionAmount: Math.abs(transferAmount),
+        date: transferDate,
+        recurrence: recurrence,
+        categoryType: "Transfer",
+        description: transferDescription,
+        walletId: fromWallet,
+        toWalletId: toWallet,
+        createdDate: getCurrentDate(),
+      }
+    );
+
+    await addDoc(collection(db, "transactions"), {
       category: "Transfer",
-      transactionAmount: parseInt(transferAmount),
+      transactionAmount: transferAmount * -1,
       date: transferDate,
       recurrence: recurrence,
-      categoryType: "Transfer",
+      categoryType: "TransferRemoved",
       description: transferDescription,
-      walletId: fromWallet,
-      toWalletId: toWallet,
+      walletId: toWallet,
+      toWalletId: fromWallet,
       createdDate: getCurrentDate(),
+      parentTransactionId: transferTransactionRef.id,
     });
-    // let data = {
-    //   category: category,
-    //   amount: amount,
-    //   date: date,
-    //   importance: importance,
-    //   recurrence: recurrence,
-    //   categoryType: categoryType,
-    //   description: description,
-    //   wallet: wallet,
-    // };
     navigate("/");
-    console.log("Submitted Data", transactionRef);
   }
 
   return (
-    <form onSubmit={(e) => handleTransferSubmit(e)}>
+    <form onSubmit={handleTransferSubmit}>
       <div id="transfer-header">
         <ul className="flex justify-between">
           <li>
-            <button type="button" onClick={navigate("/")}>
+            {/* <button type="button" onClick={navigate("/")}>
               Exit
-            </button>
+            </button> */}
           </li>
           <li>Add Transfer</li>
           <li></li>

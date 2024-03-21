@@ -58,7 +58,7 @@ function Transaction(props) {
           </div>
           <div className="flex-auto">
             <p>
-              {data.category}
+              {data.category === "TransferRemoved" ? "Transfer" : data.category}
               {data.description != ""
                 ? ` - ${data.description.substring(0, 16)}`
                 : ""}
