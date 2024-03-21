@@ -13,6 +13,7 @@ import {
   getCurrentDate,
 } from "../../assets/months";
 import { sortTransactionsByDate } from "../../assets/api/transaction";
+import CashFlow from "../../components/CashFlow";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
 
@@ -131,6 +132,8 @@ function HomePage() {
 
   return (
     <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
+      <CashFlow transactions={transactions} />
+
       <div className="flex justify-center py-4 ">
         <Link to="/overview">Overview</Link>
       </div>

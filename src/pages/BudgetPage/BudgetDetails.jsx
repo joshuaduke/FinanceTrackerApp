@@ -16,6 +16,7 @@ import TransactionDate from "../HomePage/TransactionDate";
 import { sortTransactionsByDate } from "../../assets/api/transaction";
 import { myIcons } from "../../assets/myIcons";
 import CategoryCheckbox from "../../components/CategoryCheckbox";
+import CashFlow from "../../components/CashFlow";
 
 function BudgetDetails() {
   const params = useParams();
@@ -171,6 +172,7 @@ function BudgetDetails() {
 
       <div>
         <h3>Current Period</h3>
+        <CashFlow transactions={myBudgetTransactions} />
       </div>
 
       {myBudgetTransactions ? (

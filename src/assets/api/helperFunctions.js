@@ -17,3 +17,4 @@ export function deleteDocument(docRef){
         console.error(error);
       }
 }
+

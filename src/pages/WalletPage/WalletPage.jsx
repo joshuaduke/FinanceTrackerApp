@@ -6,6 +6,7 @@ import { getDocs, collection, query, where } from "firebase/firestore";
 import { db } from "../../Config/firebase";
 import { getTransactionsAPI } from "../../assets/api/transaction";
 import { formatCurrency } from "../../assets/currency/formatCurrency";
+import CashFlow from "../../components/CashFlow";
 
 function WalletPage() {
   const [wallets, setWallets] = useState([]);
@@ -50,7 +51,7 @@ function WalletPage() {
   return (
     <>
       <h1 className="text-center">Wallets</h1>
-      <h2>Total Cash Flow: {formatCurrency(totalCashFlow)}</h2>
+      <CashFlow transactions={transactions} />
       <ul>
         {wallets.map((item) => (
           <Wallet key={item.id} value={item} />

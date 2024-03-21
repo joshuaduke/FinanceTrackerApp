@@ -1,6 +1,3 @@
-
-
-
 export function formatCurrency(num){
     let strFormattedNum = "";
     // console.log("CategoryType", categoryType);
@@ -22,3 +19,8 @@ export function formatCurrency(num){
 
     return strFormattedNum;
 }
+
+export function calculateTransactionTotal(transactions){
+    const totalTransactionAmount = transactions.reduce((acc, curr) => acc + curr.transactionAmount, 0); 
+    return totalTransactionAmount.toFixed(2);
+  }
