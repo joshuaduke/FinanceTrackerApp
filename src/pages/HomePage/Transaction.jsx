@@ -12,7 +12,6 @@ function Transaction(props) {
   let docRef2 = "";
 
   if (data.toWalletId != undefined) {
-    console.log("I AM BEING CALLED");
     transferWalletId = data.toWalletId;
     docRef2 = doc(db, "wallets", transferWalletId);
   }
@@ -54,27 +53,32 @@ function Transaction(props) {
           className="flex justify-between items-center px-2 py-3"
           id="transaction-item"
         >
-          <CategoryIcon className="basis-1/4" category={data.category} />
-          <div className="basis-1/2">
+          <div className="flex-initial pr-2">
+            <CategoryIcon category={data.category} />
+          </div>
+          <div className="flex-auto">
             <p>
-              {data.category} - {data.description}
+              {data.category}
+              {data.description != ""
+                ? ` - ${data.description.substring(0, 16)}`
+                : ""}
             </p>
             <div>
               {data.categoryType != "Transfer" ? (
-                <p>
+                <p className="text-xs">
                   {transactionWalletId.name != null
                     ? transactionWalletId.name
                     : ""}
                 </p>
               ) : (
                 <>
-                  <p>To: {transactionToWalletId.name}</p>
-                  <p>From: {transactionWalletId.name}</p>
+                  <p className="text-xs">To: {transactionToWalletId.name}</p>
+                  <p className="text-xs">From: {transactionWalletId.name}</p>
                 </>
               )}
             </div>
           </div>
-          <div className="basis-1/4 text-end">
+          <div className="flex-initial text-end">
             <p
               className={
                 data.transactionAmount < 0 ? "text-red-500" : "text-green-500"
