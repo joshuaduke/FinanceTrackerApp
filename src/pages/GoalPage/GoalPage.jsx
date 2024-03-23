@@ -46,7 +46,7 @@ function GoalPage() {
           </label>
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full mb-20">
         {selectedGoal === "saving" ? <SavingsPage /> : <BudgetPage />}
       </div>
 

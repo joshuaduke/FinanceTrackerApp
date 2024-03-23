@@ -138,7 +138,7 @@ function HomePage() {
         <Link to="/overview">Overview</Link>
       </div>
 
-      <div className="h-screen">
+      <section className="h-screen" id="transaction-list">
         <div className="grid grid-cols-3 px-4">
           <div>
             <button onClick={getPreviousMonthTransactions}>
@@ -186,7 +186,7 @@ function HomePage() {
         ) : (
           <p>Error</p>
         )}
-      </div>
+      </section>
       <Link className="fixed bottom-20 right-5 mb-5 " to="/transaction/new">
         <svg
           xmlns="http://www.w3.org/2000/svg"

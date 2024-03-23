@@ -153,6 +153,7 @@ function BudgetDetails() {
               <CategoryCheckbox
                 isChecked={icon.checked}
                 name={icon.name}
+                type={icon.type}
                 checkHandler={updateCheckStatus}
                 budgetCategories={budgetCategories}
                 setBudgetCategories={setBudgetCategories}

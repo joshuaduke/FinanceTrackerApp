@@ -51,6 +51,7 @@ function NewBudget() {
       ...newBudgetObj,
       amount: parseFloat(newBudgetObj.amount),
       budgetFor: budgetCategories,
+      createdDate: getCurrentDate(),
     });
 
     navigate("/");
@@ -92,12 +93,14 @@ function NewBudget() {
           required
         />
 
+        <div onClick={toggleView}>Budget for </div>
         {showCategories ? (
           myIcons.map((icon) => (
             <div key={icon.id} className="flex bg-yellow-300">
               <CategoryCheckbox
                 isChecked={icon.checked}
                 name={icon.name}
+                type={icon.type}
                 checkHandler={updateCheckStatus}
                 budgetCategories={budgetCategories}
                 setBudgetCategories={setBudgetCategories}
@@ -107,8 +110,6 @@ function NewBudget() {
         ) : (
           <p>...loading</p>
         )}
-
-        <div onClick={toggleView}>Budget for </div>
 
         {/* Recurrence should be required for budget */}
         <RecurrenceSelection

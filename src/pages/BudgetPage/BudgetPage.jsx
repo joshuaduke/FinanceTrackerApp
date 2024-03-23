@@ -29,6 +29,12 @@ function BudgetPage() {
 
   return (
     <>
+      <Link
+        to="/budget/new"
+        className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0"
+      >
+        + Budget
+      </Link>
       {budgetGoals ? (
         <div>
           {budgetGoals.map((goal) => (
@@ -36,12 +42,6 @@ function BudgetPage() {
               <Budget budgetData={goal} />
             </div>
           ))}
-          <Link
-            to="/budget/new"
-            className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0"
-          >
-            Add new Budget
-          </Link>
         </div>
       ) : (
         <h1>... Loading ... </h1>
