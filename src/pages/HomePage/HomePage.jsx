@@ -14,6 +14,8 @@ import {
 } from "../../assets/months";
 import { sortTransactionsByDate } from "../../assets/api/transaction";
 import CashFlow from "../../components/CashFlow";
+import TransactionChart from "../../components/transactionChart";
+import Period from "../../components/Period";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
 
@@ -22,6 +24,7 @@ function HomePage() {
   const [transactionDays, setTransactionDays] = useState([]);
   const [startDate, setStartDate] = useState(getStartEndDate().startDate);
   const [EndDate, setEndDate] = useState(getStartEndDate().endDate);
+  const [period, setPeriod] = useState("month");
   const [transactionMonth, setTransactionMonth] = useState("");
   const transactionsCollectionRef = collection(db, "transactions");
 
@@ -132,13 +135,25 @@ function HomePage() {
 
   return (
     <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
-      <CashFlow transactions={transactions} />
+      <article className="flex-none">
+        <section className="justify-center py-4 bg-yellow-100">
+          <Link to="/overview">Overview</Link>
+        </section>
 
-      <div className="flex justify-center py-4 ">
-        <Link to="/overview">Overview</Link>
-      </div>
+        <section id="category-graph" className="bg-green-400">
+          <TransactionChart transactions={transactions} />
+        </section>
 
-      <section className="h-screen" id="transaction-list">
+        <section id="importance-graph" className="bg-pink-400">
+          <div>
+            <h1>Categories</h1>
+            <div>Bar graph for categories</div>
+          </div>
+        </section>
+      </article>
+
+      <section className="h-screen mb-36 flex-auto" id="transaction-list">
+        <CashFlow transactions={transactions} />
         <div className="grid grid-cols-3 px-4">
           <div>
             <button onClick={getPreviousMonthTransactions}>
@@ -155,7 +170,8 @@ function HomePage() {
               </svg>
             </button>
           </div>
-          <h2 className="text-center">{transactionMonth}</h2>
+
+          <Period period={period} setPeriod={setPeriod} />
           <div className="justify-self-end">
             <button onClick={getNextMonthTransaction}>
               <svg
@@ -187,6 +203,7 @@ function HomePage() {
           <p>Error</p>
         )}
       </section>
+
       <Link className="fixed bottom-20 right-5 mb-5 " to="/transaction/new">
         <svg
           xmlns="http://www.w3.org/2000/svg"

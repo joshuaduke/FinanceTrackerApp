@@ -12,7 +12,7 @@ export default {
         complement2: "#F5E2C8",
         bgPrimary: "#7E8287",
         success: "#17864B"
-      },
+      }
     },
   },
   plugins: [],
