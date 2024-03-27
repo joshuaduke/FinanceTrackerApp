@@ -124,7 +124,8 @@ function HomePage() {
 
   return (
     <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
-      <div className="grid grid-cols-1 md:grid-cols-3 p-2">
+      <h1 className="mt-16 px-2">J-SPENDER</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 p-2 ">
         <section className="col-span-2 border-solid border-2 border-white-100 rounded-l-lg justify-center px-2 py-4 ">
           <Link to="/overview">Overview</Link>
           <TransactionChart transactions={transactions} />

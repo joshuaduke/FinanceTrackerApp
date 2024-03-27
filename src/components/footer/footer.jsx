@@ -6,10 +6,10 @@ export default function Footer() {
   // console.log("Current Route", currentRoute);
 
   return (
-    <div className="py-4 px-1 grid grid-cols-4 justify-center bg-primary w-full fixed bottom-0 left-0 right-0">
-      <Link className="flex flex-col text-complement2" to="/home">
+    <div className="py-4 px-1 grid grid-cols-4 justify-center bg-primary w-full fixed bottom-0 left-0 right-0  lg:absolute lg:flex lg:top-14 lg:bottom-auto lg:left-32 lg:justify-start lg:bg-transparent lg:w-fit">
+      <Link className="flex flex-col text-complement2 mx-2" to="/home">
         <svg
-          className="place-self-center"
+          className="place-self-center lg:hidden"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -22,9 +22,9 @@ export default function Footer() {
         </svg>
         <p className="text-center">Timeline</p>
       </Link>
-      <Link className="flex flex-col text-complement2" to="/wallet">
+      <Link className="flex flex-col text-complement2 mx-2" to="/wallet">
         <svg
-          className="place-self-center"
+          className="place-self-center lg:hidden"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -37,9 +37,9 @@ export default function Footer() {
         </svg>
         <p className="text-center">Wallet</p>
       </Link>
-      <Link className="flex flex-col text-complement2" to="/goals">
+      <Link className="flex flex-col text-complement2 mx-2" to="/goals">
         <svg
-          className="place-self-center"
+          className="place-self-center lg:hidden"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -62,9 +62,9 @@ export default function Footer() {
         </svg>
         <p className="text-center">Goals</p>
       </Link>
-      <Link className="flex flex-col text-complement2" to="/settings">
+      <Link className="flex flex-col text-complement2 mx-2" to="/settings">
         <svg
-          className="place-self-center"
+          className="place-self-center lg:hidden"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
