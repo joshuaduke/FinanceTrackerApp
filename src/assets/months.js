@@ -1,3 +1,5 @@
+import { format, lastDayOfMonth } from "date-fns";
+
 export const months = [
     {   month: "January",
         value: "01",
@@ -81,33 +83,19 @@ export function getMonthLastDay(year, month){
 export function getStartEndDate(){
     const date = new Date();
 
-    // let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    // call getMonthLast day function to retrieve the last day of the month
-    let lastDayOfMonth = getMonthLastDay(year, month);
     let myDateObj = {
-        startDate: `${year}-${month <= 9 ? '0' : "" }${month}-01`,
-        endDate: `${lastDayOfMonth}`
+        startDate: format(date, "yyyy-MM-01"),
+        endDate: format(lastDayOfMonth(date), "yyyy-MM-dd")
     }
+
+    console.log("MyDateObj", myDateObj)
 
     return myDateObj;
 }
 
 export function getCurrentDate(){
-    const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
 
-    console.log(year, month, day);
+    let todayDate = format(new Date(), "yyyy-MM-dd")
 
-    day = day < 9 ? `0${day}` : day;
-    month  = month < 9 ? `0${month}` : month;
-
-
-    let todayDate = `${year}-${month}-${day}`;
-    console.log('Today Date', todayDate);
     return todayDate;
 }

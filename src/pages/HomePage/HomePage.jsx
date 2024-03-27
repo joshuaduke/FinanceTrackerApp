@@ -16,6 +16,13 @@ import { sortTransactionsByDate } from "../../assets/api/transaction";
 import CashFlow from "../../components/CashFlow";
 import TransactionChart from "../../components/transactionChart";
 import Period from "../../components/Period";
+import {
+  format,
+  getMonth,
+  getYear,
+  lastDayOfMonth,
+  lastDayOfYear,
+} from "date-fns";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
 
@@ -33,7 +40,7 @@ function HomePage() {
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        // console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
+        console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
         const q1 = await query(
           transactionsCollectionRef,
           where("date", ">=", startDate),
@@ -53,9 +60,11 @@ function HomePage() {
         setTransactionDays(dates);
 
         // retrieve the name of the month
-        let getStartDateMonth = startDate.substring(5, 7);
-        let transMonthObj = getMonthName(getStartDateMonth);
-        setTransactionMonth(transMonthObj.month);
+        if (period === "month") {
+          setTransactionMonth(
+            format(new Date(`${startDate}T00:00:00`), "LLLL")
+          );
+        }
       } catch (error) {
         console.error(error);
       }
@@ -64,62 +73,132 @@ function HomePage() {
     getTransactions();
   }, [startDate, EndDate]);
 
-  function getPreviousMonthTransactions() {
-    let pageDate = new Date(startDate);
-    pageDate.setDate(pageDate.getDate() + 1);
-
-    let pageMonth = pageDate.getMonth() + 1;
-    let pageYear = pageDate.getFullYear();
-
+  function getPreviousPeriodTransactions() {
+    let pageDate = new Date(`${startDate}T00:00:00`);
+    let pageMonth = getMonth(pageDate) + 1;
+    let pageYear = getYear(pageDate);
     let previousMonth = 0;
+    let newStartDate = "";
+    let newEndDate = "";
 
-    //if january we need to get the last month of the previous year
-    if (pageMonth === 1) {
-      previousMonth = 12;
-      pageYear--;
-    } else {
-      pageMonth--;
-      previousMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
+    // FOR MONTHS
+    console.log("PERIOD STATE", period);
+    switch (period) {
+      case "year":
+        pageYear--;
+        newStartDate = `${pageYear}-01-01`;
+        newEndDate = `${pageYear}-12-31`;
+        setTransactionMonth(pageYear);
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+        break;
+      case "week":
+        break;
+      case "all":
+        break;
+      default:
+        //if january we need to get the last month of the previous year
+        if (pageMonth === 1) {
+          previousMonth = 12;
+          pageYear--;
+        } else {
+          pageMonth--;
+          previousMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
+        }
+
+        newStartDate = `${pageYear}-${previousMonth}-01`;
+        newEndDate = format(
+          lastDayOfMonth(new Date(`${newStartDate}T00:00:00`)),
+          "yyyy-MM-dd"
+        );
+
+        setTransactionMonth(format(pageDate, "LLLL"));
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+        break;
     }
-
-    let transMonthObj = getMonthName(`${previousMonth}`);
-
-    setTransactionMonth(transMonthObj.month);
-    setStartDate(`${pageYear}-${previousMonth}-01`);
-    setEndDate(`${getMonthLastDay(pageYear, previousMonth)}`);
   }
 
-  function getNextMonthTransaction() {
+  function getNextPeriodTransaction() {
     // add condition to ensure to not click to future months past the current date
-    let pageDate = new Date(startDate);
+    let pageDate = new Date(`${startDate}T00:00:00`);
+    let pageMonth = getMonth(pageDate) + 1;
+    let pageYear = getYear(pageDate);
+    let newStartDate = "";
+    let newEndDate = "";
     let currentDate = getCurrentDate();
-
-    //using newDate(startDate) gives us the the last day of the previous month therefore, we need to add + 1 day to get the current date.
-    pageDate.setDate(pageDate.getDate() + 1);
-
-    let pageMonth = pageDate.getMonth() + 1;
-    let pageYear = pageDate.getFullYear();
     let nextMonth = 0;
 
-    //if january we need to get the last month of the next year
-    if (pageMonth === 12) {
-      nextMonth = `${nextMonth}${1}`;
-      pageYear++;
-    } else {
-      pageMonth++;
-      nextMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
-    }
+    switch (period) {
+      case "year":
+        pageYear++;
+        newStartDate = `${pageYear}-01-01`;
+        newEndDate = `${pageYear}-12-31`;
+        setTransactionMonth(pageYear);
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+        break;
+      case "week":
+        break;
+      case "all":
+        break;
+      default:
+        //prevent from viewing next month if there is no data
+        if (nextMonth > currentDate.substring(5, 7)) {
+          return;
+        }
 
-    //prevent from viewing next month if there is no data
-    if (nextMonth > currentDate.substring(5, 7)) {
-      return;
-    }
+        //if january we need to get the last month of the next year
+        if (pageMonth === 12) {
+          nextMonth = `${nextMonth}${1}`;
+          pageYear++;
+        } else {
+          pageMonth++;
+          nextMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
+        }
 
-    //if the current month is equal to the current month of transactions being viewed then then disable next button
-    let transMonthObj = getMonthName(`${nextMonth}`);
-    setTransactionMonth(transMonthObj.month);
-    setStartDate(`${pageYear}-${nextMonth}-01`);
-    setEndDate(`${getMonthLastDay(pageYear, nextMonth)}`);
+        newStartDate = `${pageYear}-${nextMonth}-01`;
+        newEndDate = format(
+          lastDayOfMonth(new Date(`${newStartDate}T00:00:00`)),
+          "yyyy-MM-dd"
+        );
+
+        setTransactionMonth(format(pageDate, "LLLL"));
+        setStartDate(newStartDate);
+        setEndDate(newEndDate);
+        break;
+    }
+  }
+
+  function periodChanged(e) {
+    const newPeriod = e.target.value;
+    const currentDate = new Date();
+
+    setPeriod(e.target.value);
+    switch (newPeriod) {
+      case "month":
+        setStartDate(format(currentDate, "yyyy-MM-01"));
+        setEndDate(format(lastDayOfMonth(currentDate), "yyyy-MM-dd"));
+        setTransactionMonth(format(currentDate, "LLLL"));
+        break;
+      case "year":
+        setStartDate(format(currentDate, "yyyy-01-01"));
+        setEndDate(format(lastDayOfYear(currentDate), "yyyy-MM-dd"));
+        setTransactionMonth(getYear(currentDate));
+        break;
+      case "week":
+        setStartDate();
+        setEndDate();
+        setTransactionMonth();
+        break;
+      case "all":
+        setStartDate();
+        setEndDate();
+        setTransactionMonth();
+        break;
+      default:
+        break;
+    }
   }
 
   return (
@@ -128,7 +207,11 @@ function HomePage() {
       <div className="grid grid-cols-1 md:grid-cols-3 p-2 ">
         <section className="col-span-2 border-solid border-2 border-white-100 rounded-l-lg justify-center px-2 py-4 ">
           <Link to="/overview">Overview</Link>
-          <TransactionChart transactions={transactions} />
+          <TransactionChart
+            transactionDays={transactionDays}
+            transactions={transactions}
+            period={period}
+          />
         </section>
 
         <article className="flex-none">
@@ -136,14 +219,22 @@ function HomePage() {
             id="category-graph"
             className="border-solid border-t-2 border-r-2 border-white-400 rounded-tr-lg py-2"
           >
-            <TransactionChart transactions={transactions} />
+            <TransactionChart
+              transactionDays={transactionDays}
+              transactions={transactions}
+              period={period}
+            />
           </section>
 
           <section
             id="category-graph"
             className="border-solid border-b-2 border-r-2 border-white-400 rounded-br-lg py-2"
           >
-            <TransactionChart transactions={transactions} />
+            <TransactionChart
+              transactionDays={transactionDays}
+              transactions={transactions}
+              period={period}
+            />
           </section>
         </article>
 
@@ -155,7 +246,7 @@ function HomePage() {
           <h2 className="text-center">{transactionMonth}</h2>
           <div className="grid grid-cols-3 px-4">
             <div>
-              <button onClick={getPreviousMonthTransactions}>
+              <button onClick={getPreviousPeriodTransactions}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -170,9 +261,9 @@ function HomePage() {
               </button>
             </div>
 
-            <Period period={period} setPeriod={setPeriod} />
+            <Period period={period} setPeriod={periodChanged} />
             <div className="justify-self-end">
-              <button onClick={getNextMonthTransaction}>
+              <button onClick={getNextPeriodTransaction}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

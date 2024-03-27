@@ -4,7 +4,7 @@ export default function Period({ period, setPeriod }) {
       name="periodSize"
       id="period-size"
       value={period}
-      onChange={(e) => setPeriod(e.target.value)}
+      onChange={(e) => setPeriod(e)}
     >
       <option value="week">Week</option>
       <option value="month">Month</option>
