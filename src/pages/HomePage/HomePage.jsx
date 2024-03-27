@@ -48,17 +48,6 @@ function HomePage() {
 
         setTransactions(filteredData);
 
-        // let dateArray = filteredData.map((value) => value.date);
-        // let dates = dateArray.filter(
-        //   (value, index) => dateArray.indexOf(value) === index
-        // );
-
-        // dates.sort((a, b) => {
-        //   let dateA = new Date(a);
-        //   let dateB = new Date(b);
-        //   return dateB - dateA;
-        // });
-
         let dates = sortTransactionsByDate(filteredData);
 
         setTransactionDays(dates);
@@ -135,74 +124,93 @@ function HomePage() {
 
   return (
     <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
-      <article className="flex-none">
-        <section className="justify-center py-4 bg-yellow-100">
+      <div className="grid grid-cols-1 md:grid-cols-3 p-2">
+        <section className="col-span-2 border-solid border-2 border-white-100 rounded-l-lg justify-center px-2 py-4 ">
           <Link to="/overview">Overview</Link>
-        </section>
-
-        <section id="category-graph" className="bg-green-400">
           <TransactionChart transactions={transactions} />
         </section>
 
-        <section id="importance-graph" className="bg-pink-400">
-          <div>
-            <h1>Categories</h1>
-            <div>Bar graph for categories</div>
-          </div>
-        </section>
-      </article>
+        <article className="flex-none">
+          <section
+            id="category-graph"
+            className="border-solid border-t-2 border-r-2 border-white-400 rounded-tr-lg py-2"
+          >
+            <TransactionChart transactions={transactions} />
+          </section>
 
-      <section className="h-screen mb-36 flex-auto" id="transaction-list">
-        <CashFlow transactions={transactions} />
-        <div className="grid grid-cols-3 px-4">
-          <div>
-            <button onClick={getPreviousMonthTransactions}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"
-                />
-              </svg>
-            </button>
-          </div>
+          <section
+            id="category-graph"
+            className="border-solid border-b-2 border-r-2 border-white-400 rounded-br-lg py-2"
+          >
+            <TransactionChart transactions={transactions} />
+          </section>
+        </article>
 
-          <Period period={period} setPeriod={setPeriod} />
-          <div className="justify-self-end">
-            <button onClick={getNextMonthTransaction}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <g transform="rotate(180 12 12) translate(0 24) scale(1 -1)">
+        <section
+          className="col-span-2 mr-4 mb-36 mt-4 p-2 flex-auto h-screen border-solid border-2 border-sky-500 rounded"
+          id="transaction-list"
+        >
+          <CashFlow transactions={transactions} />
+          <h2 className="text-center">{transactionMonth}</h2>
+          <div className="grid grid-cols-3 px-4">
+            <div>
+              <button onClick={getPreviousMonthTransactions}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     fill="currentColor"
                     d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"
                   />
-                </g>
-              </svg>
-            </button>
-          </div>
-        </div>
+                </svg>
+              </button>
+            </div>
 
-        {transactionDays ? (
-          transactionDays.map((date, index) => (
-            <TransactionDate
-              key={index}
-              date={date}
-              transactions={transactions}
-            />
-          ))
-        ) : (
-          <p>Error</p>
-        )}
-      </section>
+            <Period period={period} setPeriod={setPeriod} />
+            <div className="justify-self-end">
+              <button onClick={getNextMonthTransaction}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <g transform="rotate(180 12 12) translate(0 24) scale(1 -1)">
+                    <path
+                      fill="currentColor"
+                      d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"
+                    />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {transactionDays ? (
+            transactionDays.map((date, index) => (
+              <TransactionDate
+                key={index}
+                date={date}
+                transactions={transactions}
+              />
+            ))
+          ) : (
+            <p>Error</p>
+          )}
+        </section>
+
+        <article>
+          <section
+            id="importance-graph"
+            className="border-solid border-2 border-pink-400 rounded mt-4"
+          >
+            <TransactionChart transactions={transactions} />
+          </section>
+        </article>
+      </div>
 
       <Link className="fixed bottom-20 right-5 mb-5 " to="/transaction/new">
         <svg

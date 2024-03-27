@@ -6,7 +6,7 @@ import ImportanceSelection from "../../components/ImportanceSelection";
 import CategorySelection from "../../components/CategorySelection";
 import RecurrenceSelection from "../../components/RecurrenceSelection";
 import { db } from "../../Config/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { getCurrentDate } from "../../assets/months";
 import TransferTransaction from "./TransferTransaction";
 

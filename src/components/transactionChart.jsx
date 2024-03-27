@@ -64,6 +64,8 @@ export default function TransactionChart({ transactions }) {
                 display: false,
               },
             },
+            indexAxis: "y",
+            responsive: true,
           }}
         />
       </div>
