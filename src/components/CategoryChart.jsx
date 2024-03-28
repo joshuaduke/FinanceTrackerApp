@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 Chart.register(CategoryScale);
 
-export default function TransactionChart({
+export default function CategoryChart({
   transactionDays,
   transactions,
   period,
@@ -55,9 +55,9 @@ export default function TransactionChart({
   return (
     <div className="chart-container">
       <h2 style={{ textAlign: "center" }} className="text-white">
-        Expenses
+        Categories
       </h2>
-      <Line
+      <Bar
         data={chartData}
         options={{
           plugins: {
@@ -69,6 +69,7 @@ export default function TransactionChart({
               display: false,
             },
           },
+          indexAxis: "y",
           responsive: true,
           scales: {
             x: {

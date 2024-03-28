@@ -24,6 +24,7 @@ import {
   lastDayOfYear,
 } from "date-fns";
 import ImportanceChart from "../../components/ImportanceChart";
+import CategoryChart from "../../components/CategoryChart";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
 
@@ -203,9 +204,9 @@ function HomePage() {
   }
 
   return (
-    <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
+    <div id="home-page" className="py-2 bg-bgPrimary">
       <h1 className="mt-16 px-2 text-white">J-SPENDER</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 p-2 ">
+      <div className="grid grid-cols-1 md:grid-cols-3 p-3 pb-24">
         <section className="col-span-2 border-solid border-2 border-zinc-700 rounded-l-lg justify-center px-2 py-4 bg-secondary">
           <Link to="/overview" className="text-white">
             Overview
@@ -218,12 +219,12 @@ function HomePage() {
           />
         </section>
 
-        <article className="flex-none">
+        <article className="flex-none hidden md:block">
           <section
             id="category-graph"
             className="border-solid border-t-2 border-r-2 border-zinc-700 rounded-tr-lg py-2 bg-secondary"
           >
-            <TransactionChart
+            <CategoryChart
               transactionDays={transactionDays}
               transactions={transactions}
               period={period}
@@ -243,7 +244,7 @@ function HomePage() {
         </article>
 
         <section
-          className="col-span-2 mr-4 mb-36 mt-4 p-2 flex-auto h-screen border-solid border-2 border-white-500 rounded"
+          className="col-span-2 md:mr-4 mt-4 p-2 flex-auto h-fit border-solid border-2 border-zinc-700 rounded "
           id="transaction-list"
         >
           <CashFlow transactions={transactions} />
@@ -300,10 +301,10 @@ function HomePage() {
           )}
         </section>
 
-        <article>
+        <article className="hidden md:block">
           <section
             id="importance-graph"
-            className="border-solid border-2 border-white-400 rounded mt-4"
+            className="border-solid border-2 border-zinc-700 rounded mt-4 py-2 bg-secondary"
           >
             <TransactionChart transactions={transactions} />
           </section>

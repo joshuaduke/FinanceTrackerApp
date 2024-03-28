@@ -55,7 +55,7 @@ export default function ImportanceChart({
   return (
     <div className="chart-container">
       <h2 style={{ textAlign: "center" }} className="text-white">
-        Line Chart
+        Importance
       </h2>
       <Bar
         data={chartData}

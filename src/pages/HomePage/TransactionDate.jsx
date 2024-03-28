@@ -38,7 +38,7 @@ function TransactionDate(props) {
 
   return (
     <div>
-      <div id="date" className="bg-primary">
+      <div id="date" className="">
         <ul className="flex justify-between p-2 text-complement2">
           {/* <li>{date} - Date</li> */}
           <li>{formatDate(props.date)}</li>

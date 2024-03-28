@@ -8,11 +8,13 @@ export default {
     extend: {
       colors: {
         primary: "#17255A",
-        secondary: "#1c1e1d",
+        secondary: "#222526",
+        // secondary: "#1c1e1d",
         complement1: "#B07156",
         complement2: "#F5E2C8",
         bgPrimary: "#131415",
-        success: "#17864B"
+        success: "#17864B",
+        text: "#fcfcfc",
       }
     },
   },
