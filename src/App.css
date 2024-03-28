@@ -1,9 +1,14 @@
- #root {
-  /* max-width: 1280px; */
+*{
   margin: 0;
   padding: 0;
   line-height: 1.6rem;
   box-sizing: border-box;
+}
+
+#root {
+  /* max-width: 1280px; */
+  background-color: #131415;
+  height:100vh;
 }
 
 /*

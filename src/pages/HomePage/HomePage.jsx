@@ -204,9 +204,9 @@ function HomePage() {
   }
 
   return (
-    <div id="home-page" className="py-2 bg-bgPrimary">
-      <h1 className="mt-16 px-2 text-white">J-SPENDER</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 p-3 pb-24">
+    <div id="home-page" className="py-2 bg-bgPrimary lg:px-16 xl:px-32 ">
+      <h1 className="mt-16 2xl:ml-64 px-2 text-white text-2xl">J-SPENDER</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 p-3 pb-24 2xl:w-10/12 2xl:my-0 2xl:mx-auto">
         <section className="col-span-2 border-solid border-2 border-zinc-700 rounded-l-lg justify-center px-2 py-4 bg-secondary">
           <Link to="/overview" className="text-white">
             Overview
