@@ -47,7 +47,7 @@ function Transaction(props) {
   }, []);
 
   return (
-    <div className="bg-complement2 m-2 rounded-md">
+    <div className="bg-complement2  px-2 my-2 rounded-md">
       <Link to={`/transaction/${data.id}`}>
         <div
           className="flex justify-between items-center px-2 py-3"

@@ -23,6 +23,7 @@ import {
   lastDayOfMonth,
   lastDayOfYear,
 } from "date-fns";
+import ImportanceChart from "../../components/ImportanceChart";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
 
@@ -203,10 +204,13 @@ function HomePage() {
 
   return (
     <div id="home-page" className="py-2 pb-10 bg-bgPrimary">
-      <h1 className="mt-16 px-2">J-SPENDER</h1>
+      <h1 className="mt-16 px-2 text-white">J-SPENDER</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 p-2 ">
-        <section className="col-span-2 border-solid border-2 border-white-100 rounded-l-lg justify-center px-2 py-4 ">
-          <Link to="/overview">Overview</Link>
+        <section className="col-span-2 border-solid border-2 border-zinc-700 rounded-l-lg justify-center px-2 py-4 bg-secondary">
+          <Link to="/overview" className="text-white">
+            Overview
+          </Link>
+          <Period period={period} setPeriod={periodChanged} />
           <TransactionChart
             transactionDays={transactionDays}
             transactions={transactions}
@@ -217,7 +221,7 @@ function HomePage() {
         <article className="flex-none">
           <section
             id="category-graph"
-            className="border-solid border-t-2 border-r-2 border-white-400 rounded-tr-lg py-2"
+            className="border-solid border-t-2 border-r-2 border-zinc-700 rounded-tr-lg py-2 bg-secondary"
           >
             <TransactionChart
               transactionDays={transactionDays}
@@ -228,9 +232,9 @@ function HomePage() {
 
           <section
             id="category-graph"
-            className="border-solid border-b-2 border-r-2 border-white-400 rounded-br-lg py-2"
+            className="border-solid border-b-2 border-r-2 border-zinc-700 rounded-br-lg py-2 bg-secondary"
           >
-            <TransactionChart
+            <ImportanceChart
               transactionDays={transactionDays}
               transactions={transactions}
               period={period}
@@ -239,11 +243,12 @@ function HomePage() {
         </article>
 
         <section
-          className="col-span-2 mr-4 mb-36 mt-4 p-2 flex-auto h-screen border-solid border-2 border-sky-500 rounded"
+          className="col-span-2 mr-4 mb-36 mt-4 p-2 flex-auto h-screen border-solid border-2 border-white-500 rounded"
           id="transaction-list"
         >
           <CashFlow transactions={transactions} />
-          <h2 className="text-center">{transactionMonth}</h2>
+          <h2 className="text-white">Transactions</h2>
+
           <div className="grid grid-cols-3 px-4">
             <div>
               <button onClick={getPreviousPeriodTransactions}>
@@ -254,14 +259,15 @@ function HomePage() {
                   viewBox="0 0 24 24"
                 >
                   <path
-                    fill="currentColor"
+                    fill="white"
                     d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"
                   />
                 </svg>
               </button>
             </div>
 
-            <Period period={period} setPeriod={periodChanged} />
+            <h3 className="text-center text-white">{transactionMonth}</h3>
+
             <div className="justify-self-end">
               <button onClick={getNextPeriodTransaction}>
                 <svg
@@ -272,7 +278,7 @@ function HomePage() {
                 >
                   <g transform="rotate(180 12 12) translate(0 24) scale(1 -1)">
                     <path
-                      fill="currentColor"
+                      fill="white"
                       d="m4 10l-.707.707L2.586 10l.707-.707zm17 8a1 1 0 1 1-2 0zM8.293 15.707l-5-5l1.414-1.414l5 5zm-5-6.414l5-5l1.414 1.414l-5 5zM4 9h10v2H4zm17 7v2h-2v-2zm-7-7a7 7 0 0 1 7 7h-2a5 5 0 0 0-5-5z"
                     />
                   </g>
@@ -297,7 +303,7 @@ function HomePage() {
         <article>
           <section
             id="importance-graph"
-            className="border-solid border-2 border-pink-400 rounded mt-4"
+            className="border-solid border-2 border-white-400 rounded mt-4"
           >
             <TransactionChart transactions={transactions} />
           </section>
@@ -312,10 +318,10 @@ function HomePage() {
           viewBox="0 0 32 32"
         >
           <path
-            fill="currentColor"
+            fill="white"
             d="M16 2A14.173 14.173 0 0 0 2 16a14.173 14.173 0 0 0 14 14a14.173 14.173 0 0 0 14-14A14.173 14.173 0 0 0 16 2Zm8 15h-7v7h-2v-7H8v-2h7V8h2v7h7Z"
           />
-          <path fill="white" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z" />
+          <path fill="green" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z" />
         </svg>
       </Link>
 

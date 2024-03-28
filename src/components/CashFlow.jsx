@@ -9,7 +9,7 @@ export default function CashFlow({ transactions }) {
 
   return (
     <>
-      <h1>
+      <h1 className="text-white">
         Cash flow: <span>{totalCashFlow}</span>
       </h1>
     </>

@@ -88,8 +88,6 @@ export function getStartEndDate(){
         endDate: format(lastDayOfMonth(date), "yyyy-MM-dd")
     }
 
-    console.log("MyDateObj", myDateObj)
-
     return myDateObj;
 }
 
