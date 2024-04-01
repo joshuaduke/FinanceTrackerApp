@@ -25,10 +25,13 @@ import {
 } from "date-fns";
 import ImportanceChart from "../../components/ImportanceChart";
 import CategoryChart from "../../components/CategoryChart";
+import { Context } from "../../Context/AuthContext";
+import { useContext } from "react";
 
 // FIX ISSUE WITH DATE APPENDING EXTRA 0 - 001 002 ehen clickin next or previous button
 
 function HomePage() {
+  const { user } = useContext(Context);
   const [transactions, setTransactions] = useState([]);
   const [transactionDays, setTransactionDays] = useState([]);
   const [startDate, setStartDate] = useState(getStartEndDate().startDate);
@@ -36,6 +39,8 @@ function HomePage() {
   const [period, setPeriod] = useState("month");
   const [transactionMonth, setTransactionMonth] = useState("");
   const transactionsCollectionRef = collection(db, "transactions");
+
+  console.log("Current User:", user);
 
   //verify if this can be deleted
 
@@ -45,6 +50,7 @@ function HomePage() {
         console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
         const q1 = await query(
           transactionsCollectionRef,
+          where("user", "==", user.uid),
           where("date", ">=", startDate),
           where("date", "<=", EndDate)
         );

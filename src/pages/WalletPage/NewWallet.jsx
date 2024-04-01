@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { getCurrentDate } from "../../assets/months";
+import { Context } from "../../Context/AuthContext";
 
 function NewWallet() {
   const navigate = useNavigate();
+  const { user } = useContext(Context);
   const [walletName, setWalletName] = useState("");
   const [walletBank, setWalletBank] = useState("");
   const [walletCurrentBalance, setWalletCurrentBalance] = useState("");
@@ -23,6 +25,7 @@ function NewWallet() {
       walletType: walletType,
       creditLimit: walletCreditLimit,
       description: walletDescription,
+      user: user.uid,
       createdDate: getCurrentDate(),
     });
 

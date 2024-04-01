@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { db } from "../../Config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { getCurrentDate } from "../../assets/months";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Context } from "../../Context/AuthContext";
 
 function NewSavings() {
   const navigate = useNavigate();
+  const { user } = useContext(Context);
   const location = useLocation();
 
   console.log("location", location);
@@ -43,6 +45,7 @@ function NewSavings() {
       walletType: "savings",
       bank: walletBankName,
       createdDate: getCurrentDate(),
+      user: user.uid,
     });
 
     const savingsRef = await addDoc(collection(db, "savings"), {
@@ -52,6 +55,7 @@ function NewSavings() {
       description: savingsGoalDescription,
       walletId: walletsRef.id,
       currentAmount: savingsInitialBalance,
+      user: user.uid,
       createdDate: getCurrentDate(),
     });
 

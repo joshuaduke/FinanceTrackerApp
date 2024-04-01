@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CategoryIcon from "../../components/CategoryIcon";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import WalletSelection from "../WalletPage/WalletSelection";
 import ImportanceSelection from "../../components/ImportanceSelection";
 import CategorySelection from "../../components/CategorySelection";
@@ -9,9 +9,11 @@ import { db } from "../../Config/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { getCurrentDate } from "../../assets/months";
 import TransferTransaction from "./TransferTransaction";
+import { Context } from "../../Context/AuthContext";
 
 function NewTransaction() {
   const navigate = useNavigate();
+  const { user } = useContext(Context);
   const [wallet, setWallet] = useState("");
   const [newTransaction, setNewTransaction] = useState({
     category: "Misc",
@@ -22,6 +24,7 @@ function NewTransaction() {
     transactionAmount: "",
     description: "",
     walletId: "",
+    user: user.uid,
     createdDate: getCurrentDate(),
   });
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { myIcons } from "../../assets/myIcons";
 import CategoryCheckbox from "../../components/CategoryCheckbox";
 import RecurrenceSelection from "../../components/RecurrenceSelection";
@@ -6,15 +6,18 @@ import { getCurrentDate } from "../../assets/months";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { addDoc, collection } from "firebase/firestore";
+import { Context } from "../../Context/AuthContext";
 
 function NewBudget() {
   const navigate = useNavigate();
+  const { user } = useContext(Context);
   const [newBudgetObj, setNewBudgetObj] = useState({
     amount: 0,
     name: "",
     recurrence: "",
     startDate: getCurrentDate(),
     createdDate: getCurrentDate(),
+    user: user.uid,
   });
 
   const [budgetCategories, setBudgetCategories] = useState([]);
