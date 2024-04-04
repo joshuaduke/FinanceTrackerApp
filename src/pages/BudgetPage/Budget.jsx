@@ -77,30 +77,30 @@ function Budget({ budgetData }) {
   console.log("totalTransactionAmount", totalTransactionAmount);
 
   return (
-    <>
+    <div>
       <Link
         to={`/budget/${budgetData.id}`}
         state={{ transactions: transactions }}
       >
-        <h3 className="text-yellow-700">{budgetData.name}</h3>
+        <h3 className="text-complement2 text-lg">{budgetData.name}</h3>
+        <div className="bg-secondary rounded-md p-2">
+          {remainingAmount > 0 ? (
+            <p className="text-text text-sm">
+              <span>
+                You have {formatCurrency(remainingAmount)} left out of{" "}
+                {formatCurrency(budgetData.amount)}
+              </span>
+            </p>
+          ) : (
+            <p className="text-text text-sm">
+              <span>
+                You have exceeded your {formatCurrency(budgetData.amount)}{" "}
+                budget by: {formatCurrency(remainingAmount)}!
+              </span>
+            </p>
+          )}
 
-        {remainingAmount > 0 ? (
-          <p>
-            <span>
-              You have {formatCurrency(remainingAmount)} left out of{" "}
-              {formatCurrency(budgetData.amount)}
-            </span>
-          </p>
-        ) : (
-          <p>
-            <span>
-              You have exceeded your {formatCurrency(budgetData.amount)} budget
-              by: {formatCurrency(remainingAmount)} please do better!
-            </span>
-          </p>
-        )}
-
-        {/* <div className=" bg-neutral-200 dark:bg-neutral-600 ">
+          {/* <div className=" bg-neutral-200 dark:bg-neutral-600 ">
           <div
             className="bg-green-500 p-0.5 text-center text-xs font-medium leading-none text-primary-100"
             style={{ width: `${goalPercentage}%` }}
@@ -109,15 +109,16 @@ function Budget({ budgetData }) {
           </div>
         </div> */}
 
-        <ProgressBar percentage={goalPercentage} />
-        <div>
-          <ul className="flex justify-between">
-            <li>{formatDate(budgetData.startDate)}</li>
-            <li>January 31, 2024</li>
-          </ul>
+          <ProgressBar percentage={goalPercentage} />
+          <div>
+            <ul className="flex justify-between text-text text-xs mt-2">
+              <li>{formatDate(budgetData.startDate)}</li>
+              <li>January 31, 2024</li>
+            </ul>
+          </div>
         </div>
       </Link>
-    </>
+    </div>
   );
 }
 

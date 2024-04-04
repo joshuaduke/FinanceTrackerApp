@@ -15,6 +15,10 @@ export default {
         bgPrimary: "#131415",
         success: "#17864B",
         text: "#fcfcfc",
+        impGreen: "#22C55E",
+        impRed: "#EF4444",
+        impYellow: "#FCF667",
+        impOrange: "#E57B20"
       }
     },
   },

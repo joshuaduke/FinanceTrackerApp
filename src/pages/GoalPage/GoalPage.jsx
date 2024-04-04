@@ -6,8 +6,8 @@ import BudgetPage from "../BudgetPage/BudgetPage";
 function GoalPage() {
   const [selectedGoal, setSelectedGoal] = useState("budget");
   return (
-    <main className="grid w-full place-items-center">
-      <div className="grid grid-cols-2 gap-2 rounded-xl bg-gray-200 p-2">
+    <main className="grid w-full place-items-center p-4">
+      <div className="grid w-full grid-cols-2 gap-2 rounded-md bg-secondary p-1">
         <div>
           <input
             className="peer hidden"
@@ -21,7 +21,7 @@ function GoalPage() {
           <label
             htmlFor="goal"
             onClick={() => setSelectedGoal("budget")}
-            className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
+            className="block cursor-pointer select-none rounded-md p-2 text-center peer-checked:bg-primary peer-checked:font-bold text-text"
           >
             Budget
           </label>
@@ -40,7 +40,7 @@ function GoalPage() {
           <label
             htmlFor="goal"
             onClick={() => setSelectedGoal("saving")}
-            className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white"
+            className="block cursor-pointer select-none rounded-md p-2 text-center peer-checked:bg-primary peer-checked:font-bold text-text"
           >
             Saving
           </label>

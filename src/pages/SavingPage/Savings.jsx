@@ -9,6 +9,7 @@ import {
 } from "../../assets/months";
 import { formatCurrency } from "../../assets/currency/formatCurrency";
 import { formatDate } from "../../assets/months";
+import ProgressBar from "../../components/ProgressBar";
 
 function SavingsGoal({ data }) {
   const [startDate, setStartDate] = useState(getStartEndDate().startDate);
@@ -37,7 +38,7 @@ function SavingsGoal({ data }) {
 
   console.log("Test Data", transactions);
   return (
-    <>
+    <div>
       <Link
         to={`/savings/${data.id}`}
         state={{
@@ -46,27 +47,24 @@ function SavingsGoal({ data }) {
           transactions: transactions,
         }}
       >
-        <h3 className="text-yellow-700">{data.name}</h3>
-        <p>
-          You saved <span>{formatCurrency(savingsAmount)}</span> saved out of
-          <span> {formatCurrency(data.goal)}</span>
-        </p>
-        <div className=" bg-neutral-200 dark:bg-neutral-600 ">
-          <div
-            className="bg-green-500 p-0.5 text-center text-xs font-medium leading-none text-primary-100"
-            style={{ width: `${goalPercentage}%` }}
-          >
-            <p>{Math.ceil(goalPercentage)} %</p>
+        <h3 className="text-complement2">{data.name}</h3>
+        <div className="bg-secondary rounded-md p-2">
+          <p className="text-text text-sm">
+            You saved <span>{formatCurrency(savingsAmount)}</span> saved out of
+            <span> {formatCurrency(data.goal)}</span>
+          </p>
+          <div className=" bg-neutral-200 dark:bg-neutral-600 ">
+            <ProgressBar percentage={goalPercentage} />
+          </div>
+          <div>
+            <ul className="flex justify-end text-text text-xs mt-2">
+              {/* <li>{formatDate(data.createdDate)}</li> */}
+              <li>Due: {formatDate(data.dueDate)}</li>
+            </ul>
           </div>
         </div>
-        <div>
-          <ul className="flex justify-end">
-            {/* <li>{formatDate(data.createdDate)}</li> */}
-            <li>Due: {formatDate(data.dueDate)}</li>
-          </ul>
-        </div>
       </Link>
-    </>
+    </div>
   );
 }
 

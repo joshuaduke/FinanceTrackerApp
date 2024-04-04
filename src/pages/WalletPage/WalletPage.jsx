@@ -49,8 +49,8 @@ function WalletPage() {
   console.log("transactions from api", transactions);
 
   return (
-    <>
-      <h1 className="text-center">Wallets</h1>
+    <div className="p-4">
+      <h1 className="text-center text-text">Wallets</h1>
       <CashFlow transactions={transactions} />
       <ul>
         {wallets.map((item) => (
@@ -65,7 +65,7 @@ function WalletPage() {
         Create a New Wallet
       </Link>
       <Footer />
-    </>
+    </div>
   );
 }
 

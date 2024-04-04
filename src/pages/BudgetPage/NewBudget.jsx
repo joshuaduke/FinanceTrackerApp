@@ -15,6 +15,7 @@ function NewBudget() {
     amount: 0,
     name: "",
     recurrence: "",
+    description: "",
     startDate: getCurrentDate(),
     createdDate: getCurrentDate(),
     user: user.uid,
@@ -65,19 +66,21 @@ function NewBudget() {
 
   console.log("budgetCategories", budgetCategories);
   return (
-    <div>
-      <div>
+    <main className="p-4">
+      <div className="text-text">
         <ul className="grid grid-cols-3">
-          <li>
-            <Link to="/goals">Close</Link>
+          <li className="">
+            <Link to="/goals">back</Link>
           </li>
           <li>Add New Budget</li>
-          <li className="text-right">Delete</li>
+          <li className="text-right"></li>
         </ul>
       </div>
 
       <form action="" onSubmit={handleSubmit}>
-        <label htmlFor="budgetName">Budget Name</label>
+        <label htmlFor="budgetName" className="text-text text-lg">
+          Budget Name
+        </label>
         <input
           type="text"
           name="name"
@@ -86,15 +89,36 @@ function NewBudget() {
           required
         />
         <br />
-        <label htmlFor="budgetAmount">Amount</label>
-        <input
-          type="number"
-          name="amount"
-          id="budgetAmount"
-          value={newBudgetObj.amount}
-          onChange={handleChange}
-          required
-        />
+
+        <div className="flex justify-between my-6">
+          <label
+            htmlFor="amount"
+            className="place-self-center text-text text-lg"
+          >
+            Budget Amount
+          </label>
+          <div className="self-center  w-fit justify-center flex items-center shadow-md">
+            <div className="flex w-6 items-center bg-gray-100 rounded-l-md border border-white justify-center h-10 text-white ">
+              <svg
+                className="h-5 w-5 fill-gray-900"
+                xmlns="http://www.w3.org/2000/svg"
+                width="1em"
+                height="1em"
+                viewBox="0 0 24 24"
+              >
+                <path d="M7 15h2c0 1.08 1.37 2 3 2s3-.92 3-2c0-1.1-1.04-1.5-3.24-2.03C9.64 12.44 7 11.78 7 9c0-1.79 1.47-3.31 3.5-3.82V3h3v2.18C15.53 5.69 17 7.21 17 9h-2c0-1.08-1.37-2-3-2s-3 .92-3 2c0 1.1 1.04 1.5 3.24 2.03C14.36 11.56 17 12.22 17 15c0 1.79-1.47 3.31-3.5 3.82V21h-3v-2.18C8.47 18.31 7 16.79 7 15" />
+              </svg>
+            </div>
+            <input
+              className="w-fit h-10 px-2 rounded-r-md border border-gray-100 text-gray-800 focus:outline-none"
+              type="number"
+              name="amount"
+              value={newBudgetObj.amount}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
 
         <div onClick={toggleView}>Budget for </div>
         {showCategories ? (
@@ -135,7 +159,7 @@ function NewBudget() {
           Create a New Budget
         </button>
       </form>
-    </div>
+    </main>
   );
 }
 

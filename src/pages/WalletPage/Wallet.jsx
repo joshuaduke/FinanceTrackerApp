@@ -38,21 +38,25 @@ function WalletList(props) {
   console.log("Wallet Transactions", transactions);
 
   return (
-    <div className="p-2">
+    <div className="bg-secondary px-4 my-2 rounded-md text-text">
       <Link
         className="flex justify-between"
         to={`/wallet/${value.id}`}
         state={{ walletTransactions: transactions }}
       >
-        <div>
-          <h3>{value.name}</h3>
+        <div className="justify-between items-center px-2 py-3">
+          <h3 className="text-lg">{value.name}</h3>
           <p>
             {value.bank}
             {value.walletType != "default" ? " - " + value.walletType : false}
           </p>
         </div>
-        <div>
-          <p>{formatCurrency(monthlyCashFlow)}</p>
+        <div className="place-self-center">
+          <p
+            className={monthlyCashFlow < 0 ? "text-red-500" : "text-green-500"}
+          >
+            {formatCurrency(monthlyCashFlow)}
+          </p>
         </div>
       </Link>
     </div>
