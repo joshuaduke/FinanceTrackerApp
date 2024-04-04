@@ -5,7 +5,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signin() {
   const navigate = useNavigate();
@@ -25,10 +25,20 @@ export default function Signin() {
   };
 
   return (
-    <div className="text-red-500">
-      <h1>This is the sign in page</h1>
+    <div className="text-text px-6 py-12 h-screen">
+      <div className="my-12">
+        <h1 className="text-lg">Welcome!</h1>
+        <p className="text-sm">Login to continue</p>
+      </div>
+
+      <div className="w-full h-1/4 grid">
+        <h2 className="place-self-center text-xl">J-Spender</h2>
+      </div>
+
       <form action="">
-        <label htmlFor="">Email</label>
+        <label htmlFor="" className="text-text text-md">
+          Email
+        </label>
         <input
           onChange={(e) => {
             setEmail(e.target.value);
@@ -36,8 +46,11 @@ export default function Signin() {
           type="text"
           name=""
           id=""
+          className="w-full h-10 px-2 mb-4 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
         />
-        <label htmlFor="">Password</label>
+        <label htmlFor="" className="text-text text-md">
+          Password
+        </label>
         <input
           onChange={(e) => {
             setPassword(e.target.value);
@@ -45,15 +58,27 @@ export default function Signin() {
           type="password"
           name=""
           id=""
+          className="w-full h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
         />
-        <br />
-        <button
-          onClick={(e) => {
-            handleSignIn(e);
-          }}
-        >
-          Sign In
-        </button>
+        <div>
+          <span className="text-impOrange text-sm">Forgot Password?</span>
+        </div>
+
+        <div className="mt-6">
+          <button
+            className="py-2 px-4 bg-secondary w-full mx-auto my-4 rounded-md shadow-sm shadow-white"
+            onClick={(e) => {
+              handleSignIn(e);
+            }}
+          >
+            Sign In
+          </button>
+          <Link to="/signUp">
+            <div className="py-2 px-4 bg-complement2 w-full mx-auto my-4 text-center rounded-md shadow-sm shadow-blue-500/50 text-blue-500">
+              Create Account
+            </div>
+          </Link>
+        </div>
       </form>
     </div>
   );
