@@ -20,6 +20,8 @@ import SignUp from "./pages/Authentication/Signup";
 import Signin from "./pages/Authentication/Signin";
 import { AuthContext } from "./Context/AuthContext";
 import { Protected } from "./pages/Authentication/Protected";
+import { AccountInformation } from "./pages/SettingsPage/AccountInformation";
+import { Appearance } from "./pages/SettingsPage/Appearance";
 
 function App() {
   return (
@@ -51,6 +53,8 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/goals" element={<GoalPage />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/accountInfo" element={<AccountInformation />} />
+          <Route path="/appearance" element={<Appearance />} />
           <Route path="/overview" element={<Overview />} />
         </Routes>
       </BrowserRouter>

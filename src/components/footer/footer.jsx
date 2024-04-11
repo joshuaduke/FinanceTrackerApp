@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <div
       className="
-    py-4 px-1 grid grid-cols-4 justify-center bg-secondary w-full fixed bottom-0 left-0 right-0  
+    py-4 px-1 grid grid-cols-4 justify-center rounded-t-xl bg-secondary w-full fixed bottom-0 left-0 right-0  
     lg:absolute lg:flex lg:top-14 lg:bottom-auto lg:left-64 lg:justify-start lg:bg-transparent lg:w-fit
     2xl:left-96 2xl:ml-44 2xl:text-lg"
     >

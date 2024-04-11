@@ -1,5 +1,5 @@
 import { db } from "../../Config/firebase";
-import { getDocs, collection, query, where, deleteDoc } from "firebase/firestore";
+import { getDocs, collection, query, where, deleteDoc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 export function deleteDocument(docRef){
@@ -18,3 +18,19 @@ export function deleteDocument(docRef){
       }
 }
 
+export async function getCurrentUserData(userId){
+  try {
+    console.log("Id",userId)
+    const q = query(collection(db, "users"), where("userId", "==", userId))
+    const userData = await getDocs(q);
+    const filteredData = userData.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    console.log("userData", filteredData[0]);
+    return filteredData[0];
+  } catch (error) {
+    console.log("Error in deleteWallet function");
+    console.error(error);
+  }
+}
