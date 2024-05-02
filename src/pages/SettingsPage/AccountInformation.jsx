@@ -27,9 +27,16 @@ export function AccountInformation() {
   const deleteAccount = async () => {
     // add confirmation message
     try {
-      await signOut(auth).then(() => {
-        navigate("/signIn");
-      });
+      let confirmText = "Are you sure you want to delete your account?";
+
+      if (confirm(confirmText) == true) {
+        await signOut(auth).then(() => {
+          navigate("/signIn");
+        });
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
       console.error(error);
     }
@@ -40,8 +47,14 @@ export function AccountInformation() {
   }
   return (
     <div className="text-text px-6 py-12 h-screen">
-      <div className="w-full h-1/4 grid">
-        <h2 className="place-self-center text-xl">Account Information</h2>
+      <div className="border-test text-text">
+        <ul className="grid grid-cols-4">
+          <li className="col-span-1">
+            <p onClick={() => navigate(-1)}>Back</p>
+          </li>
+          <li className="col-span-2 text-center">Account Information</li>
+          <li className="col-span-1"></li>
+        </ul>
       </div>
 
       <form action="">

@@ -234,7 +234,7 @@ function TransactionDetails() {
           <textarea
             name="description"
             id="description"
-            className="max-w-full"
+            className="max-w-full rounded-md p-2"
             cols="120"
             rows="5"
             onChange={(e) => setTransactionDescription(e.target.value)}
@@ -243,7 +243,7 @@ function TransactionDetails() {
           </textarea>
 
           <button
-            className="p-2 bg-complement1"
+            className="p-2 bg-complement1 w-full rounded-md"
             onClick={(e) => handleCategoryToggle(e)}
           >
             Select Category

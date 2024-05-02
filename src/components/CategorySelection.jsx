@@ -26,17 +26,11 @@ function CategorySelection({
   }
 
   return (
-    <div className="bg-green-100 px-4">
-      <div id="category-selection" className="">
-        <div>
-          <h3>Transaction Category</h3>
-          <div>
-            <span>Icon 1</span>
-            <span>Icon 2</span>
-          </div>
-        </div>
+    <div className="bg-secondary text-text px-2">
+      <h2 className="py-2">Transaction Category</h2>
 
-        <div className="grid grid-cols-3 rounded-xl bg-gray-200 p-2">
+      <div id="category-selection" className="">
+        <div className="grid grid-cols-3 rounded-xl bg-bgPrimary p-2">
           <div>
             <label
               htmlFor="expenses"

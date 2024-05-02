@@ -14,7 +14,7 @@ function NewSavings() {
   const [goal, setGoal] = useState({});
   const [savingsName, setSavingsName] = useState("");
   const [savingsGoalAmount, setSavingsGoalAmount] = useState("");
-  const [savingsGoalDate, setSavingsGoalDate] = useState("");
+  const [savingsGoalDate, setSavingsGoalDate] = useState(getCurrentDate());
   const [savingsInitialBalance, setSavingsInitialBalance] = useState(0);
   // const [savingsGoalType, setSavingsGoalType] = useState("yes");
   const [savingsGoalDescription, setSavingsGoalDescription] = useState("");
@@ -64,157 +64,168 @@ function NewSavings() {
   }
 
   return (
-    <form className="" onSubmit={handleSubmit}>
-      <div>
-        <ul className="flex justify-between">
-          <li>
+    <main className="border-test  flex flex-col grow min-h-screen p-4">
+      <div className="border-test text-text">
+        <ul className="grid grid-cols-4">
+          <li className="col-span-1">
             <p onClick={() => navigate(-1)}>Back</p>
           </li>
-          <li>New Savings Goal</li>
-          <li></li>
+          <li className="col-span-2 text-center">New Savings Goal</li>
+          <li className="col-span-1"></li>
         </ul>
       </div>
-      <label htmlFor="savings-name">Name: </label>
-      <input
-        type="text"
-        name="savings-name"
-        id="savingsName"
-        value={savingsName}
-        onChange={(e) => setSavingsName(e.target.value)}
-        required
-      />
 
-      <div>
-        <label htmlFor="goal-amount">Initial Amount: $</label>
-        <input
-          type="number"
-          name="goal-amount"
-          value={savingsInitialBalance}
-          placeholder="0"
-          onChange={(e) => setSavingsInitialBalance(e.target.value)}
-          required
-        />
-      </div>
+      <form onSubmit={handleSubmit} className="border-test flex flex-col grow">
+        <div className="grow">
+          <div className="flex justify-between my-4">
+            <label
+              htmlFor="savings-name"
+              className="border-test text-text text-lg"
+            >
+              Name:
+            </label>
+            <input
+              className=" w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              type="text"
+              name="savings-name"
+              id="savingsName"
+              value={savingsName}
+              onChange={(e) => setSavingsName(e.target.value)}
+              required
+            />
+          </div>
 
-      <div>
-        <label htmlFor="goal-amount">Goal Amount: $</label>
-        <input
-          type="number"
-          name="goal-amount"
-          value={savingsGoalAmount}
-          placeholder="0"
-          onChange={(e) => setSavingsGoalAmount(e.target.value)}
-          required
-        />
-      </div>
+          <div className="border-test flex justify-between my-4">
+            <label htmlFor="goal-amount" className="border-test text-text">
+              Initial Amount: $
+            </label>
+            <input
+              className="border-test w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              type="number"
+              name="goal-amount"
+              value={savingsInitialBalance}
+              placeholder="0"
+              onChange={(e) => setSavingsInitialBalance(e.target.value)}
+              required
+            />
+          </div>
 
-      <div>
-        <label htmlFor="goal-date">Goal Date</label>
-        <input
-          type="date"
-          name="goal-date"
-          id="goalDate"
-          value={savingsGoalDate}
-          onChange={(e) => setSavingsGoalDate(e.target.value)}
-        />
-      </div>
+          <div className="border-test flex justify-between my-4">
+            <label htmlFor="goal-amount" className="text-text">
+              Goal Amount: $
+            </label>
+            <input
+              type="number"
+              className="text-text w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              name="goal-amount"
+              value={savingsGoalAmount}
+              placeholder="0"
+              onChange={(e) => setSavingsGoalAmount(e.target.value)}
+              required
+            />
+          </div>
 
-      {/* <div>
-        <div>
-          <p>Would you like to create a separate wallet for this goal?</p>
-          <label htmlFor="saving-goal">Yes</label>
-          <input
-            type="radio"
-            name="saving-goal"
-            id="savingsGoal"
-            value="yes"
-            onChange={(e) => setSavingsGoalType(e.target.value)}
-            checked={savingsGoalType === "yes"}
-            required
-          />
-          <label htmlFor="savings-goal">No</label>
-          <input
-            type="radio"
-            name="saving-goal"
-            id="savingsGoal"
-            value="no"
-            onChange={(e) => setSavingsGoalType(e.target.value)}
-            checked={savingsGoalType === "no"}
-            required
-          />
+          <div className="border-test flex justify-between my-4">
+            <label htmlFor="goal-date" className="text-text">
+              Goal Date
+            </label>
+            <input
+              type="date"
+              name="goal-date"
+              id="goalDate"
+              value={savingsGoalDate}
+              onChange={(e) => setSavingsGoalDate(e.target.value)}
+            />
+          </div>
+
+          <div className="border-test flex flex-col my-4">
+            <label htmlFor="savings-description" className="text-text">
+              Savings Goal Description
+            </label>
+            <textarea
+              className="block"
+              name="savings-description"
+              id=""
+              rows="5"
+              cols="40"
+              value={savingsGoalDescription}
+              onChange={(e) => setSavingsGoalDescription(e.target.value)}
+            ></textarea>
+          </div>
+
+          {/* WALLET FORM */}
+          <div className="border-test my-4">
+            <h3 className="text-text">Enter new wallet Details</h3>
+            <div className="flex justify-between my-4">
+              <label htmlFor="wallet-name" className="text-text">
+                Name:{" "}
+              </label>
+              <input
+                type="text"
+                className="w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+                name="wallet-name"
+                value={walletName}
+                onChange={(e) => setWalletName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="border-test flex justify-between my-4">
+              <label htmlFor="bank-name" className="text-text">
+                Bank:{" "}
+              </label>
+              <input
+                type="text"
+                className="w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+                name="bank-name"
+                value={walletBankName}
+                onChange={(e) => setWalletBankName(e.target.value)}
+              />
+            </div>
+
+            <div className="border-test flex justify-between my-4">
+              <label htmlFor="initial-balance" className="text-text">
+                Current Balance: $
+              </label>
+              <input
+                type="number"
+                name="initial-balance"
+                className="w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+                id=""
+                value={walletInitialBalance}
+                placeholder="0"
+                onChange={(e) => setWalletInitialBalance(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="border-test flex flex-col my-4">
+              <label className="block text-text" htmlFor="wallet-description">
+                Wallet Description
+              </label>
+              <textarea
+                name="wallet-description"
+                className="inline-block"
+                id=""
+                rows="5"
+                cols="40"
+                value={walletDescription}
+                onChange={(e) => setWalletDescription(e.target.value)}
+              ></textarea>
+            </div>
+          </div>
         </div>
-      </div> */}
 
-      <div>
-        <label htmlFor="savings-description">Description</label>
-        <textarea
-          className="block"
-          name="savings-description"
-          id=""
-          rows="5"
-          cols="40"
-          value={savingsGoalDescription}
-          onChange={(e) => setSavingsGoalDescription(e.target.value)}
-        ></textarea>
-      </div>
-
-      {/* WALLET FORM */}
-      <div>
-        <h3>Enter new wallet Details</h3>
-        <div>
-          <label htmlFor="wallet-name">Name: </label>
-          <input
-            type="text"
-            name="wallet-name"
-            value={walletName}
-            onChange={(e) => setWalletName(e.target.value)}
-            required
-          />
+        <div className="h-14 border-test">
+          <button
+            type="submit"
+            className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0 border-test"
+          >
+            Save Changes
+          </button>
         </div>
-
-        <div>
-          <label htmlFor="bank-name">Bank: </label>
-          <input
-            type="text"
-            name="bank-name"
-            value={walletBankName}
-            onChange={(e) => setWalletBankName(e.target.value)}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="initial-balance">Current Balance: $</label>
-          <input
-            type="number"
-            name="initial-balance"
-            id=""
-            value={walletInitialBalance}
-            placeholder="0"
-            onChange={(e) => setWalletInitialBalance(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="wallet-description">Description</label>
-          <textarea
-            name="wallet-description"
-            id=""
-            rows="5"
-            cols="40"
-            value={walletDescription}
-            onChange={(e) => setWalletDescription(e.target.value)}
-          ></textarea>
-        </div>
-      </div>
-
-      <button
-        type="submit"
-        className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0"
-      >
-        Save Changes
-      </button>
-    </form>
+      </form>
+    </main>
   );
 }
 

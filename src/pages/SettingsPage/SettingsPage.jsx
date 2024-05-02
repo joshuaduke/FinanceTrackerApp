@@ -11,6 +11,7 @@ function Settings() {
 
   const logout = async () => {
     // add confirmation message
+    // use delete doc funtion in helperfunctions file
     try {
       await signOut(auth).then(() => {
         navigate("/signIn");
@@ -22,14 +23,6 @@ function Settings() {
 
   return (
     <main className="p-6">
-      <div className="text-text mb-4">
-        <ul>
-          <li>
-            <button onClick={() => navigate(-1)}>Back</button>
-          </li>
-        </ul>
-      </div>
-
       <h1 className="text-text text-3xl my-6">Settings</h1>
 
       <ul className="text-text">
@@ -66,7 +59,7 @@ function Settings() {
             </div>
           </li>
         </Link>
-        <Link to="appearance">
+        {/* <Link to="appearance">
           <li className="flex justify-between border-b pb-1">
             <div className="flex">
               <svg
@@ -98,7 +91,7 @@ function Settings() {
               </svg>
             </div>
           </li>
-        </Link>
+        </Link> */}
       </ul>
 
       <button

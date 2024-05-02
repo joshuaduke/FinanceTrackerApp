@@ -24,9 +24,9 @@ function CategoryCheckbox({
   return (
     <>
       {type != "transfer" && (
-        <>
+        <div className="p-2 flex border-b-2 border-bgPrimary">
           <CategoryIcon category={name} />
-          <label htmlFor="category" className="self-center">
+          <label htmlFor="category" className="self-center ml-4 mr-2">
             {name}
           </label>
           <input
@@ -38,7 +38,7 @@ function CategoryCheckbox({
             onChange={(e) => handleCheck(e)}
             required
           />
-        </>
+        </div>
       )}
     </>
   );
