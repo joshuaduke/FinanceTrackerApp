@@ -4,9 +4,11 @@ function Overview() {
   const navigate = useNavigate();
   return (
     <>
-      <h1>This page is under construction - beat it!</h1>
-      <p>Feature coming soon</p>
-      <button onClick={() => navigate(-1)}>Back Home</button>
+      <div className="text-text">
+        <h1>This page is under construction</h1>
+        <p>Feature coming soon</p>
+        <button onClick={() => navigate(-1)}>Back Home</button>
+      </div>
     </>
   );
 }

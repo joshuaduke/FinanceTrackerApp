@@ -42,10 +42,7 @@ function NewWallet() {
           </li>
         </ul>
       </div>
-      <form
-        className="p-2 flex flex-col grow border-test"
-        onSubmit={handleSubmit}
-      >
+      <form className="p-2 flex flex-col grow " onSubmit={handleSubmit}>
         <div className="grow">
           <div className="flex justify-between my-6">
             <label htmlFor="wallet-name" className="text-text text-lg">
@@ -160,7 +157,7 @@ function NewWallet() {
             ></textarea>
           </div>
         </div>
-        <div className="h-14 border-test">
+        <div className="h-14 ">
           <button
             type="submit"
             className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0"

@@ -64,8 +64,8 @@ function NewSavings() {
   }
 
   return (
-    <main className="border-test  flex flex-col grow min-h-screen p-4">
-      <div className="border-test text-text">
+    <main className="  flex flex-col grow min-h-screen p-4">
+      <div className=" text-text">
         <ul className="grid grid-cols-4">
           <li className="col-span-1">
             <p onClick={() => navigate(-1)}>Back</p>
@@ -75,13 +75,10 @@ function NewSavings() {
         </ul>
       </div>
 
-      <form onSubmit={handleSubmit} className="border-test flex flex-col grow">
+      <form onSubmit={handleSubmit} className=" flex flex-col grow">
         <div className="grow">
           <div className="flex justify-between my-4">
-            <label
-              htmlFor="savings-name"
-              className="border-test text-text text-lg"
-            >
+            <label htmlFor="savings-name" className=" text-text text-lg">
               Name:
             </label>
             <input
@@ -95,12 +92,12 @@ function NewSavings() {
             />
           </div>
 
-          <div className="border-test flex justify-between my-4">
-            <label htmlFor="goal-amount" className="border-test text-text">
+          <div className=" flex justify-between my-4">
+            <label htmlFor="goal-amount" className=" text-text">
               Initial Amount: $
             </label>
             <input
-              className="border-test w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              className=" w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
               type="number"
               name="goal-amount"
               value={savingsInitialBalance}
@@ -110,7 +107,7 @@ function NewSavings() {
             />
           </div>
 
-          <div className="border-test flex justify-between my-4">
+          <div className=" flex justify-between my-4">
             <label htmlFor="goal-amount" className="text-text">
               Goal Amount: $
             </label>
@@ -125,7 +122,7 @@ function NewSavings() {
             />
           </div>
 
-          <div className="border-test flex justify-between my-4">
+          <div className=" flex justify-between my-4">
             <label htmlFor="goal-date" className="text-text">
               Goal Date
             </label>
@@ -138,7 +135,7 @@ function NewSavings() {
             />
           </div>
 
-          <div className="border-test flex flex-col my-4">
+          <div className=" flex flex-col my-4">
             <label htmlFor="savings-description" className="text-text">
               Savings Goal Description
             </label>
@@ -154,7 +151,7 @@ function NewSavings() {
           </div>
 
           {/* WALLET FORM */}
-          <div className="border-test my-4">
+          <div className=" my-4">
             <h3 className="text-text">Enter new wallet Details</h3>
             <div className="flex justify-between my-4">
               <label htmlFor="wallet-name" className="text-text">
@@ -170,7 +167,7 @@ function NewSavings() {
               />
             </div>
 
-            <div className="border-test flex justify-between my-4">
+            <div className=" flex justify-between my-4">
               <label htmlFor="bank-name" className="text-text">
                 Bank:{" "}
               </label>
@@ -183,7 +180,7 @@ function NewSavings() {
               />
             </div>
 
-            <div className="border-test flex justify-between my-4">
+            <div className=" flex justify-between my-4">
               <label htmlFor="initial-balance" className="text-text">
                 Current Balance: $
               </label>
@@ -199,7 +196,7 @@ function NewSavings() {
               />
             </div>
 
-            <div className="border-test flex flex-col my-4">
+            <div className=" flex flex-col my-4">
               <label className="block text-text" htmlFor="wallet-description">
                 Wallet Description
               </label>
@@ -216,10 +213,10 @@ function NewSavings() {
           </div>
         </div>
 
-        <div className="h-14 border-test">
+        <div className="h-14 ">
           <button
             type="submit"
-            className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0 border-test"
+            className="block py-2 px-10 text-green-500 bg-green-900 rounded-lg w-fit mx-auto my-0 "
           >
             Save Changes
           </button>

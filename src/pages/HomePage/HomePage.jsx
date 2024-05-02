@@ -210,15 +210,20 @@ function HomePage() {
   }
 
   return (
-    <div id="home-page" className="py-2 bg-bgPrimary lg:px-16 xl:px-32 ">
+    <div id="home-page" className=" py-2 bg-bgPrimary lg:px-16 xl:px-32 ">
       <h1 className="mt-8 mb-4 2xl:ml-64 px-3 text-white text-2xl">
         J-SPENDER
       </h1>
+      <div className=" text-center">
+        <Link
+          to="/overview"
+          className="text-white border-2 border-complement2 p-2 rounded-md bg-secondary"
+        >
+          Overview
+        </Link>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 p-3 pb-24 2xl:w-10/12 2xl:my-0 2xl:mx-auto">
         <section className="col-span-2 border-solid border-2 border-zinc-700 rounded-l-lg justify-center px-2 py-4 bg-secondary">
-          <Link to="/overview" className="text-white">
-            Overview
-          </Link>
           <Period period={period} setPeriod={periodChanged} />
           <TransactionChart
             transactionDays={transactionDays}
@@ -251,12 +256,15 @@ function HomePage() {
           </section>
         </article>
 
+        <div className="my-4">
+          <CashFlow transactions={transactions} />
+        </div>
+
         <section
           className="col-span-2 md:mr-4 mt-4 p-2 flex-auto h-fit border-solid border-2 border-zinc-700 rounded "
           id="transaction-list"
         >
-          <CashFlow transactions={transactions} />
-          <h2 className="text-white">Transactions</h2>
+          <h2 className="text-white text-center text-lg py-2">Transactions</h2>
 
           <div className="grid grid-cols-3 px-4">
             <div>
@@ -319,18 +327,19 @@ function HomePage() {
         </article>
       </div>
 
-      <Link className="fixed bottom-20 right-5 mb-5 " to="/transaction/new">
+      <Link className="fixed bottom-24 right-5 mb-5" to="/transaction/new">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 32 32"
+          className="shadow-sm shadow-impGreen rounded-xl bg-success"
         >
           <path
-            fill="white"
+            className="fill-success "
             d="M16 2A14.173 14.173 0 0 0 2 16a14.173 14.173 0 0 0 14 14a14.173 14.173 0 0 0 14-14A14.173 14.173 0 0 0 16 2Zm8 15h-7v7h-2v-7H8v-2h7V8h2v7h7Z"
           />
-          <path fill="green" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z" />
+          <path fill="white" d="M24 17h-7v7h-2v-7H8v-2h7V8h2v7h7v2z" />
         </svg>
       </Link>
 

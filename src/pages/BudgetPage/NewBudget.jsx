@@ -67,7 +67,7 @@ function NewBudget() {
   console.log("budgetCategories", budgetCategories);
   return (
     <main className="p-4 flex flex-col min-h-screen">
-      <div className="text-text border-test" id="header">
+      <div className="text-text " id="header">
         <ul className="grid grid-cols-3">
           <li className="">
             <Link to="/goals">Back</Link>
@@ -77,11 +77,7 @@ function NewBudget() {
         </ul>
       </div>
 
-      <form
-        action=""
-        onSubmit={handleSubmit}
-        className="flex flex-col grow border-test"
-      >
+      <form action="" onSubmit={handleSubmit} className="flex flex-col grow ">
         <div id="main-content" className="grow">
           <div className="flex justify-between my-6">
             <label htmlFor="budgetName" className="text-text text-lg">
@@ -129,7 +125,7 @@ function NewBudget() {
 
           <div
             onClick={toggleView}
-            className="border-test text-text py-2 bg-slate-400 rounded-md"
+            className=" text-text py-2 bg-slate-400 rounded-md"
           >
             Select Budget Categories &#62;
           </div>
@@ -152,15 +148,12 @@ function NewBudget() {
             recurrence={newBudgetObj.recurrence}
             handleChange={handleChange}
           />
-          <div className="border-test flex justify-between">
-            <label
-              htmlFor="startDate"
-              className="border-test text-text text-lg"
-            >
+          <div className=" flex justify-between">
+            <label htmlFor="startDate" className=" text-text text-lg">
               Start Date
             </label>
             <input
-              className="border-test"
+              className=""
               type="date"
               name="startDate"
               id="startDate"
@@ -170,7 +163,7 @@ function NewBudget() {
           </div>
         </div>
 
-        <div className="h-14 border-test">
+        <div className="h-14 ">
           <button
             className="block bg-green-500 my-0 mx-auto py-2 px-10 rounded-md"
             type="submit"

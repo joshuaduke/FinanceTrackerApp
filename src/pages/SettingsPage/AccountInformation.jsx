@@ -47,7 +47,7 @@ export function AccountInformation() {
   }
   return (
     <div className="text-text px-6 py-12 h-screen">
-      <div className="border-test text-text">
+      <div className=" text-text">
         <ul className="grid grid-cols-4">
           <li className="col-span-1">
             <p onClick={() => navigate(-1)}>Back</p>

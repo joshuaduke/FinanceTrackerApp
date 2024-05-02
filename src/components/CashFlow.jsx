@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { calculateTransactionTotal } from "../assets/currency/formatCurrency";
+import {
+  calculateTransactionTotal,
+  formatCurrency,
+} from "../assets/currency/formatCurrency";
 
 export default function CashFlow({ transactions }) {
   //   const [totalCashFlow, setTotalCashFlow] = useState(
@@ -9,8 +12,8 @@ export default function CashFlow({ transactions }) {
 
   return (
     <>
-      <h1 className="text-white">
-        Cash flow: <span>{totalCashFlow}</span>
+      <h1 className="text-white text-center text-xl">
+        Cash flow: <span>{formatCurrency(totalCashFlow)}</span>
       </h1>
     </>
   );
