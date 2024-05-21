@@ -46,10 +46,10 @@ export function AccountInformation() {
     setFbUserData({ ...fbUserData, [e.target.name]: e.target.value });
   }
   return (
-    <div className="text-text px-6 py-12 h-screen">
-      <div className=" text-text">
-        <ul className="grid grid-cols-4">
-          <li className="col-span-1">
+    <div className="text-text px-6 py-12 h-screen ">
+      <div className=" text-text mb-12 border-test">
+        <ul className="grid grid-cols-4 ">
+          <li className="col-span-1 ">
             <p onClick={() => navigate(-1)}>Back</p>
           </li>
           <li className="col-span-2 text-center">Account Information</li>
@@ -57,7 +57,7 @@ export function AccountInformation() {
         </ul>
       </div>
 
-      <form action="">
+      <form action="" className="border-test">
         <label htmlFor="firstName" className="text-text text-md">
           First Name
         </label>

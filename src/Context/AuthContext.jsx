@@ -20,8 +20,10 @@ export function AuthContext({ children }) {
       setLoading(false);
       if (currentUser) {
         setUser(currentUser);
+        console.log("currentUser before function", currentUser);
 
         const getfirebaseUserData = async () => {
+          console.log("currentUser inside function", currentUser);
           try {
             const firebaseUserData = await getCurrentUserData(currentUser.uid);
             console.log("firebaseUserData", firebaseUserData);
@@ -30,7 +32,7 @@ export function AuthContext({ children }) {
             console.error("Error in getFirebaseUserData", error);
           }
         };
-        getfirebaseUserData();
+        getfirebaseUserData(currentUser);
       } else {
         setUser(null);
       }

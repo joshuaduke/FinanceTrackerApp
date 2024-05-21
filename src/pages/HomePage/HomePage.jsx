@@ -137,6 +137,7 @@ function HomePage() {
     let currentDate = getCurrentDate();
     let nextMonth = 0;
 
+    console.log("PERIOD STATE", period);
     switch (period) {
       case "year":
         pageYear++;
@@ -151,11 +152,6 @@ function HomePage() {
       case "all":
         break;
       default:
-        //prevent from viewing next month if there is no data
-        if (nextMonth > currentDate.substring(5, 7)) {
-          return;
-        }
-
         //if january we need to get the last month of the next year
         if (pageMonth === 12) {
           nextMonth = `${nextMonth}${1}`;
@@ -163,6 +159,15 @@ function HomePage() {
         } else {
           pageMonth++;
           nextMonth = pageMonth <= 9 ? `0${pageMonth}` : pageMonth;
+        }
+
+        //prevent from viewing next month if there is no data
+
+        console.log("NextMonth", nextMonth);
+        console.log("Current Date", currentDate.substring(5, 7));
+        if (nextMonth > currentDate.substring(5, 7)) {
+          console.log("No more data to see");
+          return;
         }
 
         newStartDate = `${pageYear}-${nextMonth}-01`;
