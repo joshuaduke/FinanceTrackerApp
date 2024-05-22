@@ -6,7 +6,7 @@ import { getDocs, collection, query, where } from "firebase/firestore";
 import ProgressBar from "../../components/ProgressBar";
 import { formatCurrency } from "../../assets/currency/formatCurrency";
 
-function Budget({ budgetData }) {
+function Budget({ budgetData, user }) {
   //need to retrieve all transactions of this type from this month
   const [transactions, setTransactions] = useState([]);
   const [transactionDays, setTransactionDays] = useState([]);
@@ -23,7 +23,8 @@ function Budget({ budgetData }) {
           transactionsCollectionRef,
           where("date", ">=", budgetData.startDate),
           where("date", "<=", EndDate),
-          where("category", "in", budgetData.budgetFor)
+          where("category", "in", budgetData.budgetFor),
+          where("user", "==", user)
         );
 
         const data = await getDocs(q1);
@@ -80,7 +81,7 @@ function Budget({ budgetData }) {
     <div>
       <Link
         to={`/budget/${budgetData.id}`}
-        state={{ transactions: transactions }}
+        state={{ transactions: transactions, budgetUser: user }}
       >
         <h3 className="text-complement2 text-lg">{budgetData.name}</h3>
         <div className="bg-secondary rounded-md p-2">

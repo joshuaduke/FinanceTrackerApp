@@ -26,6 +26,7 @@ function SavingsDetails() {
     goal: location.savingsData.goal,
     name: location.savingsData.name,
     description: location.savingsData.description,
+    user: location.savingsData.user,
   });
   const [savingsTransactions, setSavingsTransactions] = useState([]);
 
@@ -33,7 +34,8 @@ function SavingsDetails() {
   useEffect(() => {
     const q1 = query(
       transactionsCollectionRef,
-      where("toWalletId", "==", location.savingsData.walletId)
+      where("toWalletId", "==", location.savingsData.walletId),
+      where("user", "==", location.savingsData.user)
     );
 
     getTransactionsAPI(q1).then((result) => setSavingsTransactions(result));

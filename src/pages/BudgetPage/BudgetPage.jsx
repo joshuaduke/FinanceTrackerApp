@@ -1,18 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Footer from "../../components/footer/footer";
 import Budget from "./Budget";
 import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
+import { Context } from "../../Context/AuthContext";
 
 function BudgetPage() {
+  const { user } = useContext(Context);
   const budgetsCollectionRef = collection(db, "budgets");
   const [budgetGoals, setBudgetGoals] = useState([]);
 
   useEffect(() => {
     const getBudgets = async () => {
       try {
-        const data = await getDocs(budgetsCollectionRef);
+        const q1 = await query(
+          budgetsCollectionRef,
+          where("user", "==", user.uid)
+        );
+        const data = await getDocs(q1);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
@@ -54,7 +60,7 @@ function BudgetPage() {
         <div>
           {budgetGoals.map((goal) => (
             <div key={goal.id} className="my-2">
-              <Budget budgetData={goal} />
+              <Budget budgetData={goal} user={user.uid} />
             </div>
           ))}
         </div>

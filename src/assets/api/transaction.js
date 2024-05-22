@@ -14,7 +14,7 @@ export async function getTransactionsAPI(q1){
 
         // const q1 = query(
         //   transactionsCollectionRef,
-        //   where("walletId", "==", value.id)
+        //   where("user", "==", user.uid)
         // );
 
         const data = await getDocs(q1);

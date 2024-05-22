@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Footer from "../../components/footer/footer";
 import { Link } from "react-router-dom";
 import SavingsGoal from "./Savings";
 import { db } from "../../Config/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { Context } from "../../Context/AuthContext";
 
 function SavingsPage() {
+  const { user } = useContext(Context);
   const [goals, setGoals] = useState([]);
   const [savingsData, setSavingsData] = useState([]);
   const savingssCollectionRef = collection(db, "savings");
@@ -13,7 +15,11 @@ function SavingsPage() {
   useEffect(() => {
     const getSavings = async () => {
       try {
-        const data = await getDocs(savingssCollectionRef);
+        const q1 = await query(
+          savingssCollectionRef,
+          where("user", "==", user.uid)
+        );
+        const data = await getDocs(q1);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
@@ -48,7 +54,7 @@ function SavingsPage() {
         <div>
           {savingsData.map((item) => (
             <div key={item.id} className="my-2">
-              <SavingsGoal data={item} />
+              <SavingsGoal data={item} user={user.uid} />
             </div>
           ))}
           {/* server.create("saving", { id: "1", name: "House", dueDate: "2030-01-06", isWallet: true, initialBalance: 0, currentBalance: 1000, goal: 50000, category: "not assigned"}) */}

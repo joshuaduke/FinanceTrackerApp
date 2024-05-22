@@ -1,5 +1,5 @@
 import Footer from "../../components/footer/footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Wallet from "./Wallet";
 import { Link } from "react-router-dom";
 import { getDocs, collection, query, where } from "firebase/firestore";
@@ -7,8 +7,10 @@ import { db } from "../../Config/firebase";
 import { getTransactionsAPI } from "../../assets/api/transaction";
 import { formatCurrency } from "../../assets/currency/formatCurrency";
 import CashFlow from "../../components/CashFlow";
+import { Context } from "../../Context/AuthContext";
 
 function WalletPage() {
+  const { user } = useContext(Context);
   const [wallets, setWallets] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const walletsCollectionRef = collection(db, "wallets");
@@ -29,7 +31,11 @@ function WalletPage() {
 
   useEffect(() => {
     async function getWallets() {
-      const data = await getDocs(walletsCollectionRef);
+      const q1 = await query(
+        walletsCollectionRef,
+        where("user", "==", user.uid)
+      );
+      const data = await getDocs(q1);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
@@ -38,9 +44,12 @@ function WalletPage() {
       setWallets(filteredData);
 
       //retrieve all transactions in order to calculate wallet total;
-      getTransactionsAPI(transactionsCollectionRef).then((value) =>
-        setTransactions(value)
+      const q2 = query(
+        transactionsCollectionRef,
+        where("user", "==", user.uid)
       );
+
+      getTransactionsAPI(q2).then((value) => setTransactions(value));
     }
 
     getWallets();

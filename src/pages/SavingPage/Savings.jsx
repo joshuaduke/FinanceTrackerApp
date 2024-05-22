@@ -11,7 +11,7 @@ import { formatCurrency } from "../../assets/currency/formatCurrency";
 import { formatDate } from "../../assets/months";
 import ProgressBar from "../../components/ProgressBar";
 
-function SavingsGoal({ data }) {
+function SavingsGoal({ data, user }) {
   const [startDate, setStartDate] = useState(getStartEndDate().startDate);
   const [EndDate, setEndDate] = useState(getStartEndDate().endDate);
   const [transactions, setTransactions] = useState([]);
@@ -43,6 +43,7 @@ function SavingsGoal({ data }) {
         to={`/savings/${data.id}`}
         state={{
           savingsData: data,
+          savingsUser: user,
           savingsAmount: savingsAmount,
           transactions: transactions,
         }}
