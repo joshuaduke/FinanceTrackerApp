@@ -50,7 +50,7 @@ function HomePage() {
         console.log(`UseEffect Start ${startDate}, end ${EndDate}`);
         const q1 = await query(
           transactionsCollectionRef,
-          // where("user", "==", user.uid),
+          where("user", "==", user.uid),
           where("date", ">=", startDate),
           where("date", "<=", EndDate)
         );
