@@ -113,7 +113,7 @@ function NewSavings() {
             </label>
             <input
               type="number"
-              className="text-text w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              className=" w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
               name="goal-amount"
               value={savingsGoalAmount}
               placeholder="0"
