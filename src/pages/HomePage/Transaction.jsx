@@ -60,7 +60,7 @@ function Transaction(props) {
             <p>
               {data.category === "TransferRemoved" ? "Transfer" : data.category}
               {data.description != ""
-                ? ` - ${data.description.substring(0, 16)}`
+                ? ` - ${data.description.substring(0, 10)}`
                 : ""}
             </p>
             <div>

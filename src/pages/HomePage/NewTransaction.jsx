@@ -104,6 +104,7 @@ function NewTransaction() {
                   className="w-full h-10 px-2 rounded-r-md border border-gray-100 text-gray-800 focus:outline-none"
                   type="number"
                   step="any"
+                  min="0"
                   name="transactionAmount"
                   id="transactionAmount"
                   placeholder="0"

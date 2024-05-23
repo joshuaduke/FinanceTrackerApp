@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export function deleteDocument(docRef){
     try {
-        let confirmText = "Are you sure you want to delete this wallet?";
+        let confirmText = "Are you sure you want to delete this wallet? This will delete all transactions related to this wallet as well";
   
         if (confirm(confirmText) == true) {
           deleteDoc(docRef);

@@ -21,7 +21,8 @@ function NewWallet() {
     const walletRef = await addDoc(collection(db, "wallets"), {
       name: walletName,
       bank: walletBank,
-      balance: walletCurrentBalance == "" ? 0 : walletCurrentBalance,
+      balance:
+        walletCurrentBalance == "" ? 0 : parseFloat(walletCurrentBalance),
       walletType: walletType,
       creditLimit: walletCreditLimit,
       description: walletDescription,

@@ -151,6 +151,16 @@ function NewSavings() {
           </div>
 
           {/* WALLET FORM */}
+
+          <div>
+            <p className="text-xs text-complement2">
+              *Creating a new Savings Goal will automatically create a new
+              savings account. You will be able to transfer money into this
+              account by selecting &apos;transfer&apos; in the category
+              selection when creating a new transfer*
+            </p>
+          </div>
+
           <div className=" my-4">
             <h3 className="text-text">Enter new wallet Details</h3>
             <div className="flex justify-between my-4">

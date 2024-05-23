@@ -216,9 +216,7 @@ function HomePage() {
 
   return (
     <div id="home-page" className=" py-2 bg-bgPrimary lg:px-16 xl:px-32 ">
-      <h1 className="mt-8 mb-4 2xl:ml-64 px-3 text-white text-2xl">
-        J-SPENDER
-      </h1>
+      <h1 className="my-6 2xl:ml-64 px-3 text-white text-2xl">J-SPENDER</h1>
       <div className=" text-center">
         <Link
           to="/overview"
@@ -228,8 +226,12 @@ function HomePage() {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 p-3 pb-24 2xl:w-10/12 2xl:my-0 2xl:mx-auto">
-        <section className="col-span-2 border-solid border-2 border-zinc-700 rounded-l-lg justify-center px-2 py-4 bg-secondary">
-          <Period period={period} setPeriod={periodChanged} />
+        <section className="col-span-2 border-solid border-2 border-zinc-700 rounded-l-lg justify-center px-2 py-2 bg-secondary">
+          <div className="pb-2">
+            <span className="text-text mr-4 ">Period:</span>
+            <Period period={period} setPeriod={periodChanged} />
+          </div>
+
           <TransactionChart
             transactionDays={transactionDays}
             transactions={transactions}

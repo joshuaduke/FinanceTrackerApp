@@ -6,6 +6,8 @@ import {
   deleteDoc,
   collection,
   updateDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -23,6 +25,7 @@ function BudgetDetails() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const myBudgetTransactions = state?.transactions;
+  const myBudgetUser = state?.user;
   const transactionDates = sortTransactionsByDate(myBudgetTransactions);
   const totalTransactionAmount = myBudgetTransactions.reduce(
     (acc, curr) => acc + curr.transactionAmount,
@@ -48,7 +51,8 @@ function BudgetDetails() {
   useEffect(() => {
     const getBudget = async () => {
       try {
-        const budgetData = await getDoc(docRef);
+        const q1 = query(docRef, where("user", "==", myBudgetUser));
+        const budgetData = await getDoc(q1);
         console.log("One item Data", budgetData.data());
         setBudget(budgetData.data());
         setBudgetObj((prevState) => ({
