@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { getDocs, collection } from "firebase/firestore";
+import { useEffect, useState, useContext } from "react";
+import { getDocs, collection, query, where } from "firebase/firestore";
 import { db } from "../../Config/firebase";
+import { Context } from "../../Context/AuthContext";
 
 function WalletSelection({ transactionWallet, setWallet }) {
+  const { user } = useContext(Context);
   const [wallets, setWallets] = useState([]);
   const [selectedWallet, setSelectedWallet] = useState("");
   const [transactionWalletId, setTransactionWalletId] = useState("");
@@ -18,7 +20,11 @@ function WalletSelection({ transactionWallet, setWallet }) {
 
     const getWallets = async () => {
       try {
-        const data = await getDocs(walletsCollectionRef);
+        const q1 = await query(
+          walletsCollectionRef,
+          where("user", "==", user.uid)
+        );
+        const data = await getDocs(q1);
         const filteredData = data.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
