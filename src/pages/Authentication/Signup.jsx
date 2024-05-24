@@ -118,7 +118,7 @@ export default function SignUp() {
                   handleSignUp(e);
                 }}
               >
-                Submit
+                Sign Up
               </button>
 
               <p>

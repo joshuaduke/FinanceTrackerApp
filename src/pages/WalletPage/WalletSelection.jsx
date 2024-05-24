@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { db } from "../../Config/firebase";
 import { Context } from "../../Context/AuthContext";
+import InformationModal from "../../components/InformationModal.Jsx";
 
 function WalletSelection({ transactionWallet, setWallet }) {
   const { user } = useContext(Context);
@@ -9,6 +10,7 @@ function WalletSelection({ transactionWallet, setWallet }) {
   const [selectedWallet, setSelectedWallet] = useState("");
   const [transactionWalletId, setTransactionWalletId] = useState("");
   const walletsCollectionRef = collection(db, "wallets");
+  const [showInfoModal, setShowInfoModal] = useState(false);
 
   console.log("Initial transaction wallet value", transactionWallet);
 
@@ -29,15 +31,23 @@ function WalletSelection({ transactionWallet, setWallet }) {
           ...doc.data(),
           id: doc.id,
         }));
-        setWallets(filteredData);
 
-        if (transactionWallet != "") {
-          const wallet = filteredData.find(
-            ({ id }) => id === transactionWallet
-          );
+        console.log("FILTERED DATA", filteredData);
 
-          console.log("Wallet", wallet);
-          setSelectedWallet(wallet.name);
+        if (filteredData.length == 0) {
+          setShowInfoModal(true);
+        } else {
+          setShowInfoModal(false);
+          setWallets(filteredData);
+
+          if (transactionWallet != "") {
+            const wallet = filteredData.find(
+              ({ id }) => id === transactionWallet
+            );
+
+            console.log("Wallet", wallet);
+            setSelectedWallet(wallet.name);
+          }
         }
       } catch (error) {
         console.error(error);
@@ -55,6 +65,7 @@ function WalletSelection({ transactionWallet, setWallet }) {
 
   return (
     <div id="wallet-selection" className="flex justify-between my-4">
+      {showInfoModal && <InformationModal />}
       <ul>
         <li className="flex">
           <svg
