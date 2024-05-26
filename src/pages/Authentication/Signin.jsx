@@ -11,6 +11,12 @@ export default function Signin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayErrorMsg, setDisplayErrorMsg] = useState(false);
+  const errorInputStyling = {
+    errorMsg: {
+      border: displayErrorMsg ? "2px solid red" : "none",
+    },
+  };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -20,6 +26,7 @@ export default function Signin() {
         navigate("/");
       });
     } catch (error) {
+      setDisplayErrorMsg(true);
       console.error(error);
     }
   };
@@ -44,11 +51,13 @@ export default function Signin() {
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
-              type="text"
+              type="email"
               placeholder="Enter your email"
-              name=""
-              id=""
+              name="email"
+              id="email"
+              required
               className="w-full h-10 px-2 mb-4 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              style={errorInputStyling.errorMsg}
             />
             <label htmlFor="" className="text-text text-md">
               Password
@@ -59,9 +68,11 @@ export default function Signin() {
               }}
               type="password"
               placeholder="Password"
-              name=""
-              id=""
+              required
+              name="password"
+              id="password"
               className="w-full h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              style={errorInputStyling.errorMsg}
             />
             <div>
               <span className="text-impOrange text-sm">Forgot Password?</span>
@@ -84,6 +95,12 @@ export default function Signin() {
               >
                 Sign In with Google
               </button>
+              {displayErrorMsg && (
+                <div className="text-sm text-center text-red-500">
+                  <p>Sorry either your email or password was incorrect </p>
+                  <p>Please double-check your credentials</p>
+                </div>
+              )}
               <p>
                 Don&apos;t have an account?{" "}
                 <Link to="/signUp">
