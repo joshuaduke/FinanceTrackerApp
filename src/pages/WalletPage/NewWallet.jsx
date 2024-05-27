@@ -41,6 +41,10 @@ function NewWallet() {
           <li>
             <p onClick={() => navigate(-1)}>Back</p>
           </li>
+          <li>
+            <p>Create New Wallet</p>
+          </li>
+          <li></li>
         </ul>
       </div>
       <form className="p-2 flex flex-col grow " onSubmit={handleSubmit}>
