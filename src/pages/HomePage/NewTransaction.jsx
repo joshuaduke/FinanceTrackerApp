@@ -59,6 +59,11 @@ function NewTransaction() {
     }
   }
 
+  function handleCategorySelection(value) {
+    setNewTransaction({ ...newTransaction, category: value });
+    setCategoryToggle(!categoryToggle);
+  }
+
   function handleCategoryToggle(e) {
     e.preventDefault();
     setCategoryToggle(!categoryToggle);
@@ -184,7 +189,7 @@ function NewTransaction() {
           {categoryToggle && (
             <CategorySelection
               categoryType={newTransaction.categoryType}
-              setCategory={handleChange}
+              setCategory={handleCategorySelection}
               selectCategoryType={handleChange}
               category={newTransaction.category}
               categoryToggle={categoryToggle}

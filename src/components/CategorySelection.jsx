@@ -87,18 +87,22 @@ function CategorySelection({
       <div className="grid grid-cols-4 text-center">
         {myIconsArr?.map((icon) => (
           <div key={icon.id} className="flex-1">
-            <label className="cursor-pointer" htmlFor="category">
+            <input
+              className="peer hidden"
+              type="radio"
+              name="category"
+              id="category"
+              value={icon.name}
+              onChange={() => setCategory(icon.name)}
+              checked={category === icon.name}
+            />
+            <label
+              className="cursor-pointer"
+              htmlFor="category"
+              onClick={() => setCategory(icon.name)}
+            >
               <CategoryIcon className="" category={icon.name} />
               <span className="text-xs">{icon.name.slice(0, 13)}</span>
-              <input
-                className=""
-                type="radio"
-                name="category"
-                id="category"
-                value={icon.name}
-                onChange={setCategory}
-                checked={category === icon.name}
-              />
             </label>
           </div>
         ))}
