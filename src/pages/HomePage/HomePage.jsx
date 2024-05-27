@@ -220,6 +220,10 @@ function HomePage() {
       <div className=" text-center">
         <Link
           to="/overview"
+          state={{
+            transactionDays: transactionDays,
+            transactions: transactions,
+          }}
           className="text-white border-2 border-complement2 p-2 rounded-md bg-secondary"
         >
           Overview

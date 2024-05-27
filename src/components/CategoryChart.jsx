@@ -69,7 +69,7 @@ export default function CategoryChart({
               display: false,
             },
           },
-          indexAxis: "y",
+          indexAxis: "x",
           responsive: true,
           scales: {
             x: {
