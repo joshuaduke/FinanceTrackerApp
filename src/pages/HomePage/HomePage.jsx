@@ -27,6 +27,7 @@ import {
   startOfWeek,
   subWeeks,
   getDate,
+  addWeeks,
 } from "date-fns";
 import ImportanceChart from "../../components/ImportanceChart";
 import CategoryChart from "../../components/CategoryChart";
@@ -172,6 +173,20 @@ function HomePage() {
         setEndDate(newEndDate);
         break;
       case "week":
+        {
+          // get current date set date to current date -7 days
+          // subtract 7 days from current date
+          let nextWeek = addWeeks(pageDate, 1);
+          let nextStartWeek = format(startOfWeek(nextWeek), "yyyy-MM-dd");
+          let nextEndWeek = format(endOfWeek(nextWeek), "yyyy-MM-dd");
+          setTransactionMonth(
+            "Week of " + format(startOfWeek(nextWeek), "PPP")
+          );
+          setStartDate(nextStartWeek);
+          setEndDate(nextEndWeek);
+
+          console.log("currentdate", nextWeek); // get start and end week from that date
+        }
         break;
       case "all":
         break;
