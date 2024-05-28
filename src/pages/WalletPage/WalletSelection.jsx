@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { db } from "../../Config/firebase";
 import { Context } from "../../Context/AuthContext";
-import InformationModal from "../../components/InformationModal.Jsx";
+import InformationModal from "../../components/InformationModal.jsx";
 
 function WalletSelection({ transactionWallet, setWallet }) {
   const { user } = useContext(Context);

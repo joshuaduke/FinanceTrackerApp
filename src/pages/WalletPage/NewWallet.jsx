@@ -80,7 +80,9 @@ function NewWallet() {
               htmlFor="wallet-current-balance"
               className="text-text text-lg"
             >
-              Initial Balance: $
+              {walletType == "credit"
+                ? "Credit Limit: $"
+                : "Initial Balance: $"}
             </label>
             <input
               className="w-fit h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
