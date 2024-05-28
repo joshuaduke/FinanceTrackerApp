@@ -7,13 +7,14 @@ import CategoryChart from "./CategoryChart";
 
 function Overview() {
   const navigate = useNavigate();
-  const [period, setPeriod] = useState("month");
   const state = useLocation();
+  const [period, setPeriod] = useState(state.state.period);
   console.log("State", state);
   let transactionDays = [];
   transactionDays = state.state.transactionDays;
   let transactions = [];
   transactions = state.state.transactions;
+
   return (
     <>
       <div className="text-text px-4">

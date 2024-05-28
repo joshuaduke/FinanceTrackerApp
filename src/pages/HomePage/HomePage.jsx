@@ -17,11 +17,16 @@ import CashFlow from "../../components/CashFlow";
 import TransactionChart from "../../components/transactionChart";
 import Period from "../../components/Period";
 import {
+  addDays,
+  endOfWeek,
   format,
   getMonth,
   getYear,
   lastDayOfMonth,
   lastDayOfYear,
+  startOfWeek,
+  subWeeks,
+  getDate,
 } from "date-fns";
 import ImportanceChart from "../../components/ImportanceChart";
 import CategoryChart from "../../components/CategoryChart";
@@ -83,11 +88,13 @@ function HomePage() {
 
   function getPreviousPeriodTransactions() {
     let pageDate = new Date(`${startDate}T00:00:00`);
+    console.log("Page Date", pageDate);
     let pageMonth = getMonth(pageDate) + 1;
     let pageYear = getYear(pageDate);
     let previousMonth = 0;
     let newStartDate = "";
     let newEndDate = "";
+    let currentDate = addDays(new Date(getCurrentDate()), 1);
 
     // FOR MONTHS
     console.log("PERIOD STATE", period);
@@ -101,6 +108,23 @@ function HomePage() {
         setEndDate(newEndDate);
         break;
       case "week":
+        {
+          // get current date set date to current date -7 days
+          // subtract 7 days from current date
+          let previousWeek = subWeeks(pageDate, 1);
+          let previousStartWeek = format(
+            startOfWeek(previousWeek),
+            "yyyy-MM-dd"
+          );
+          let previousEndWeek = format(endOfWeek(previousWeek), "yyyy-MM-dd");
+          setTransactionMonth(
+            "Week of " + format(startOfWeek(previousWeek), "PPP")
+          );
+          setStartDate(previousStartWeek);
+          setEndDate(previousEndWeek);
+
+          console.log("currentdate", previousWeek); // get start and end week from that date
+        }
         break;
       case "all":
         break;
@@ -200,9 +224,15 @@ function HomePage() {
         setTransactionMonth(getYear(currentDate));
         break;
       case "week":
-        setStartDate();
-        setEndDate();
-        setTransactionMonth();
+        setStartDate(format(startOfWeek(currentDate), "yyyy-MM-dd"));
+        console.log(
+          "Start f the week",
+          format(startOfWeek(currentDate), "yyyy-MM-dd")
+        );
+        setEndDate(format(endOfWeek(currentDate), "yyyy-MM-dd"));
+        setTransactionMonth(
+          "Week of " + format(startOfWeek(currentDate), "PPP")
+        );
         break;
       case "all":
         setStartDate();
@@ -223,6 +253,7 @@ function HomePage() {
           state={{
             transactionDays: transactionDays,
             transactions: transactions,
+            period: period,
           }}
           className="text-white border-2 border-complement2 p-2 rounded-md bg-secondary"
         >
@@ -277,8 +308,8 @@ function HomePage() {
         >
           <h2 className="text-white text-center text-lg py-2">Transactions</h2>
 
-          <div className="grid grid-cols-3 px-4">
-            <div>
+          <div className="grid grid-cols-6 px-4">
+            <div className="col-span-1">
               <button onClick={getPreviousPeriodTransactions}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -294,9 +325,11 @@ function HomePage() {
               </button>
             </div>
 
-            <h3 className="text-center text-white">{transactionMonth}</h3>
+            <h3 className="text-center text-white col-span-4">
+              {transactionMonth}
+            </h3>
 
-            <div className="justify-self-end">
+            <div className="justify-self-end col-span-1">
               <button onClick={getNextPeriodTransaction}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

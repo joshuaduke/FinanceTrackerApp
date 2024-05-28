@@ -48,7 +48,8 @@ export function formatDate(dateToFormat){
     let dteToFormatMonth = `${dteToFormat.getMonth() + 1}`; // only add0 if lower than 9
     const dteToFormatYear = dteToFormat.getFullYear();
     const dteToFormatDate = dteToFormat.getDate();
-    const day = new Date(dateToFormat).getDay();
+    const day = dteToFormat.getDay();
+
     dteToFormatMonth = dteToFormatMonth < 9 ? `0${dteToFormatMonth}` : dteToFormatMonth;
 
     console.log("Format Date month", dteToFormatMonth);
