@@ -41,7 +41,7 @@ function TransactionDetails() {
           setCategory(transactionData.data().category);
           setTransactionDate(transactionData.data().date);
           setTransactionDescription(transactionData.data().description);
-          setTransactionAmount(transactionData.data().transactionAmount);
+          setTransactionAmount(transactionData.data().transactionAmount * -1);
           setTransactionWallet(transactionData.data().walletId);
           setCategoryType(transactionData.data().categoryType);
           setTransactionWalletTo(transactionData.data().toWalletId);
@@ -118,12 +118,18 @@ function TransactionDetails() {
     }
   }
 
+  function handleCategorySelection(value) {
+    setCategory(value);
+    setCategoryToggle(!categoryToggle);
+  }
+
   function handleCategoryToggle(e) {
     e.preventDefault();
     setCategoryToggle(!categoryToggle);
   }
 
   console.log("transaction", transaction);
+  console.log("transaction amount:", amountTransaction);
   console.log("Transaction Details Category:", categoryType);
 
   return (
@@ -252,7 +258,7 @@ function TransactionDetails() {
           {categoryType != "Transfer" && categoryToggle && (
             <CategorySelection
               categoryType={categoryType}
-              setCategory={selectCategory}
+              setCategory={handleCategorySelection}
               selectCategoryType={selectCategoryType}
               category={category}
               categoryToggle={categoryToggle}
