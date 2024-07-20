@@ -11,8 +11,6 @@ export default function TransactionChart({
   transactions,
   period,
 }) {
-  console.log("CHart Data", transactions);
-
   const [chartData, setChartData] = useState({
     labels: transactionDays,
     datasets: [

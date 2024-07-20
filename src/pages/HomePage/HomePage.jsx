@@ -44,6 +44,7 @@ function HomePage() {
   const [EndDate, setEndDate] = useState(getStartEndDate().endDate);
   const [period, setPeriod] = useState("month");
   const [transactionMonth, setTransactionMonth] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const transactionsCollectionRef = collection(db, "transactions");
 
   console.log("Current User:", user);
@@ -201,15 +202,20 @@ function HomePage() {
         }
 
         //prevent from viewing next month if there is no data
+        newStartDate = `${pageYear}-${nextMonth}-01`;
+        newStartDate = new Date(newStartDate);
+        newStartDate.setDate(newStartDate.getDate() + 1);
 
-        console.log("NextMonth", nextMonth);
-        console.log("Current Date", currentDate.substring(5, 7));
-        if (nextMonth > currentDate.substring(5, 7)) {
+        currentDate = new Date(currentDate);
+        currentDate.setDate(currentDate.getDate() + 1);
+
+        if (newStartDate > currentDate) {
           console.log("No more data to see");
           return;
         }
 
         newStartDate = `${pageYear}-${nextMonth}-01`;
+
         newEndDate = format(
           lastDayOfMonth(new Date(`${newStartDate}T00:00:00`)),
           "yyyy-MM-dd"
@@ -275,6 +281,7 @@ function HomePage() {
           Overview
         </Link>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 p-3 pb-24 2xl:w-10/12 2xl:my-0 2xl:mx-auto">
         <section className="col-span-2 border-solid border-2 border-zinc-700 rounded-l-lg justify-center px-2 py-2 bg-secondary">
           <div className="pb-2">

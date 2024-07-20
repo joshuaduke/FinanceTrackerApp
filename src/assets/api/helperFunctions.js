@@ -27,7 +27,7 @@ export async function getCurrentUserData(userId){
       ...doc.data(),
       id: doc.id,
     }));
-    console.log("userData", filteredData[0]);
+    // console.log("userData", filteredData[0]);
     return filteredData[0];
   } catch (error) {
     console.log("Error in deleteWallet function");
