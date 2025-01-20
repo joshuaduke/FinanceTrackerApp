@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   line-height: 1.6rem;
@@ -7,11 +7,11 @@
 
 html {
   /* max-width: 1280px; */
-  background-color: #131415;
-  height:100%;
+  /* background-color: #131415; */
+  height: 100%;
 }
 
-.border-test{
+.border-test {
   border: 1px dashed red;
 }
 

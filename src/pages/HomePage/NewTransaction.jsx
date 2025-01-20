@@ -159,10 +159,10 @@ function NewTransaction() {
             handleChange={handleChange}
           />
 
-          <RecurrenceSelection
+          {/* <RecurrenceSelection
             recurrence={newTransaction.recurrence}
             handleChange={handleChange}
-          />
+          /> */}
 
           <div>
             <label htmlFor="description" className="block text-text text-lg">

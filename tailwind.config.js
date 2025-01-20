@@ -18,7 +18,8 @@ export default {
         impGreen: "#22C55E",
         impRed: "#EF4444",
         impYellow: "#FCF667",
-        impOrange: "#E57B20"
+        impOrange: "#E57B20",
+        primaryBlue: "#3132EA"
       }
     },
   },

@@ -1,12 +1,12 @@
-## Project Name & Pitch
-
+## Project Name
 J-Spender
 
-An application used to filter data form Twitter based on user preference, built with React, Redux, JavaScript, and CSS.
-
+An application meant to track cash flow, set up wallets and add manually enter expenses. See where your money goes and where they come from every month through expense, wallet graphs.
+Set personal budgets and savings goals to help you not overspend and save for future goals and dreams.
 ## Project Status
 
-This project is currently in development. Users can filter tweets by username and keyword and see visual data representation. Functionality to sort by additional parameters is in progress.
+This project is currently in development. 
+Users can currently sign up and add expenses.
 
 ## Project Screen Shot(s)
 
@@ -32,11 +32,11 @@ To Run Test Suite:
 
 To Start Server:
 
-`npm start`
+`npm run dev`
 
 To Visit App:
 
-`localhost:3000/ideas`
+`localhost:5173/`
 
 ## Reflection
 

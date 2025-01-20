@@ -209,10 +209,10 @@ function BudgetDetails() {
           </div>
         </div>
 
-        <RecurrenceSelection
+        {/* <RecurrenceSelection
           recurrence={budgetObj.recurrence}
           handleChange={handleChange}
-        />
+        /> */}
 
         <div onClick={toggleView} className="text-text">
           Budget for{" "}
