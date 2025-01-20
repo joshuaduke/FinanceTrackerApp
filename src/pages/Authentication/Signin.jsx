@@ -32,9 +32,14 @@ export default function Signin() {
   };
 
   return (
-    <div>
-      <div className=" md:grid md:grid-cols-2 px-8 lg:px-24 xl:px-44">
-        <section className="md:px-24 md:pl-12">
+    <div className="flex h-screen place-content-center">
+      {/* only visible in mobile view */}
+      <nav className="w-full border-b-2 p-6 md:hidden">
+        <h1 className="text-white">J-SPENDER</h1>
+      </nav>
+
+      <div className="px-8 md:py-4 md:flex md:flex-row lg:px-24 xl:px-44 ">
+        <section className="text-white self-center md:px-24 md:pl-12 ">
           <div className="my-16">
             <h1 className="text-2xl">Welcome Back</h1>
             <p className="text-sm">Log In! </p>
@@ -54,7 +59,7 @@ export default function Signin() {
               name="email"
               id="email"
               required
-              className="w-full h-10 px-2 mb-4 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              className="w-full h-10 px-4 mb-4 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
               style={errorInputStyling.errorMsg}
             />
 
@@ -70,16 +75,18 @@ export default function Signin() {
               required
               name="password"
               id="password"
-              className="w-full h-10 px-2 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
+              className="w-full h-10 px-4 rounded-md border border-gray-100 text-gray-800 focus:outline-none"
               style={errorInputStyling.errorMsg}
             />
             <div>
-              <span className="text-impOrange text-sm">Forgot Password?</span>
+              <p className="w-full text-right text-impOrange text-sm">
+                Forgot Password?
+              </p>
             </div>
 
             <div className="mt-6 flex flex-col items-center justify-center ">
               <button
-                className="py-2 px-10  w-fit mx-auto my-4 rounded-lg shadow-md shadow-primaryBlue bg-primaryBlue text-text"
+                className="py-2 px-10  w-full mx-auto my-4 rounded-lg shadow-md bg-primaryBlue text-text"
                 onClick={(e) => {
                   handleSignIn(e);
                 }}
@@ -99,11 +106,12 @@ export default function Signin() {
               {/* Sign In with Google - Phase 2 */}
               <button>
                 <svg
+                  className="bg-white rounded-xl p-1 my-4"
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
                   y="0px"
-                  width="12"
-                  height="12"
+                  width="20"
+                  height="20"
                   viewBox="0 0 48 48"
                 >
                   <path
@@ -131,7 +139,7 @@ export default function Signin() {
                   <p>Please double-check your credentials</p>
                 </div>
               )}
-              <p>
+              <p className="w-full text-right">
                 Don&apos;t have an account?{" "}
                 <Link to="/signUp">
                   <span className=" text-impOrange">Sign Up</span>
@@ -142,40 +150,67 @@ export default function Signin() {
         </section>
 
         <section
-          className="bg-blue-300 rounded-l-3xl px-8 py-16 hidden md:block"
+          className="h-fit bg-blue-300 rounded-l-3xl px-10 py-8 hidden md:block md:self-center"
           id="information"
         >
           <div>
-            <h1>J-Spender</h1>
-            <h1>Welcome to J-Spender</h1>
+            <h1 className="text-2xl">J-Spender</h1>
+            <h2 className="text-lg">Welcome to J-Spender</h2>
           </div>
-          <div className="h-full  flex flex-col justify-center">
-            <p className="my-10">
+          <div className="flex flex-col justify-center">
+            <div className="my-4">
               <span className="block text-lg text-complement1">
-                Track Cash Flow
+                Get a quick Overview
               </span>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel omnis
-              dicta repellat, commodi in error aliquid autem. Ratione, impedit!
-              Cum.
-            </p>
+              <p>
+                about your total incomes and expenses at a glance and in one
+                place. Add your expenses manually and keep track of your monthly
+                expenses!
+              </p>
+            </div>
 
-            <p className="my-10">
+            <div className="">
               <span className="block text-lg text-complement1">
                 Set up Budgets and Savings goals
               </span>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel omnis
-              dicta repellat, commodi in error aliquid autem. Ratione, impedit!
-              Cum.
-            </p>
+              {/* <p className="font-bold">
+                Use our smart budgets and smart savings to save money for a new
+                car, dreamy vacation, education or a house.
+              </p> */}
 
-            <p className="my-10">
+              <ul className="mt-2 flex flex-col gap-2 list-disc">
+                <li>
+                  Set smart budgets to help you not to overspend in chosen
+                  category.
+                </li>
+                <li>Set smart savings to help save for your future dreams.</li>
+                <li>
+                  Know how much you can spend daily in order to stick to your
+                  budget.
+                </li>
+              </ul>
+            </div>
+
+            <div className="my-4">
               <span className="block text-lg text-complement1">
                 Compare Monthly expenses
               </span>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel omnis
-              dicta repellat, commodi in error aliquid autem. Ratione, impedit!
-              Cum.
-            </p>
+              <p className="font-bold">Understand your financial habits</p>
+              <ul className="mt-2 flex flex-col gap-2 list-disc">
+                <li>
+                  Analyze your finance with beautiful, simple and easy to
+                  understand graphic. No need for complicated Excel sheets.
+                </li>
+                <li>
+                  See where your money goes and where they come from every
+                  month.
+                </li>
+                <li>
+                  See whether you spend less than you earn in one place and on 1
+                  tap.
+                </li>
+              </ul>
+            </div>
           </div>
           <div></div>
         </section>
